@@ -7,9 +7,21 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".view.ExerciseActivity"
-            android:label="@string/title_activity_exercise" >
+        android:name=".view.ExerciseActivity"
+        android:label="@string/app_name" >
+        <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <intent-filter>
+        <action android:name="com.freeplay.timagine.MAIN_CONFIG" />
+
+        <category android:name="com.google.android.wearable.watchface.category.COMPANION_CONFIGURATION" />
+        <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
         </activity>
 
         <service
