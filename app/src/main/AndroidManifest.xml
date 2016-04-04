@@ -10,6 +10,18 @@
         <activity
             android:name=".view.ExerciseActivity"
             android:label="@string/title_activity_exercise" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.freeplay.timagine.MAIN_CONFIG" />
+
+                <category android:name="com.google.android.wearable.watchface.category.COMPANION_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
 
         <service
