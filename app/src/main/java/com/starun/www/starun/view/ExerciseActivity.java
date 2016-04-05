@@ -1,5 +1,6 @@
 package com.starun.www.starun.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,7 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 import com.starun.www.starun.R;
 
 
-public class ExerciseActivity extends AppCompatActivity {
+public class ExerciseActivity extends Activity {
 
     private BottomBar mBottomBar;
 
@@ -19,7 +20,6 @@ public class ExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
 
         mBottomBar = BottomBar.attach(this, savedInstanceState);
-
         mBottomBar.setItemsFromMenu(R.menu.bottombar_menu, new OnMenuTabClickListener() {
             @Override
             public void onMenuTabSelected(@IdRes int menuItemId) {
@@ -35,6 +35,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 
