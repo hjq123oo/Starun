@@ -25,11 +25,17 @@ public class ExerciseActivity extends Activity {
                 if (menuItemId == R.id.bottomBarItemOne) {
                     // The user selected item number one.
                 }
+                if (menuItemId==R.id.bottomBarItemTwo){
+                    //two
+                }
             }
 
             @Override
             public void onMenuTabReSelected(@IdRes int menuItemId) {
                 if (menuItemId == R.id.bottomBarItemOne) {
+                    // The user reselected item number one, scroll your content to top.
+                }
+                if (menuItemId == R.id.bottomBarItemTwo) {
                     // The user reselected item number one, scroll your content to top.
                 }
             }
