@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 
 import com.starun.www.starun.model.Exercise;
+import com.starun.www.starun.model.WarmUp;
 import com.starun.www.starun.model.data.RunRecord;
 
 /**
@@ -16,8 +17,8 @@ public interface WarmUpView {
      */
     public abstract Activity getActivity();
 
-    public abstract void onUpdateExerciseInfo(Exercise e);
-    public abstract void onExerciseStart();
-    public abstract void onExervisePause();
-    public abstract void onExerciseStop();
+    public abstract void onUpdateWarmUpInfo(WarmUp warmUp);
+    public abstract void onWarmUpStart();
+    public abstract void onWarmUpPause();
+    public abstract void onWarmUpStop();
 }

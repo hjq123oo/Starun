@@ -1,5 +1,6 @@
 package com.starun.www.starun.presenter.impl;
 
+import com.starun.www.starun.model.WarmUp;
 import com.starun.www.starun.presenter.WarmUpPresenter;
 
 /**

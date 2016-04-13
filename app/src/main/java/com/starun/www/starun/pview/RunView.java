@@ -1,9 +1,7 @@
 package com.starun.www.starun.pview;
 
 import android.app.Activity;
-import android.view.View;
-
-import com.starun.www.starun.model.Exercise;
+import com.starun.www.starun.model.IRun;
 
 /**
  * Created by xiaoxue on 2016/4/10.
@@ -15,8 +13,8 @@ public interface RunView{
      */
     public abstract Activity getActivity();
 
-    public abstract void onUpdateExerciseInfo(Exercise e);
-    public abstract void onExerciseStart();
-    public abstract void onExervisePause();
-    public abstract void onExerciseStop();
+    public abstract void onUpdateRunInfo(IRun run);
+    public abstract void onRunStart();
+    public abstract void onRunPause();
+    public abstract void onRunStop();
 }
