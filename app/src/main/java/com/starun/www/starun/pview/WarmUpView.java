@@ -18,6 +18,7 @@ public interface WarmUpView {
     public abstract Activity getActivity();
 
     public abstract void onUpdateWarmUpInfo(WarmUp warmUp);
+    public abstract void onUpdateWarmUpProgress(int progress);
     public abstract void onWarmUpStart();
     public abstract void onWarmUpPause();
     public abstract void onWarmUpStop();

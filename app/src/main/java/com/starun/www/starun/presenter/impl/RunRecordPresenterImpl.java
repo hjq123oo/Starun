@@ -12,15 +12,19 @@ import java.util.List;
  */
 public class RunRecordPresenterImpl implements RunRecordPresenter{
     private RunRecordView runRecordView;
+    private RunRecordDao runRecordDao;
 
     public RunRecordPresenterImpl(RunRecordView runRecordView){
         this.runRecordView = runRecordView;
+        runRecordDao = new RunRecordDao(runRecordView.getActivity());
     }
 
     @Override
     public void loadRunRecords() {
-        RunRecordDao runRecordDao = new RunRecordDao(runRecordView.getActivity());
-        List<RunRecord> runRecords = runRecordDao.getRunRecordList();
+
+        List<RunRecord> runRecords = runRecordDao.getRunRecords();
         runRecordView.onShowRunRecords(runRecords);
     }
+
+
 }

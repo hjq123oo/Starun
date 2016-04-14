@@ -23,11 +23,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".service.WarmUpService"
-            android:enabled="true"
-            android:exported="true"></service>
-
         <activity
             android:name=".view.RunRecordsActivity"
             android:label="@string/title_activity_main"

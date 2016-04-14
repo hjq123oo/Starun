@@ -110,7 +110,7 @@ public class RunRecordDao {
      * 获取用户的所有跑步记录
      * @return List<RunRecord>对象：包含所有跑步记录；null：获取跑步记录异常
      */
-    public List<RunRecord> getRunRecordList() {
+    public List<RunRecord> getRunRecords() {
         String sql = "select * from run_record";
         List<RunRecord> runRecords = new ArrayList<RunRecord>();
 
