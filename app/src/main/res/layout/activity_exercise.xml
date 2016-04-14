@@ -33,13 +33,12 @@
             android:layout_below="@id/dis_tv"
             android:layout_marginTop="10dp"/>
 
-        <TextView
+        <Chronometer
             android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="时间:2m30s"
             android:textSize="20sp"
             android:layout_below="@id/unit_tv"
             android:layout_marginTop="10dp"/>
@@ -51,7 +50,8 @@
         android:layout_below="@id/display_rl"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <Button
             android:id="@+id/start_btn"
@@ -76,5 +76,13 @@
             android:text="Stop"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地图"
+        android:id="@+id/map"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

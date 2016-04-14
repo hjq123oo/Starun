@@ -14,7 +14,4 @@ public interface RunView{
     public abstract Activity getActivity();
 
     public abstract void onUpdateRunInfo(IRun run);
-    public abstract void onRunStart();
-    public abstract void onRunPause();
-    public abstract void onRunStop();
 }
