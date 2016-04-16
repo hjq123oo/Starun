@@ -17,7 +17,16 @@ public class Exercise {
         return state;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void start(){
+        state = State.START;
     }
+
+    public void pause(){
+        state = State.PAUSE;
+    }
+
+    public void stop(){
+        state = State.STOP;
+    }
+
 }

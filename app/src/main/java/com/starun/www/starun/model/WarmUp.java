@@ -24,7 +24,7 @@ public class WarmUp extends Exercise{
         warmUpDao = new WarmUpDao(context);
         warmUpDatas = warmUpDao.getWarmUpDatas();
 
-        setState(State.START);
+        start();
         progress = 0;
         curWarmUpDatasIndex = 0;
         warmUpData = warmUpDatas.get(curWarmUpDatasIndex);
@@ -54,7 +54,7 @@ public class WarmUp extends Exercise{
             progress = 0;
             curWarmUpDatasIndex++;
             if(curWarmUpDatasIndex == warmUpDatas.size()){
-                setState(State.STOP);
+                stop();
             }else{
                 warmUpData = warmUpDatas.get(curWarmUpDatasIndex);
             }

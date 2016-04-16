@@ -56,7 +56,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
     @Override
     public void doWarmUpStart() {
         warmUpView.onWarmUpStart();
-        warmUp.setState(WarmUp.State.START);
+        warmUp.start();
         run = true;
         handler.postDelayed(runnable,1000);
 
@@ -64,7 +64,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpPause() {
-        warmUp.setState(WarmUp.State.PAUSE);
+        warmUp.pause();
         run = false;
         handler.removeCallbacks(runnable);
         warmUpView.onWarmUpPause();
@@ -72,7 +72,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpStop() {
-        warmUp.setState(WarmUp.State.STOP);
+        warmUp.stop();
         run = false;
         handler.removeCallbacks(runnable);
         warmUpView.onWarmUpStop();
