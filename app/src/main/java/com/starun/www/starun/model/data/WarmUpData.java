@@ -7,8 +7,8 @@ public class WarmUpData {
     private int warmUpId;//热身记录id
     private String title;//热身标题
     private String gist;//热身要领
-    private String imgPath;//图片路径
-    private String soundPath;//语音路径
+    private int imgId;//图片资源id
+    private int soundId;//语音资源id
 
     public int getWarmUpId() {
         return warmUpId;
@@ -34,19 +34,19 @@ public class WarmUpData {
         this.gist = gist;
     }
 
-    public String getImgPath() {
-        return imgPath;
+    public int getImgId() {
+        return imgId;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
     }
 
-    public String getSoundPath() {
-        return soundPath;
+    public int getSoundId() {
+        return soundId;
     }
 
-    public void setSoundPath(String soundPath) {
-        this.soundPath = soundPath;
+    public void setSoundId(int soundId) {
+        this.soundId = soundId;
     }
 }

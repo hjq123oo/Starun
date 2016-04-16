@@ -69,7 +69,7 @@ public class RunRecordDaoTest extends AndroidTestCase {
 
     public void testGetRunRecordList() throws Exception {
         RunRecordDao runRecordDao = new RunRecordDao(getContext());
-        List<RunRecord> list = runRecordDao.getRunRecordList();
+        List<RunRecord> list = runRecordDao.getRunRecords();
 
         int size = list.size();
         for(int i=0;i<size;i++){

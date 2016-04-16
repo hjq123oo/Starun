@@ -38,8 +38,8 @@ public class WarmUpDao {
             warmUpData.setWarmUpId(warmUpId);
             warmUpData.setTitle(cursor.getString(cursor.getColumnIndex(("title"))));
             warmUpData.setGist(cursor.getString(cursor.getColumnIndex("gist")));
-            warmUpData.setImgPath(cursor.getString(cursor.getColumnIndex("img_path")));
-            warmUpData.setSoundPath(cursor.getString(cursor.getColumnIndex("sound_path")));
+            warmUpData.setImgId(cursor.getInt(cursor.getColumnIndex("img_id")));
+            warmUpData.setSoundId(cursor.getInt(cursor.getColumnIndex("sound_id")));
         }else{
             warmUpData = null;
         }
@@ -64,8 +64,8 @@ public class WarmUpDao {
             warmUpData.setWarmUpId(cursor.getInt(cursor.getColumnIndex("warm_up_id")));
             warmUpData.setTitle(cursor.getString(cursor.getColumnIndex(("title"))));
             warmUpData.setGist(cursor.getString(cursor.getColumnIndex("gist")));
-            warmUpData.setImgPath(cursor.getString(cursor.getColumnIndex("img_path")));
-            warmUpData.setSoundPath(cursor.getString(cursor.getColumnIndex("sound_path")));
+            warmUpData.setImgId(cursor.getInt(cursor.getColumnIndex("img_id")));
+            warmUpData.setSoundId(cursor.getInt(cursor.getColumnIndex("sound_id")));
             warmUpDatas.add(warmUpData);
         }
 
