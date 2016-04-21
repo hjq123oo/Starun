@@ -23,4 +23,12 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.roughike:bottom-bar:1.2.4'
+    compile files('libs/locSDK_6.13.jar')
+    compile files('libs/baidumapapi_util_v3_7_0.jar')
+    compile files('libs/baidumapapi_search_v3_7_0.jar')
+    compile files('libs/baidumapapi_radar_v3_7_0.jar')
+    compile files('libs/baidumapapi_map_v3_7_0.jar')
+    compile files('libs/baidumapapi_cloud_v3_7_0.jar')
+    compile files('libs/baidumapapi_base_v3_7_0.jar')
+    compile files('libs/BaiduTraceSDK_v2_1_7.jar')
 }

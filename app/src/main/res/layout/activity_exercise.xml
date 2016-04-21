@@ -8,50 +8,113 @@
 
     <RelativeLayout
         android:id="@+id/display_rl"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_centerHorizontal="true">
+        android:layout_width="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="290dp">
 
-        <TextView
-            android:id="@+id/dis_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="2.55"
-            android:textSize="30sp"
-            android:layout_marginTop="30dp"/>
+        <RelativeLayout
+            android:visibility="invisible"
+            android:id="@+id/run_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/unit_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="公里"
-            android:textSize="20sp"
-            android:layout_below="@id/dis_tv"
-            android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/run_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="2.55"
+                android:textSize="30sp"
+                android:layout_marginTop="30dp"/>
 
-        <TextView
+<<<<<<< HEAD
+            <TextView
+                android:id="@+id/run_unit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="公里"
+                android:textSize="20sp"
+                android:layout_below="@id/run_tv"
+                android:layout_marginTop="10dp"/>
+=======
+        <Chronometer
             android:id="@+id/time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="时间:2m30s"
             android:textSize="20sp"
             android:layout_below="@id/unit_tv"
             android:layout_marginTop="10dp"/>
+>>>>>>> dev
 
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="时间:2m30s"
+                android:textSize="20sp"
+                android:layout_below="@id/run_unit_tv"
+                android:layout_marginTop="10dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/warmUp_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:textSize="17sp"
+                android:id="@+id/timer_tv"/>
+
+            <ImageView
+                android:id="@+id/warmdis_iv"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/warmupsample"
+                android:layout_below="@id/timer_tv"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/warmup_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/warmdis_iv"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                android:text="压腿"
+                />
+
+        </RelativeLayout>
 
     </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_below="@id/display_rl"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
         <Button
             android:id="@+id/start_btn"
@@ -76,5 +139,13 @@
             android:text="Stop"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地图"
+        android:id="@+id/map"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
