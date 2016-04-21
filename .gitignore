@@ -5,10 +5,7 @@
 .DS_Store
 /build
 /captures
-
 .idea/*
-
 .gitignore.swp
-
 app/app.iml
 Starun.iml
