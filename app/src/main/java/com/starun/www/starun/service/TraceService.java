@@ -38,7 +38,7 @@ public class TraceService extends Service {
     private int gatherInterval = 3;  //位置采集周期 (s)
     private int packInterval = 10;  //打包周期 (s)
     private String entityName = null;  // entity标识
-    private long serviceId = 113094;// 鹰眼服务ID
+    private long serviceId = 114750;// 鹰眼服务ID
     private static OnStartTraceListener startTraceListener = null;  //开启轨迹服务监听器
     protected static OnStopTraceListener stopTraceListener = null; //停止轨迹服务监听器
     private static OnEntityListener entityListener = null;
@@ -65,7 +65,7 @@ public class TraceService extends Service {
         super.onDestroy();
         client.stopTrace(trace, stopTraceListener);
         client.onDestroy();
-        android.os.Process.killProcess(android.os.Process.myPid());
+        //android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     @Override

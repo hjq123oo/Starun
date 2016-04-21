@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +29,8 @@ public class ExerciseActivity extends Activity implements RunView{
     private BottomBar mBottomBar;
     //private MsgReceiver msgReceiver = null;   //广播
     private TextView dis_tv = null;
-    private Button start_btn = null;
-
+    private Button start_btn = null,stop_btn = null,pause_btn = null;
+    private Chronometer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,16 +67,39 @@ public class ExerciseActivity extends Activity implements RunView{
     private void init(){
         dis_tv = (TextView)findViewById(R.id.dis_tv);
         start_btn = (Button)findViewById(R.id.start_btn);
+        pause_btn = (Button) findViewById(R.id.pause_btn);
+        stop_btn = (Button) findViewById(R.id.stop_btn);
         runPresenter = new RunPresenterImpl(this);
-        start_btn.setOnClickListener(new View.OnClickListener() {
+        timer = (Chronometer) findViewById(R.id.time_tv);
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * 在此之前启动计时器
-                 */
-                runPresenter.doRunStart();//开始跑步
+                switch (v.getId()){
+                    case R.id.start_btn:
+                        timer.start();
+                        runPresenter.doRunStart();//开始跑步
+                        break;
+                    case R.id.pause_btn:
+                        timer.stop();
+                        runPresenter.doRunPause();
+                        break;
+                    case R.id.stop_btn://跳到地图界面
+                        timer.setBase(SystemClock.elapsedRealtime());
+                        runPresenter.doRunStop();
+                        runPresenter.saveRunInfo();
+                        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+
             }
-        });
+        };
+        start_btn.setOnClickListener(listener);
+        stop_btn.setOnClickListener(listener);
+        pause_btn.setOnClickListener(listener);
+
 
         Button map = (Button)findViewById(R.id.map);
         map.setOnClickListener(new View.OnClickListener(){

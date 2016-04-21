@@ -95,6 +95,7 @@ public class RunPresenterImpl implements RunPresenter {
 
     @Override
     public void saveRunInfo() {
-        runRecordDao.addRunRecord(runRecord);
+        if(null!=runRecord.getTraceEntity())
+            runRecordDao.addRunRecord(runRecord);
     }
 }
