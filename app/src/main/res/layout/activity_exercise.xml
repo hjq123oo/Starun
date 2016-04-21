@@ -101,24 +101,56 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:orientation="vertical"
-        android:id="@+id/linearLayout">
+        android:id="@+id/run_btn_ll"
+        android:visibility="visible">
 
         <Button
-            android:id="@+id/start_btn"
+            android:id="@+id/run_start_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="start"/>
         <Button
-            android:id="@+id/pause_btn"
+            android:id="@+id/run_pause_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Pause"/>
         <Button
-            android:id="@+id/stop_btn"
+            android:id="@+id/run_stop_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Stop"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/display_rl"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:id="@+id/warmup_btn_ll">
+
+        <Button
+            android:id="@+id/warmup_start_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="start"/>
+        <Button
+            android:id="@+id/warmup_pause_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Pause"/>
+        <Button
+            android:id="@+id/warmup_stop_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -132,7 +164,8 @@
         android:layout_height="wrap_content"
         android:text="地图"
         android:id="@+id/map"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/run_btn_ll"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>
