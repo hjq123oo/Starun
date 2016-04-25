@@ -3,7 +3,6 @@ package com.starun.www.starun.presenter.impl;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.starun.www.starun.model.Exercise;
 import com.starun.www.starun.model.WarmUp;
 import com.starun.www.starun.presenter.WarmUpPresenter;
 import com.starun.www.starun.pview.WarmUpView;

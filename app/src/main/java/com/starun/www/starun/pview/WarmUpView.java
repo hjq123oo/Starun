@@ -1,11 +1,8 @@
 package com.starun.www.starun.pview;
 
 import android.app.Activity;
-import android.view.View;
 
-import com.starun.www.starun.model.Exercise;
 import com.starun.www.starun.model.WarmUp;
-import com.starun.www.starun.model.data.RunRecord;
 
 /**
  * Created by hjq on 2016/3/28.

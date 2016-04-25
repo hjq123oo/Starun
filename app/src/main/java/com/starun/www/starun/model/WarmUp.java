@@ -10,8 +10,16 @@ import java.util.List;
 /**
  * Created by xiaoxue on 2016/4/10.
  */
-public class WarmUp extends Exercise{
+public class WarmUp{
+    public enum State{
+        START,
+        PAUSE,
+        STOP
+    }
+
     public static final int PROGRESS_MAX = 100;
+
+    private State state;
     private int progress;//当前热身进度
     private WarmUpData warmUpData;//当前热身需用的数据
 
@@ -77,5 +85,21 @@ public class WarmUp extends Exercise{
         }
     }
 
+
+    public State getState() {
+        return state;
+    }
+
+    public void start(){
+        state = State.START;
+    }
+
+    public void pause(){
+        state = State.PAUSE;
+    }
+
+    public void stop(){
+        state = State.STOP;
+    }
 
 }
