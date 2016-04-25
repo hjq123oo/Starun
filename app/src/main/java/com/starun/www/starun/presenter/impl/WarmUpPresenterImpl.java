@@ -42,7 +42,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
                     }else if(warmUp.getWarmUpStatusCode() == 1){
                         warmUpView.onUpdateWarmUpProgress(warmUp.getProgress());
                     }else if(warmUp.getWarmUpStatusCode() == 2){
-                        warmUpView.onUpdateWarmUpInfo(warmUp);
+                        warmUpView.onUpdateWarmUpInfo(warmUp.getProgress(),warmUp.getWarmUpData());
                     }
 
                     warmUp.increaseProgress();
@@ -54,7 +54,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpStart() {
-        warmUpView.onWarmUpStart();
+        warmUpView.onWarmUpStart(WarmUp.PROGRESS_MAX);
         warmUp.start();
         run = true;
         handler.postDelayed(runnable,1000);

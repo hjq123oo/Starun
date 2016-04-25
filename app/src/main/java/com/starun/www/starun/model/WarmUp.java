@@ -17,7 +17,7 @@ public class WarmUp{
         STOP
     }
 
-    public static final int PROGRESS_MAX = 100;
+    public static final int PROGRESS_MAX = 10;
 
     private State state;
     private int progress;//当前热身进度
