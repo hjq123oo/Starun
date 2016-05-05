@@ -5,6 +5,9 @@ import android.content.Context;
 import com.starun.www.starun.dao.RunPlanDao;
 import com.starun.www.starun.dao.RunPlanSharedPreferences;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
+import com.starun.www.starun.presenter.RunPlanPresenter;
+
+import java.util.Map;
 
 
 /**
@@ -20,7 +23,9 @@ public class RunPlan {
     }
 
     public void runStart(){
-        
+        Map<String,Object> map = runPlanSharedPreferences.getPlanSchedule();
+        int runPlanId = (int)map.get("runPlanId");
+
     }
 
     public void runPause(){
