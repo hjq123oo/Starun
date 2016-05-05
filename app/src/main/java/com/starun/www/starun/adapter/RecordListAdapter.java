@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.model.data.RunRecord;
+import com.starun.www.starun.utils.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -60,8 +61,9 @@ public class RecordListAdapter extends BaseAdapter {
         holder.spend_time_tv = (TextView)rootView.findViewById(R.id.spend_time_tv);
         holder.icon1 = (ImageView)rootView.findViewById(R.id.icon1);
         holder.icon2 = (ImageView)rootView.findViewById(R.id.icon2);
-        holder.date_tv.setText(records.get(position).getStartTime()+"");
-
+        holder.date_tv.setText(TimeUtils.long2DateStr(records.get(position).getStartTime()));
+        holder.distance_tv.setText(records.get(position).getKilometer()+"公里");
+        holder.spend_time_tv.setText(TimeUtils.long2MS(records.get(position).getEndTime()-records.get(position).getStartTime()));
         return rootView;
     }
 }
