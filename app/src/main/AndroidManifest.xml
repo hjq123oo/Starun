@@ -65,6 +65,7 @@
             android:name=".service.TraceService"
             android:enabled="true"
             android:exported="true" />
+        <activity android:name=".view.RecordActivity"></activity>
     </application>
 
 </manifest>
