@@ -8,6 +8,8 @@ import com.starun.www.starun.pview.PlanView;
  */
 public class RunPlanPresenterImpl implements RunPlanPresenter{
 
+
+
     public RunPlanPresenterImpl(PlanView planView){
 
     }
