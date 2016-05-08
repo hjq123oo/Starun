@@ -1,6 +1,7 @@
 package com.starun.www.starun.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * Created by TPIAN on 16/5/5.
  */
 public class RecordListAdapter extends BaseAdapter {
-
+    public static final String TAG = "RecordListAdapter";
     Context context;
     private static LayoutInflater inflater=null;
     ArrayList<RunRecord> records;
@@ -26,6 +27,8 @@ public class RecordListAdapter extends BaseAdapter {
     public RecordListAdapter(Context context,ArrayList<RunRecord> records) {
         this.context = context;
         this.records = records;
+        inflater = ( LayoutInflater )context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -55,7 +58,8 @@ public class RecordListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-        View rootView = inflater.inflate(R.layout.record_listview_item, null);
+        Log.d(TAG, "inflater is "+inflater);
+        View rootView = inflater.inflate(R.layout.record_listview_item, parent,false);
         holder.date_tv = (TextView)rootView.findViewById(R.id.date_tv);
         holder.distance_tv = (TextView)rootView.findViewById(R.id.distance_tv);
         holder.spend_time_tv = (TextView)rootView.findViewById(R.id.spend_time_tv);
