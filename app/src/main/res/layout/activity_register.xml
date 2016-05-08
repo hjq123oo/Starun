@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#D9D9D9">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:background="@drawable/back"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="#8F8F8F"/>
+
+    </RelativeLayout>
+
+
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password2"
+        android:layout_gravity="center_vertical"
+        android:inputType="textPassword"
+        android:background="@drawable/text_shape"
+        android:hint="确定密码"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line3"
+        android:layout_above="@id/password2"
+        android:background="#8B8B7A"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/line3"
+        android:id="@+id/password1"
+        android:layout_gravity="center_vertical"
+        android:inputType="textPassword"
+        android:background="@drawable/text_shape"
+        android:hint="设置密码"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line2"
+        android:layout_above="@id/password1"
+        android:background="#8B8B7A"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_num"
+        android:layout_above="@+id/line2"
+        android:background="@drawable/text_shape"
+        android:hint="手机号/邮箱/账号"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <Space
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:id="@+id/re_space"
+        android:layout_below="@id/password2"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/re_space"
+        android:layout_centerHorizontal="true"
+        android:text="注册"
+        android:textSize="45px"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_shape"
+        android:enabled="false"/>
+
+</RelativeLayout>

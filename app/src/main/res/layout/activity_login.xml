@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Space
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:id="@+id/space"
+        android:layout_centerVertical="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_name"
+        android:layout_above="@+id/line1"
+        android:background="@drawable/text_shape"
+        android:hint="手机号/邮箱/账号"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/space"
+        android:id="@+id/password"
+        android:layout_gravity="center_vertical"
+        android:inputType="textPassword"
+        android:background="@drawable/text_shape"
+        android:hint="输入登录密码"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/starun"
+        android:text="Starun"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/user_name"
+        android:layout_marginBottom="30dp"
+        android:textSize="40dp"
+        android:textColor="#1C86EE"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line1"
+        android:layout_above="@id/password"
+        android:background="#8B8B7A"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space"
+        android:layout_centerHorizontal="true"
+        android:text="登陆"
+        android:textSize="45px"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_shape"
+        android:enabled="false"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_marginTop="60dp">
+
+        <Space
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/temp"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/qq"
+            android:orientation="vertical"
+            android:layout_toLeftOf="@id/temp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/qq"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ登陆"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wechat"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/temp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/wechat"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信登陆"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
