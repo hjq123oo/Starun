@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
-import com.starun.www.starun.model.data.RunPlanData;
 
 import java.util.ArrayList;
 
@@ -19,18 +18,18 @@ public class PlanListAdapter extends BaseAdapter {
     public static final String TAG = "RecordListAdapter";
     Context context;
     private static LayoutInflater inflater=null;
-    ArrayList<RunPlanData> planDatas;
+    ArrayList<String> weekStrs;
 
-    public PlanListAdapter(Context context, ArrayList<RunPlanData> planDatas) {
+    public PlanListAdapter(Context context, ArrayList<String> weekStrs) {
         this.context = context;
-        this.planDatas = planDatas;
+        this.weekStrs = weekStrs;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return planDatas.size();
+        return weekStrs.size();
     }
 
     @Override
@@ -50,15 +49,10 @@ public class PlanListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         Holder holder = new Holder();
         View rootView = inflater.inflate(R.layout.plan_listview_item, null);
-
-
-//        View rootView = inflater.inflate(R.layout.plan_listview_item, parent,false);
-//        holder.phase_tv = (TextView)rootView.findViewById(R.id.phase_tv);
-//        holder.phase_tv.setText(planDatas.get(position).getWeekIndex()+"");
-//        return rootView;
+        holder.phase_tv = (TextView)rootView.findViewById(R.id.phase_tv);
+        holder.phase_tv.setText(weekStrs.get(position));
         return rootView;
     }
 
