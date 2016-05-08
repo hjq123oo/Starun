@@ -1,12 +1,8 @@
 package com.starun.www.starun.view;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +15,6 @@ import com.roughike.bottombar.OnMenuTabClickListener;
 import com.starun.www.starun.R;
 import com.starun.www.starun.model.IRun;
 import com.starun.www.starun.presenter.RunPresenter;
-import com.starun.www.starun.presenter.impl.RunPresenterImpl;
 import com.starun.www.starun.pview.RunView;
 
 
@@ -65,40 +60,40 @@ public class ExerciseActivity extends Activity implements RunView{
 
     //初始化控件
     private void init(){
-        dis_tv = (TextView)findViewById(R.id.dis_tv);
-        start_btn = (Button)findViewById(R.id.start_btn);
-        pause_btn = (Button) findViewById(R.id.pause_btn);
-        stop_btn = (Button) findViewById(R.id.stop_btn);
-        runPresenter = new RunPresenterImpl(this);
-        timer = (Chronometer) findViewById(R.id.time_tv);
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.start_btn:
-                        timer.start();
-                        runPresenter.doRunStart();//开始跑步
-                        break;
-                    case R.id.pause_btn:
-                        timer.stop();
-                        runPresenter.doRunPause();
-                        break;
-                    case R.id.stop_btn://跳到地图界面
-                        timer.setBase(SystemClock.elapsedRealtime());
-                        runPresenter.doRunStop();
-                        runPresenter.saveRunInfo();
-                        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-        };
-        start_btn.setOnClickListener(listener);
-        stop_btn.setOnClickListener(listener);
-        pause_btn.setOnClickListener(listener);
+//        dis_tv = (TextView)findViewById(R.id.dis_tv);
+//        start_btn = (Button)findViewById(R.id.start_btn);
+//        pause_btn = (Button) findViewById(R.id.pause_btn);
+//        stop_btn = (Button) findViewById(R.id.stop_btn);
+//        runPresenter = new RunPresenterImpl(this);
+//        timer = (Chronometer) findViewById(R.id.time_tv);
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switch (v.getId()){
+//                    case R.id.start_btn:
+//                        timer.start();
+//                        runPresenter.doRunStart();//开始跑步
+//                        break;
+//                    case R.id.pause_btn:
+//                        timer.stop();
+//                        runPresenter.doRunPause();
+//                        break;
+//                    case R.id.stop_btn://跳到地图界面
+//                        timer.setBase(SystemClock.elapsedRealtime());
+//                        runPresenter.doRunStop();
+//                        runPresenter.saveRunInfo();
+//                        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//
+//            }
+//        };
+//        start_btn.setOnClickListener(listener);
+//        stop_btn.setOnClickListener(listener);
+//        pause_btn.setOnClickListener(listener);
 
 
         Button map = (Button)findViewById(R.id.map);

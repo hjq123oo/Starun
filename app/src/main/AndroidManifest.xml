@@ -72,6 +72,7 @@
             android:enabled="true"
             android:exported="true" />
         <activity android:name=".view.RecordActivity"></activity>
+        <activity android:name=".view.PlanActivity"></activity>
     </application>
 
 </manifest>
