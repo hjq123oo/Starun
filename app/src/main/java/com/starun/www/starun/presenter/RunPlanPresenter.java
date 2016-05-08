@@ -13,8 +13,8 @@ public interface RunPlanPresenter {
     @IntDef({RUN_PLAN, CHECK})
     @Retention(RetentionPolicy.SOURCE)
     public @interface RUN_TAG_TYPE {}
-    public static final int RUN_PLAN = 0;
-    public static final int CHECK = 1;
+    public static final int RUN_PLAN = 1;
+    public static final int CHECK = 2;
 
     void doLoadRunPlan(int week);
     void doLoadTag(@RUN_TAG_TYPE int type);
