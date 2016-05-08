@@ -45,6 +45,12 @@
         <activity android:name=".view.MapActivity">
         </activity>
 
+        <activity android:name=".view.LoginActivity">
+        </activity>
+
+        <activity android:name=".view.RegisterActivity">
+        </activity>
+
         <activity
             android:name=".view.RunRecordsActivity"
             android:label="@string/title_activity_main"
