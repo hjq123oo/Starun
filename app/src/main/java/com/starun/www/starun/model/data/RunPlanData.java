@@ -6,6 +6,7 @@ package com.starun.www.starun.model.data;
 public class RunPlanData {
     private int runPlanId;//跑步计划id
     private String title;//计划标题
+    private int tagIndex;//原则或中段检查，tagIndex为1该RunPlanData对应原则，tagIndex为2该RunPlanData对应中段检查
     private int weekIndex;//周，weekIndex表示第几周,weekIndex为0代表非跑步周计划
     private int optionIndex;//跑步选项,0表示该计划无跑步选项，1表示跑步选项，2表示跑步行走选项
     private String optionName;//选项名
@@ -31,6 +32,14 @@ public class RunPlanData {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getTagIndex() {
+        return tagIndex;
+    }
+
+    public void setTagIndex(int tagIndex) {
+        this.tagIndex = tagIndex;
     }
 
     public int getWeekIndex() {
@@ -103,6 +112,32 @@ public class RunPlanData {
 
     public void setLessonThreePlan(String lessonThreePlan) {
         this.lessonThreePlan = lessonThreePlan;
+    }
+
+    public String getLesson(int lessonIndex) {
+        switch (lessonIndex) {
+            case 1:
+                return getLessonOne();
+            case 2:
+                return getLessonTwo();
+            case 3:
+                return getLessonThree();
+            default:
+                return null;
+        }
+    }
+
+    public String getLessonPlan(int lessonIndex) {
+        switch (lessonIndex) {
+            case 1:
+                return getLessonOne();
+            case 2:
+                return getLessonTwo();
+            case 3:
+                return getLessonThree();
+            default:
+                return null;
+        }
     }
 
     public String getDesc() {

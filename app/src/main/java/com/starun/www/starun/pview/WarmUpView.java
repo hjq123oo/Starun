@@ -29,9 +29,8 @@ public interface WarmUpView {
 
     /**
      * 热身开始
-     * @param maxProgress 进度最大值
      */
-    public abstract void onWarmUpStart(int maxProgress);
+    public abstract void onWarmUpStart();
 
     /**
      * 热身暂停
