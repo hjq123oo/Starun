@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.starun.www.starun.R;
@@ -26,6 +29,7 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+
         lv = (ListView) findViewById(R.id.record_lv);
 
         ActionBar actionBar = getSupportActionBar();
@@ -65,6 +69,24 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
     @Override
     public void onShowRunRecords(List<RunRecord> records) {
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_record, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.record_menu_item:
+                Log.d(TAG,"click record_menu_item");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
