@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by xiaoxue on 2016/4/10.
  */
-public class WarmUp{
+public class WarmUpService {
     public enum State{
         START,
         PAUSE,
@@ -28,7 +28,7 @@ public class WarmUp{
     private WarmUpDao warmUpDao;
     private List<WarmUpData> warmUpDatas;
 
-    public WarmUp(Context context) {
+    public WarmUpService(Context context) {
         warmUpDao = new WarmUpDao(context);
         warmUpDatas = warmUpDao.getWarmUpDatas();
 

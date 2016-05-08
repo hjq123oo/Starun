@@ -3,7 +3,7 @@ package com.starun.www.starun.presenter.impl;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.starun.www.starun.model.WarmUp;
+import com.starun.www.starun.model.WarmUpService;
 import com.starun.www.starun.presenter.WarmUpPresenter;
 import com.starun.www.starun.pview.WarmUpView;
 
@@ -13,7 +13,7 @@ import com.starun.www.starun.pview.WarmUpView;
 public class WarmUpPresenterImpl implements WarmUpPresenter{
     private WarmUpView warmUpView;
 
-    private WarmUp warmUp;
+    private WarmUpService warmUpService;
 
     private Handler handler;
 
@@ -22,7 +22,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     public WarmUpPresenterImpl(WarmUpView warmUpView){
         this.warmUpView = warmUpView;
-        warmUp = new WarmUp(warmUpView.getActivity());
+        warmUpService = new WarmUpService(warmUpView.getActivity());
         handler = new Handler(Looper.getMainLooper());
         runnableInit();
     }
@@ -35,17 +35,17 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
                 if(run){
                     handler.postDelayed(this, 1000);
 
-                    if(warmUp.getWarmUpStatusCode() == 0){
+                    if(warmUpService.getWarmUpStatusCode() == 0){
                         warmUpView.onWarmUpStop();
                         run = false;
                         return;
-                    }else if(warmUp.getWarmUpStatusCode() == 1){
-                        warmUpView.onUpdateWarmUpProgress(warmUp.getProgress());
-                    }else if(warmUp.getWarmUpStatusCode() == 2){
-                        warmUpView.onUpdateWarmUpInfo(warmUp.getProgress(),warmUp.getWarmUpData());
+                    }else if(warmUpService.getWarmUpStatusCode() == 1){
+                        warmUpView.onUpdateWarmUpProgress(warmUpService.getProgress());
+                    }else if(warmUpService.getWarmUpStatusCode() == 2){
+                        warmUpView.onUpdateWarmUpInfo(warmUpService.getProgress(), warmUpService.getWarmUpData());
                     }
 
-                    warmUp.increaseProgress();
+                    warmUpService.increaseProgress();
                 }
 
             }
@@ -54,8 +54,8 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpStart() {
-        warmUpView.onWarmUpStart(WarmUp.PROGRESS_MAX);
-        warmUp.start();
+        warmUpView.onWarmUpStart(WarmUpService.PROGRESS_MAX);
+        warmUpService.start();
         run = true;
         handler.postDelayed(runnable,1000);
 
@@ -63,7 +63,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpPause() {
-        warmUp.pause();
+        warmUpService.pause();
         run = false;
         handler.removeCallbacks(runnable);
         warmUpView.onWarmUpPause();
@@ -71,7 +71,7 @@ public class WarmUpPresenterImpl implements WarmUpPresenter{
 
     @Override
     public void doWarmUpStop() {
-        warmUp.stop();
+        warmUpService.stop();
         run = false;
         handler.removeCallbacks(runnable);
         warmUpView.onWarmUpStop();

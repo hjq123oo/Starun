@@ -19,4 +19,18 @@ public interface RunPlanExecutionPresenter {
      */
     void doRunStop();
 
+    /**
+     * 注册广播
+     */
+    void registerReceiver();
+
+    /**
+     * 注销广播
+     */
+    void unregisterReceiver();
+
+    /**
+     * 保存数据
+     */
+    void saveRunInfo();
 }

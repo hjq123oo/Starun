@@ -22,7 +22,7 @@ public class RunPlanDao {
      * @param runPlanId 需要获取的跑步计划的id
      * @return RunPlanData对象：包含获取的跑步计划；null：获取跑步计划异常
      */
-    private RunPlanData getRunPlanData(int runPlanId){
+    public RunPlanData getRunPlanData(int runPlanId){
         String sql = "select * from run_plan where run_plan_id = ?";
         RunPlanData runPlanData = null;
 
