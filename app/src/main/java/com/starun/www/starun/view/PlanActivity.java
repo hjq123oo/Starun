@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.adapter.PlanListAdapter;
@@ -23,10 +24,17 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     private HorizontalListView hListView;
     RunPlanPresenter runPlanPresenter;
 
+    TextView more_text1_tv;
+    TextView more_text2_tv;
+    TextView more_text3_tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan);
+
+        findView();
+
         runPlanPresenter = new RunPlanPresenterImpl(this);
         runPlanPresenter.doLoadRunPlan(0);
 
@@ -58,6 +66,7 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
                 Log.d(TAG,"click position is "+position);
             }
         });
+
     }
 
     @Override
@@ -68,11 +77,21 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     @Override
     public void onLoadPlanResult(ArrayList<RunPlanData> planDatas) {
         Log.d(TAG, "onLoadPlanResult");
+
+        Log.d(TAG,"get ones is "+planDatas.get(0).getDesc());
+        Log.d(TAG,"get ones is "+planDatas.get(1).getDesc());
+
         if (planDatas!=null){
-//            hListView.setAdapter(new PlanListAdapter(getApplicationContext(), (ArrayList) planDatas));
+
         }
         else {
             Log.d(TAG, "planDatas is null");
         }
+    }
+
+    private void findView(){
+        more_text1_tv = (TextView)findViewById(R.id.more_text1_tv);
+        more_text2_tv = (TextView)findViewById(R.id.more_text2_tv);
+        more_text3_tv = (TextView)findViewById(R.id.more_text3_tv);
     }
 }
