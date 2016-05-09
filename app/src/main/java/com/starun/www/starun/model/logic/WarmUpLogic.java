@@ -1,4 +1,4 @@
-package com.starun.www.starun.model;
+package com.starun.www.starun.model.logic;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by xiaoxue on 2016/4/10.
  */
-public class WarmUpService {
+public class WarmUpLogic {
     public enum State{
         START,
         PAUSE,
@@ -28,7 +28,7 @@ public class WarmUpService {
     private WarmUpDao warmUpDao;
     private List<WarmUpData> warmUpDatas;
 
-    public WarmUpService(Context context) {
+    public WarmUpLogic(Context context) {
         warmUpDao = new WarmUpDao(context);
         warmUpDatas = warmUpDao.getWarmUpDatas();
 

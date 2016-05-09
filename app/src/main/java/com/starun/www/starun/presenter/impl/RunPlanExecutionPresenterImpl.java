@@ -7,19 +7,17 @@ import android.content.IntentFilter;
 import android.widget.Chronometer;
 
 import com.starun.www.starun.dao.RunRecordDao;
-import com.starun.www.starun.model.IRun;
-import com.starun.www.starun.model.RunPlanExecutionService;
 import com.starun.www.starun.model.data.RunRecord;
+import com.starun.www.starun.model.logic.RunPlanExecutionLogic;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.pview.RunPlanExecutionView;
-import com.starun.www.starun.service.TraceService;
 
 
 /**
  * Created by hjq on 2016/4/28.
  */
 public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter {
-    private RunPlanExecutionService runPlanExecutionService;
+    private RunPlanExecutionLogic runPlanExecutionLogic;
 
     private RunPlanExecutionView runPlanExecutionView;
     private Chronometer chronometer;
@@ -32,20 +30,20 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         this.runPlanExecutionView = runPlanExecutionView;
         chronometer = this.runPlanExecutionView.getChronometer();
 
-        runPlanExecutionService = new RunPlanExecutionService(runPlanExecutionView.getActivity());
+        runPlanExecutionLogic = new RunPlanExecutionLogic(runPlanExecutionView.getActivity());
     }
 
 
     @Override
     public void doRunStart() {
-        runPlanExecutionService.startPlan();
+        runPlanExecutionLogic.startPlan();
 
-        if(!runPlanExecutionService.isRun()){
+        if(!runPlanExecutionLogic.isRun()){
             //回调提示对话框
-            runPlanExecutionService.getRunPlanData().getDesc();
+            runPlanExecutionLogic.getRunPlanData().getDesc();
 
 
-            runPlanExecutionService.finishPlan();
+            runPlanExecutionLogic.finishPlan();
         }else{
             chronometer.setOnChronometerTickListener(new MyOnChronometerTickListener());
             runRecord.setStartTime(System.currentTimeMillis()/1000);
@@ -77,12 +75,12 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             //获取计时器时间
             long time = 0;
 
-            int state = runPlanExecutionService.executePlan(time);
+            int state = runPlanExecutionLogic.executePlan(time);
             if(state == 1){
                 //回调运动状态改变
             }else if(state == 2){
                 chronometer.stop();
-                runPlanExecutionService.finishPlan();
+                runPlanExecutionLogic.finishPlan();
 
             }
 
@@ -106,7 +104,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             runRecord.setKilometer(distance);
             runRecord.setTraceEntity(entity);
 
-            runPlanExecutionService.getIRunPlanExecution().setKilometer(distance);
+            runPlanExecutionLogic.getIRunPlanExecution().setKilometer(distance);
             //回调更新
 
         }

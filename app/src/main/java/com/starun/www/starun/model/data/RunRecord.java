@@ -7,10 +7,17 @@ public class RunRecord {
     private int runRecordId;//跑步记录id
     private long startTime;//开始时间
     private long endTime;//结束时间
+    private long runTime;//跑步总共用时
     private double kilometer;//公里数
-    private double avgSpeed;//平均速度
     private String traceEntity;//轨迹实体
-    private int usrId;//用户id
+
+    public String getTraceEntity() {
+        return traceEntity;
+    }
+
+    public void setTraceEntity(String traceEntity) {
+        this.traceEntity = traceEntity;
+    }
 
     public int getRunRecordId() {
         return runRecordId;
@@ -36,35 +43,19 @@ public class RunRecord {
         this.endTime = endTime;
     }
 
+    public long getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(long runTime) {
+        this.runTime = runTime;
+    }
+
     public double getKilometer() {
         return kilometer;
     }
 
     public void setKilometer(double kilometer) {
         this.kilometer = kilometer;
-    }
-
-    public double getAvgSpeed() {
-        return avgSpeed;
-    }
-
-    public void setAvgSpeed(double avgSpeed) {
-        this.avgSpeed = avgSpeed;
-    }
-
-    public String getTraceEntity() {
-        return traceEntity;
-    }
-
-    public void setTraceEntity(String traceEntity) {
-        this.traceEntity = traceEntity;
-    }
-
-    public int getUsrId() {
-        return usrId;
-    }
-
-    public void setUsrId(int usrId) {
-        this.usrId = usrId;
     }
 }
