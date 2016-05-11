@@ -35,4 +35,18 @@ public class RunPlanPresenterImpl implements RunPlanPresenter{
         list.add(runPlanDao.getRunPlanDataByTag(type));
         planView.onLoadPlanResult(list);
     }
+
+    @Override
+    public void doLoadPrinciple() {
+        ArrayList<RunPlanData> list = new ArrayList<RunPlanData>();
+        list.add(runPlanDao.getRunPlanDataByTag(1));
+        planView.onLoadPlanResult(list);
+    }
+
+    @Override
+    public void doLoadCheck() {
+        ArrayList<RunPlanData> list = new ArrayList<RunPlanData>();
+        list.add(runPlanDao.getRunPlanDataByTag(2));
+        planView.onLoadPlanResult(list);
+    }
 }
