@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:background="#EDEDED"
     android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,121 +13,170 @@
         <com.starun.www.starun.view.customview.HorizontalListView
             android:id="@+id/plan_hl"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="90dp">
         </com.starun.www.starun.view.customview.HorizontalListView>
 
-        <!--selector-->
-        <RelativeLayout
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/normal_ll"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
             android:layout_below="@id/plan_hl"
-            android:id="@+id/selector_rl"
-            android:layout_width="80dp"
-            android:layout_gravity="center"
-            android:layout_height="40dp"></RelativeLayout>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@android:color/white"
+                android:id="@+id/desc1_rl"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/week1_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:text="星期一" />
+                <TextView
+                    android:id="@+id/rundesc1_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="跑步1分钟，行走2分钟" />
+                <TextView
+                    android:id="@+id/runtime1_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="共做8次" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="#000"></View>
+
+            </LinearLayout>
+            <LinearLayout
+                android:background="@android:color/white"
+                android:id="@+id/desc2_rl"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/week2_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:text="星期一" />
+                <TextView
+                    android:id="@+id/rundesc2_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:gravity="center_vertical"
+                    android:text="跑步1分钟，行走2分钟" />
+                <TextView
+                    android:id="@+id/runtime2_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:gravity="center_vertical"
+                    android:text="共做8次" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#000"></View>
+
+            </LinearLayout>
+            <LinearLayout
+                android:background="@android:color/white"
+                android:id="@+id/desc3_rl"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/week3_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:text="星期一" />
+                <TextView
+                    android:id="@+id/rundesc3_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:gravity="center_vertical"
+                    android:text="跑步1分钟，行走2分钟" />
+                <TextView
+                    android:id="@+id/runtime3_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/darker_gray"
+                    android:gravity="center_vertical"
+                    android:text="共做8次" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="#000"></View>
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
-            android:background="@android:color/white"
-            android:id="@+id/desc1_rl"
+            android:id="@+id/more_text_ll"
+            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/plan_hl"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/week1_tv"
+                android:id="@+id/more_text1_tv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:text="星期一" />
-            <TextView
-                android:id="@+id/rundesc1_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="跑步1分钟，行走2分钟" />
-            <TextView
-                android:id="@+id/runtime1_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="共做8次" />
-
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="5dp"
                 android:background="#000"></View>
-
-        </LinearLayout>
-        <LinearLayout
-            android:background="@android:color/white"
-            android:id="@+id/desc2_rl"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:padding="10dp"
-            android:orientation="vertical">
-
             <TextView
-                android:id="@+id/week2_tv"
+                android:id="@+id/more_text2_tv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:text="星期一" />
-            <TextView
-                android:id="@+id/rundesc2_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="跑步1分钟，行走2分钟" />
-            <TextView
-                android:id="@+id/runtime2_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="共做8次" />
-
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginTop="5dp"
                 android:background="#000"></View>
-
-        </LinearLayout>
-        <LinearLayout
-            android:background="@android:color/white"
-            android:id="@+id/desc3_rl"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:padding="10dp"
-            android:orientation="vertical">
-
             <TextView
-                android:id="@+id/week3_tv"
+                android:id="@+id/more_text3_tv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:text="星期一" />
-            <TextView
-                android:id="@+id/rundesc3_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="跑步1分钟，行走2分钟" />
-            <TextView
-                android:id="@+id/runtime3_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                android:text="共做8次" />
-
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -135,5 +184,5 @@
                 android:background="#000"></View>
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </ScrollView>
