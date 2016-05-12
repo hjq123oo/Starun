@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
@@ -24,6 +25,7 @@ public class LoginActivity extends Activity implements UserView{
     private Button login = null;
     private EditText username = null;
     private EditText password = null;
+    private TextView toRegister = null;
     private UserPresenter userPresenter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class LoginActivity extends Activity implements UserView{
         login = (Button)findViewById(R.id.login);
         username = (EditText)findViewById(R.id.user_name);
         password = (EditText)findViewById(R.id.password);
+        toRegister = (TextView)findViewById(R.id.login_to_register);
         userPresenter = new UserPresenterImpl(this);
 
         username.addTextChangedListener(textWatcher );
@@ -44,6 +47,15 @@ public class LoginActivity extends Activity implements UserView{
                 user.setUsername(username.getText().toString());
                 user.setPassword(username.getText().toString());
                 userPresenter.login(user);
+            }
+        });
+
+        toRegister.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent register = new Intent();
+                register.setClass(LoginActivity.this,RegisterActivity.class);
+                startActivity(register);
             }
         });
     }

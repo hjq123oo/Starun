@@ -18,7 +18,20 @@
         android:background="@drawable/text_shape"
         android:hint="手机号/邮箱/账号"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:textColor="#8F8F8F"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册账号"
+        android:textColor="#8F8F8F"
+        android:id="@+id/login_to_register"
+        android:background="@drawable/text_shape2"
+        android:layout_alignRight="@id/user_name"
+        android:layout_alignBottom="@id/user_name"
+        android:layout_marginRight="25dp"
+        android:textSize="20dp"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -30,7 +43,20 @@
         android:background="@drawable/text_shape"
         android:hint="输入登录密码"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:textColor="#8F8F8F"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码"
+        android:textColor="#8F8F8F"
+        android:id="@+id/login_to_getpassw"
+        android:background="@drawable/text_shape2"
+        android:layout_alignRight="@id/password"
+        android:layout_alignBottom="@id/password"
+        android:layout_marginRight="25dp"
+        android:textSize="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
