@@ -3,6 +3,7 @@ package com.starun.www.starun.view;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -42,6 +43,10 @@ public class MapActivity extends Activity implements BaiduMapView {
     private static MapStatusUpdate msUpdate = null;
 
     private MapPresenter mapPresenter = null;
+
+    //显示控件
+    private TextView kiloTextView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,8 @@ public class MapActivity extends Activity implements BaiduMapView {
         mapPresenter = new MapPresenterImpl(this);
         //mMapView.showZoomControls(false);
 
+        //控件
+        kiloTextView = (TextView)findViewById(R.id.kilometer);
         //注册广播
         mapPresenter.registerReceiver();
     }
@@ -119,6 +126,12 @@ public class MapActivity extends Activity implements BaiduMapView {
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    @Override
+    public void showInfo(double distance) {
+        if(distance>0)
+            kiloTextView.setText(String.valueOf(distance));
     }
 
     /**
