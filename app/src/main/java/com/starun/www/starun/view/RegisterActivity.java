@@ -44,6 +44,7 @@ public class RegisterActivity extends Activity implements UserView{
         user_num.addTextChangedListener(textWatcher );
         password1.addTextChangedListener(textWatcher);
         password2.addTextChangedListener(textWatcher);
+        nickname.addTextChangedListener(textWatcher);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +80,8 @@ public class RegisterActivity extends Activity implements UserView{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!user_num.getText().equals("")&&!password1.getText().equals("")&&!password2.getText().equals("")&&!nickname.getText().equals("")){
+            String temp = user_num.getText().toString();
+            if(!user_num.getText().toString().equals("")&&!password1.getText().toString().equals("")&&!password2.getText().toString().equals("")&&!nickname.getText().toString().equals("")){
                 register.setEnabled(true);
             }
             else{
@@ -97,14 +99,17 @@ public class RegisterActivity extends Activity implements UserView{
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String msg) {
+        if("".equals(msg)){
+            Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
+        }
         Intent intent = new Intent();
         intent.setClass(RegisterActivity.this,LoginActivity.class);
         this.getActivity().startActivity(intent);
     }
 
     @Override
-    public void onFailure(String response) {
-        Toast.makeText(this.getActivity(),"注册失败，"+response,Toast.LENGTH_LONG).show();
+    public void onFailure() {
+        Toast.makeText(this.getActivity(),"注册失败，该用户已注册",Toast.LENGTH_LONG).show();
     }
 }

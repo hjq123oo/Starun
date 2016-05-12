@@ -15,10 +15,10 @@ public interface UserView {
     /**
      * 登陆或注册成功
      */
-    public void onSuccess();
+    public void onSuccess(String msg);
 
     /**
      * 登陆或注册失败
      */
-    public void onFailure(String response);
+    public void onFailure();
 }

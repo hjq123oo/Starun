@@ -1,7 +1,9 @@
 package com.starun.www.starun.server.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,7 +14,7 @@ import java.net.URL;
 public class ConnectUtil {
 
     /**服务器的地址**/
-    private static final String IPADDRESS = "http://192.168.191.1//";
+    private static final String IPADDRESS = "http://121.42.215.215:5000/";
     /**响应成功代码**/
     private static final int SUCCESS = 200;
 
@@ -31,19 +33,33 @@ public class ConnectUtil {
         try {
             url = new URL(urlString);
             conn = (HttpURLConnection)url.openConnection();
-            conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(3 * 1000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
             outputStream = conn.getOutputStream();
             outputStream.write(message.getBytes("UTF-8"));
-            outputStream.close();
             if(SUCCESS == conn.getResponseCode()){
                 inputStream = conn.getInputStream();
                 result = StringUtil.readString(inputStream);
-                inputStream.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                if(null!=outputStream) {
+                    outputStream.close();
+                }
+                if(null!=outputStream) {
+                    inputStream.close();
+                }
+                if(null!=conn){
+                    conn.disconnect();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }
