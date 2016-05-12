@@ -277,6 +277,7 @@ public class TraceService extends Service {
             Intent pointlistIntent = new Intent("com.starun.www.starun.POINTLIST");
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("pointList", pointList);
+            distanceIntent.putExtra("distance", distance);
             pointlistIntent.putExtras(bundle);
             sendBroadcast(pointlistIntent);
         }
