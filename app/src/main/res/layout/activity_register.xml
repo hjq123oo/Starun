@@ -13,6 +13,7 @@
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:background="@drawable/back"
+            android:id="@+id/re_back_login"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"/>
 
@@ -38,7 +39,8 @@
         android:hint="设置密码"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:singleLine="true"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -57,7 +59,8 @@
         android:background="@drawable/text_shape"
         android:hint="昵称"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:singleLine="true"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -76,8 +79,17 @@
         android:background="@drawable/text_shape"
         android:hint="手机号/邮箱/账号"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:singleLine="true"/>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/line4"
+        android:layout_below="@id/password1"
+        android:background="#8B8B7A"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -89,16 +101,8 @@
         android:background="@drawable/text_shape"
         android:hint="确定密码"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line4"
-        android:layout_below="@id/password1"
-        android:background="#8B8B7A"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_marginRight="5dp"
+        android:singleLine="true"/>
 
     <Space
         android:layout_width="20dp"

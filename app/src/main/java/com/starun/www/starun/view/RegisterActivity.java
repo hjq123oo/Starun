@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
@@ -25,6 +26,8 @@ public class RegisterActivity extends Activity implements UserView{
     private EditText user_num = null;
     private EditText password1 = null;
     private EditText password2 = null;
+    private EditText nickname = null;
+    private ImageButton back = null;
     private UserPresenter userPresenter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class RegisterActivity extends Activity implements UserView{
         user_num = (EditText)findViewById(R.id.user_num);
         password1 = (EditText)findViewById(R.id.password1);
         password2 = (EditText)findViewById(R.id.password2);
+        nickname = (EditText)findViewById(R.id.nickname);
+        back = (ImageButton)findViewById(R.id.re_back_login);
         userPresenter = new UserPresenterImpl(this);
 
         user_num.addTextChangedListener(textWatcher );
@@ -44,14 +49,25 @@ public class RegisterActivity extends Activity implements UserView{
             @Override
             public void onClick(View v) {
                 if(!password2.getText().equals(password1.getText())){
-                    Toast.makeText(getActivity(),"两次密码不同！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"请确定密码是否相同！",Toast.LENGTH_LONG).show();
                 }
                 else{
                     User user = new User();
                     user.setUsername(user_num.getText().toString());
                     user.setPassword(password1.getText().toString());
+                    user.setNickname(nickname.getText().toString());
                     userPresenter.register(user);
                 }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent();
+                login.setClass(RegisterActivity.this,LoginActivity.class);
+                startActivity(login);
             }
         });
     }
@@ -63,7 +79,7 @@ public class RegisterActivity extends Activity implements UserView{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!user_num.getText().equals("")&&!password1.getText().equals("")&&!password2.getText().equals("")){
+            if(!user_num.getText().equals("")&&!password1.getText().equals("")&&!password2.getText().equals("")&&!nickname.getText().equals("")){
                 register.setEnabled(true);
             }
             else{

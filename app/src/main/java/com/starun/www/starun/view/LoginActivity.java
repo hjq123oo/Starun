@@ -45,7 +45,7 @@ public class LoginActivity extends Activity implements UserView{
             public void onClick(View v) {
                 User user = new User();
                 user.setUsername(username.getText().toString());
-                user.setPassword(username.getText().toString());
+                user.setPassword(password.getText().toString());
                 userPresenter.login(user);
             }
         });
