@@ -30,12 +30,14 @@
             android:name=".view.ExerciseActivity"
             android:label="@string/title_activity_exercise" >
         </activity>
+
         <activity android:name=".view.MapActivity" >
         </activity>
         <activity android:name=".view.LoginActivity" >
         </activity>
         <activity android:name=".view.RegisterActivity" >
         </activity>
+
         <activity
             android:name=".view.RunRecordsActivity"
             android:label="@string/title_activity_main"
@@ -59,6 +61,7 @@
 
         <activity android:name=".view.RecordActivity" />
         <activity android:name=".view.PlanActivity" />
+
         <activity android:name=".view.WarmupActivity" >
 
         </activity>
@@ -78,6 +81,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.MusicActivity" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
+
     </application>
 
 </manifest>
