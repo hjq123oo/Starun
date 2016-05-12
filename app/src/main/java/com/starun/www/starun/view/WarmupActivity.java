@@ -2,6 +2,9 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -73,7 +76,15 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
         btn_Continue.setVisibility(View.INVISIBLE);
         btn_Pause.setVisibility(View.VISIBLE);
         //iv_Pic.setImageResource(warmUpData.getImgId());
-        iv_Pic.setImageDrawable(getResources().getDrawable(warmUpData.getImgId()));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
+        options.inPurgeable = true;
+        options.inScaled = true;
+        Resources res=getResources();
+        Bitmap bitmap=BitmapFactory.decodeResource(res, warmUpData.getImgId(),options);
+        iv_Pic.setImageBitmap(bitmap);
+
+        //iv_Pic.setImageDrawable(getResources().getDrawable(warmUpData.getImgId()));
 
     }
 

@@ -23,7 +23,7 @@
             android:layout_height="100dp"
             android:id="@+id/iv_warmup_pic"
             android:layout_below="@+id/tv_warmup_count_down"
-            android:src="@drawable/warm_up_1"
+            android:src="@drawable/icon1"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             />
