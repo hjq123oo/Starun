@@ -30,20 +30,18 @@ public class RunRecordDao {
         String sql = "insert into run_record(" +
                 "start_time," +
                 "end_time," +
+                "run_time" +
                 "kilometer," +
-                "avg_speed," +
                 "trace_entity," +
-                "usr_id" +
                 ") " +
-                "values (?,?,?,?,?,?)";
+                "values (?,?,?,?,?)";
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(sql, new Object[]{
                 runRecord.getStartTime(),
                 runRecord.getEndTime(),
+                runRecord.getRunTime(),
                 runRecord.getKilometer(),
-                runRecord.getAvgSpeed(),
-                runRecord.getTraceEntity(),
-                runRecord.getUsrId()
+                runRecord.getTraceEntity()
         });
         db.close();
         return true;
@@ -58,19 +56,17 @@ public class RunRecordDao {
         String sql = "update run_record set " +
                 "start_time = ?," +
                 "end_time = ?," +
+                "run_time = ?," +
                 "kilometer = ?," +
-                "avg_speed = ?," +
                 "trace_entity = ?," +
-                "usr_id = ? " +
                 "where run_record_id = ?";
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(sql, new Object[]{
                 runRecord.getStartTime(),
                 runRecord.getEndTime(),
+                runRecord.getRunTime(),
                 runRecord.getKilometer(),
-                runRecord.getAvgSpeed(),
                 runRecord.getTraceEntity(),
-                runRecord.getUsrId(),
                 runRecord.getRunRecordId()
         });
         db.close();
@@ -93,10 +89,9 @@ public class RunRecordDao {
             runRecord.setRunRecordId(runRecordId);
             runRecord.setStartTime(cursor.getLong(cursor.getColumnIndex("start_time")));
             runRecord.setEndTime(cursor.getLong(cursor.getColumnIndex("end_time")));
+            runRecord.setRunTime(cursor.getLong(cursor.getColumnIndex("run_time")));
             runRecord.setKilometer(cursor.getDouble(cursor.getColumnIndex("kilometer")));
-            runRecord.setAvgSpeed(cursor.getDouble(cursor.getColumnIndex("avg_speed")));
             runRecord.setTraceEntity(cursor.getString(cursor.getColumnIndex("trace_entity")));
-            runRecord.setUsrId(cursor.getInt(cursor.getColumnIndex("usr_id")));
         }else{
             runRecord = null;
         }
@@ -121,10 +116,9 @@ public class RunRecordDao {
             runRecord.setRunRecordId(cursor.getInt(cursor.getColumnIndex("run_record_id")));
             runRecord.setStartTime(cursor.getLong(cursor.getColumnIndex("start_time")));
             runRecord.setEndTime(cursor.getLong(cursor.getColumnIndex("end_time")));
+            runRecord.setRunTime(cursor.getLong(cursor.getColumnIndex("run_time")));
             runRecord.setKilometer(cursor.getDouble(cursor.getColumnIndex("kilometer")));
-            runRecord.setAvgSpeed(cursor.getDouble(cursor.getColumnIndex("avg_speed")));
             runRecord.setTraceEntity(cursor.getString(cursor.getColumnIndex("trace_entity")));
-            runRecord.setUsrId(cursor.getInt(cursor.getColumnIndex("usr_id")));
             runRecords.add(runRecord);
         }
 

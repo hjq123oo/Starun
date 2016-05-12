@@ -47,6 +47,8 @@ public class RunPresenterImpl implements RunPresenter {
     public void doRunStop() {
         //停止service
         runRecord.setEndTime(System.currentTimeMillis()/1000);
+        //获取计时器时间
+
         Intent service = new Intent(runView.getActivity(),TraceService.class);
         runView.getActivity().stopService(service);
     }

@@ -264,10 +264,9 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                 "\"run_record_id\"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                 "\"start_time\"  INTEGER,\n" +
                 "\"end_time\"  INTEGER,\n" +
+                "\"run_time\"  INTEGER,\n" +
                 "\"kilometer\"  REAL,\n" +
-                "\"avg_speed\"  REAL,\n" +
-                "\"trace_entity\"  TEXT,\n" +
-                "\"usr_id\"  INTEGER\n" +
+                "\"trace_entity\"  TEXT\n" +
                 ");");
     }
 

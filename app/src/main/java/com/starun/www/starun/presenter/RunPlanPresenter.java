@@ -16,6 +16,13 @@ public interface RunPlanPresenter {
     public static final int RUN_PLAN = 1;
     public static final int CHECK = 2;
 
-    void doLoadRunPlan(int week);
+    void doLoadRunPlan(int week); //这个是load第几周的
     void doLoadTag(@RUN_TAG_TYPE int type);
+
+    //TODO: 这些是新加的接口
+    // 加载最开始的原则
+    void doLoadPrinciple();
+
+    //加载中断检查的内容
+    void doLoadCheck();
 }

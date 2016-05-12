@@ -1,9 +1,10 @@
-package com.starun.www.starun.model;
+package com.starun.www.starun.model.logic;
 
 import android.content.Context;
 
 import com.starun.www.starun.dao.RunPlanDao;
 import com.starun.www.starun.dao.RunPlanSharedPreferences;
+import com.starun.www.starun.model.IRunPlanExecution;
 import com.starun.www.starun.model.data.RunPlanData;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.presenter.RunPlanPresenter;
@@ -15,7 +16,7 @@ import java.util.Map;
 /**
  * Created by hjq on 2016/4/28.
  */
-public class RunPlanExecutionService {
+public class RunPlanExecutionLogic {
     private RunPlanDao runPlanDao;
     private RunPlanSharedPreferences runPlanSharedPreferences;
 
@@ -32,7 +33,7 @@ public class RunPlanExecutionService {
 
 
 
-    public RunPlanExecutionService(Context context) {
+    public RunPlanExecutionLogic(Context context) {
         runPlanDao = new RunPlanDao(context);
         runPlanSharedPreferences = new RunPlanSharedPreferences(context);
 
