@@ -48,7 +48,7 @@ public class RegisterActivity extends Activity implements UserView{
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!password2.getText().equals(password1.getText())){
+                if(!password2.getText().toString().equals(password1.getText().toString())){
                     Toast.makeText(getActivity(),"请确定密码是否相同！",Toast.LENGTH_LONG).show();
                 }
                 else{
