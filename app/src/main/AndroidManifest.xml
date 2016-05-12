@@ -41,20 +41,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".view.MapActivity">
-        </activity>
-
-        <activity android:name=".view.LoginActivity">
-        </activity>
-
-        <activity android:name=".view.RegisterActivity">
-        </activity>
-
+        <activity android:name=".view.MapActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.RegisterActivity" />
         <activity
             android:name=".view.RunRecordsActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 百度鹰眼service组件 -->
         <service
@@ -71,8 +64,15 @@
             android:name=".service.TraceService"
             android:enabled="true"
             android:exported="true" />
-        <activity android:name=".view.RecordActivity"></activity>
-        <activity android:name=".view.PlanActivity"></activity>
+
+        <activity android:name=".view.RecordActivity" />
+        <activity android:name=".view.PlanActivity" />
+        <activity android:name=".view.MusicActivity" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
