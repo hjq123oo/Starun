@@ -2,11 +2,11 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
@@ -24,9 +24,24 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     private HorizontalListView hListView;
     RunPlanPresenter runPlanPresenter;
 
-    TextView more_text1_tv;
-    TextView more_text2_tv;
-    TextView more_text3_tv;
+    private HorizontalListView planHl;
+    private LinearLayout normalLl;
+    private LinearLayout desc1Rl;
+    private TextView week1Tv;
+    private TextView rundesc1Tv;
+    private TextView runtime1Tv;
+    private LinearLayout desc2Rl;
+    private TextView week2Tv;
+    private TextView rundesc2Tv;
+    private TextView runtime2Tv;
+    private LinearLayout desc3Rl;
+    private TextView week3Tv;
+    private TextView rundesc3Tv;
+    private TextView runtime3Tv;
+    private LinearLayout moreTextLl;
+    private TextView moreText1Tv;
+
+    private int displayType = RunPlanPresenter.PRINCIPLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +51,11 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         findView();
 
         runPlanPresenter = new RunPlanPresenterImpl(this);
-        runPlanPresenter.doLoadRunPlan(0);
+        runPlanPresenter.doLoadPrinciple();
 
         hListView = (HorizontalListView)findViewById(R.id.plan_hl);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("计划");
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setTitle("计划");
 
         ArrayList<String> weekStrs = new ArrayList<String>();
         weekStrs.add("原则  ");
@@ -64,6 +79,22 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG,"click position is "+position);
+                if (position==0){
+                    displayType=RunPlanPresenter.PRINCIPLE;
+                    runPlanPresenter.doLoadPrinciple();
+                }
+                else if (position>0&&position<7){
+                    displayType=RunPlanPresenter.RUN_PLAN;
+                    runPlanPresenter.doLoadRunPlan(position);
+                }
+                else if (position==7){
+                    displayType=RunPlanPresenter.CHECK;
+                    runPlanPresenter.doLoadCheck();
+                }
+                else {
+                    displayType=RunPlanPresenter.RUN_PLAN;
+                    runPlanPresenter.doLoadRunPlan(position-1);
+                }
             }
         });
 
@@ -76,13 +107,33 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
 
     @Override
     public void onLoadPlanResult(ArrayList<RunPlanData> planDatas) {
-        Log.d(TAG, "onLoadPlanResult");
+        Log.d(TAG, "onLoadPlanResult planDatas size "+planDatas.size());
+        Log.d(TAG, "displayType is "+displayType);
 
-        Log.d(TAG,"get ones is "+planDatas.get(0).getDesc());
-        Log.d(TAG,"get ones is "+planDatas.get(1).getDesc());
+        Log.d(TAG,"getLessonOne is "+planDatas.get(0).getLessonOne());
+        Log.d(TAG,"getLessonOnePlan is "+planDatas.get(0).getLessonOnePlan());
 
         if (planDatas!=null){
-
+            switch (displayType){
+                case RunPlanPresenter.PRINCIPLE:
+                    normalLl.setVisibility(View.INVISIBLE);
+                    moreTextLl.setVisibility(View.VISIBLE);
+                    moreText1Tv.setText(planDatas.get(0).getDesc());
+                    break;
+                case RunPlanPresenter.RUN_PLAN:
+                    normalLl.setVisibility(View.VISIBLE);
+                    moreTextLl.setVisibility(View.INVISIBLE);
+                    rundesc1Tv.setText(planDatas.get(0).getLessonOne());
+                    rundesc2Tv.setText(planDatas.get(0).getLessonTwo());
+                    rundesc3Tv.setText(planDatas.get(0).getLessonThree());
+                    break;
+                case RunPlanPresenter.CHECK:
+                    normalLl.setVisibility(View.INVISIBLE);
+                    moreTextLl.setVisibility(View.VISIBLE);
+                    moreText1Tv.setText(planDatas.get(0).getDesc());
+                default:
+                    break;
+            }
         }
         else {
             Log.d(TAG, "planDatas is null");
@@ -90,8 +141,23 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     }
 
     private void findView(){
-        more_text1_tv = (TextView)findViewById(R.id.more_text1_tv);
-        more_text2_tv = (TextView)findViewById(R.id.more_text2_tv);
-        more_text3_tv = (TextView)findViewById(R.id.more_text3_tv);
+        planHl = (HorizontalListView) findViewById(R.id.plan_hl);
+        normalLl = (LinearLayout) findViewById(R.id.normal_ll);
+        desc1Rl = (LinearLayout) findViewById(R.id.desc1_rl);
+        week1Tv = (TextView) findViewById(R.id.week1_tv);
+        rundesc1Tv = (TextView) findViewById(R.id.rundesc1_tv);
+        runtime1Tv = (TextView) findViewById(R.id.runtime1_tv);
+        desc2Rl = (LinearLayout) findViewById(R.id.desc2_rl);
+        week2Tv = (TextView) findViewById(R.id.week2_tv);
+        rundesc2Tv = (TextView) findViewById(R.id.rundesc2_tv);
+        runtime2Tv = (TextView) findViewById(R.id.runtime2_tv);
+        desc3Rl = (LinearLayout) findViewById(R.id.desc3_rl);
+        week3Tv = (TextView) findViewById(R.id.week3_tv);
+        rundesc3Tv = (TextView) findViewById(R.id.rundesc3_tv);
+        runtime3Tv = (TextView) findViewById(R.id.runtime3_tv);
+        moreTextLl = (LinearLayout) findViewById(R.id.more_text_ll);
+        moreText1Tv = (TextView) findViewById(R.id.more_text1_tv);
     }
+
+
 }

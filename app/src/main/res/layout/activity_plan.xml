@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="星期一" />
+                    android:text="第一课" />
                 <TextView
                     android:id="@+id/rundesc1_tv"
                     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/darker_gray"
-                    android:text="共做8次" />
+                    android:text="" />
 
                 <View
                     android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="星期一" />
+                    android:text="第二课" />
                 <TextView
                     android:id="@+id/rundesc2_tv"
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:layout_weight="1"
                     android:textColor="@android:color/darker_gray"
                     android:gravity="center_vertical"
-                    android:text="共做8次" />
+                    android:text="" />
 
                 <View
                     android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:layout_weight="1"
                     android:textColor="@android:color/black"
                     android:gravity="center_vertical"
-                    android:text="星期一" />
+                    android:text="第三课" />
                 <TextView
                     android:id="@+id/rundesc3_tv"
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     android:layout_weight="1"
                     android:textColor="@android:color/darker_gray"
                     android:gravity="center_vertical"
-                    android:text="共做8次" />
+                    android:text="" />
 
                 <View
                     android:layout_width="match_parent"
@@ -154,34 +154,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="5dp"
-                android:background="#000"></View>
-            <TextView
-                android:id="@+id/more_text2_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="5dp"
-                android:background="#000"></View>
-            <TextView
-                android:id="@+id/more_text3_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="这项13周训练计划的最终目标是让你安全舒适地完成10公里跑。现在你已经到达计划的一半了，这是一个很好的评估你感受的时机。在训练进程中感觉舒适的关键因素是：知道你可以选择“跑步行走”选项，这个选项在接下来的每周都会提供给你，当然这要看训练的感觉如何。"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="5dp"
-                android:background="#000"></View>
+                android:text=""/>
+
         </LinearLayout>
 
     </RelativeLayout>
