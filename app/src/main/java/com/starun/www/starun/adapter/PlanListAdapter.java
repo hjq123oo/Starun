@@ -50,7 +50,7 @@ public class PlanListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-        View rootView = inflater.inflate(R.layout.plan_listview_item, null);
+        View rootView = inflater.inflate(R.layout.plan_listview_item, parent,false);
         holder.phase_tv = (TextView)rootView.findViewById(R.id.phase_tv);
         holder.phase_tv.setText(weekStrs.get(position));
         return rootView;
