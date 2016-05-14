@@ -2,6 +2,7 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,15 +30,12 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     private LinearLayout desc1Rl;
     private TextView week1Tv;
     private TextView rundesc1Tv;
-    private TextView runtime1Tv;
     private LinearLayout desc2Rl;
     private TextView week2Tv;
     private TextView rundesc2Tv;
-    private TextView runtime2Tv;
     private LinearLayout desc3Rl;
     private TextView week3Tv;
     private TextView rundesc3Tv;
-    private TextView runtime3Tv;
     private LinearLayout moreTextLl;
     private TextView moreText1Tv;
 
@@ -54,25 +52,25 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         runPlanPresenter.doLoadPrinciple();
 
         hListView = (HorizontalListView)findViewById(R.id.plan_hl);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setTitle("计划");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("计划");
 
         ArrayList<String> weekStrs = new ArrayList<String>();
-        weekStrs.add("原则  ");
-        weekStrs.add("第一周  ");
-        weekStrs.add("第二周  ");
-        weekStrs.add("第三周  ");
-        weekStrs.add("第四周  ");
-        weekStrs.add("第五周  ");
-        weekStrs.add("第六周  ");
-        weekStrs.add("中断检查  ");
-        weekStrs.add("第七周  ");
-        weekStrs.add("第八周  ");
-        weekStrs.add("第九周  ");
-        weekStrs.add("第十周  ");
-        weekStrs.add("第十一周  ");
-        weekStrs.add("第十二周  ");
-        weekStrs.add("第十三周  ");
+        weekStrs.add("原则");
+        weekStrs.add("第一周");
+        weekStrs.add("第二周");
+        weekStrs.add("第三周");
+        weekStrs.add("第四周");
+        weekStrs.add("第五周");
+        weekStrs.add("第六周");
+        weekStrs.add("中断检查");
+        weekStrs.add("第七周");
+        weekStrs.add("第八周");
+        weekStrs.add("第九周");
+        weekStrs.add("第十周");
+        weekStrs.add("第十一周");
+        weekStrs.add("第十二周");
+        weekStrs.add("第十三周");
 
         hListView.setAdapter(new PlanListAdapter(getApplicationContext(), weekStrs));
         hListView.setOnItemClickListener(new HorizontalListView.OnItemClickListener() {
@@ -146,15 +144,12 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         desc1Rl = (LinearLayout) findViewById(R.id.desc1_rl);
         week1Tv = (TextView) findViewById(R.id.week1_tv);
         rundesc1Tv = (TextView) findViewById(R.id.rundesc1_tv);
-        runtime1Tv = (TextView) findViewById(R.id.runtime1_tv);
         desc2Rl = (LinearLayout) findViewById(R.id.desc2_rl);
         week2Tv = (TextView) findViewById(R.id.week2_tv);
         rundesc2Tv = (TextView) findViewById(R.id.rundesc2_tv);
-        runtime2Tv = (TextView) findViewById(R.id.runtime2_tv);
         desc3Rl = (LinearLayout) findViewById(R.id.desc3_rl);
         week3Tv = (TextView) findViewById(R.id.week3_tv);
         rundesc3Tv = (TextView) findViewById(R.id.rundesc3_tv);
-        runtime3Tv = (TextView) findViewById(R.id.runtime3_tv);
         moreTextLl = (LinearLayout) findViewById(R.id.more_text_ll);
         moreText1Tv = (TextView) findViewById(R.id.more_text1_tv);
     }
