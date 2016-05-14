@@ -62,7 +62,7 @@ public class MusicService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         msg = intent.getIntExtra("MSG", 0);         //播放信息
         if (msg ==MSG_PLAY) {    //直接播放音乐
-            current = intent.getIntExtra("position", -1);   //当前播放歌曲的在mp3Infos的位置
+            current = intent.getIntExtra("POSITION", -1);   //当前播放歌曲的在mp3Infos的位置
             path = mp3Infos.get(current).getUrl();
             play(0);
         } else if (msg == MSG_PAUSE) {    //暂停

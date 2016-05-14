@@ -2,14 +2,17 @@ package com.starun.www.starun.view;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 
 import com.starun.www.starun.R;
@@ -26,7 +29,7 @@ public class MusicActivity extends AppCompatActivity {
     private ImageButton musicNextBtn;
     private ImageButton musicPlayBtn;
     private ImageButton musicMenuBtn;
-    private ListView musicListView;
+
 
     private List<Mp3Info> mp3Infos;
 
@@ -46,12 +49,19 @@ public class MusicActivity extends AppCompatActivity {
         musicPlayBtn = (ImageButton)findViewById(R.id.btn_music_play);
         musicPlayBtnState = MusicPlayBtnState.PLAY;
         musicMenuBtn = (ImageButton)findViewById(R.id.btn_music_menu);
-        musicListView = (ListView)findViewById(R.id.lv_music);
+
 
         mp3Infos = getMp3Infos();
-        setListAdpter(mp3Infos);
 
-        musicListView.setOnItemClickListener(new MusicListItemClickListener());
+
+
+
+        musicMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPopupWindow(v);
+            }
+        });
 
         musicPlayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +98,35 @@ public class MusicActivity extends AppCompatActivity {
         });
     }
 
+    private void initPopupWindow(View v){
+        View view = LayoutInflater.from(this).inflate(R.layout.popup_window_music,null);
+
+        ListView musicListView = (ListView)view.findViewById(R.id.lv_music);
+
+        setListAdpter(musicListView, mp3Infos);
+
+
+
+        PopupWindow popWindow = new PopupWindow(view,400,500,true);
+
+        popWindow.setAnimationStyle(R.style.MusicPopupWindoAnimation);
+
+        popWindow.setTouchable(true);
+        popWindow.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+        popWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+
+
+        popWindow.showAsDropDown(v, -350, 0);
+
+        musicListView.setOnItemClickListener(new MusicListItemClickListener());
+    }
 
     public List<Mp3Info> getMp3Infos() {
         Cursor cursor = getContentResolver().query(
@@ -124,7 +163,7 @@ public class MusicActivity extends AppCompatActivity {
         return mp3Infos;
     }
 
-    public void setListAdpter(List<Mp3Info> mp3Infos) {
+    public void setListAdpter(ListView musicListView,List<Mp3Info> mp3Infos) {
         List<HashMap<String, String>> mp3list = new ArrayList<HashMap<String, String>>();
         for (Iterator iterator = mp3Infos.iterator(); iterator.hasNext();) {
             Mp3Info mp3Info = (Mp3Info) iterator.next();
@@ -134,11 +173,12 @@ public class MusicActivity extends AppCompatActivity {
             map.put("duration", String.valueOf(mp3Info.getDuration()));
             map.put("size", String.valueOf(mp3Info.getSize()));
             map.put("url", mp3Info.getUrl());
+            map.put("music",mp3Info.getTitle()+"-"+mp3Info.getArtist());
             mp3list.add(map);
         }
         SimpleAdapter adapter = new SimpleAdapter(this, mp3list,
-                R.layout.music_listview_item, new String[] { "title", "artist"},
-                new int[] { R.id.tv_title, R.id.tv_artist});
+                R.layout.music_listview_item, new String[] { "music"},
+                new int[] { R.id.tv_music});
         musicListView.setAdapter(adapter);
     }
 
