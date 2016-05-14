@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -152,6 +155,25 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         rundesc3Tv = (TextView) findViewById(R.id.rundesc3_tv);
         moreTextLl = (LinearLayout) findViewById(R.id.more_text_ll);
         moreText1Tv = (TextView) findViewById(R.id.more_text1_tv);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_record, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.record_menu_item:
+                Log.d(TAG,"click record_menu_item");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 
