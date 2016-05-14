@@ -18,10 +18,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.view.utilview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    TextView tvTotalDist,tvTotalTime,tvStage;
+    TextView tvNickName;
+    CircleImageView ivIcon;
+    //Button btnMainPage,btnFriends,btnRank,btnSetting,btnExit;
     Button planExercise;
     TextView dailyExercise;
     @Override
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void init(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainactivity_toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -44,12 +48,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        tvTotalDist = (TextView) findViewById(R.id.tv_total_dist);
+        tvTotalTime = (TextView) findViewById(R.id.tv_total_time);
+        tvStage = (TextView) findViewById(R.id.tv_total_stage);
+        tvNickName = (TextView) findViewById(R.id.tv_navi_nickname);
+        ivIcon = (CircleImageView) findViewById(R.id.civ_icon);
+
         dailyExercise = (TextView) findViewById(R.id.tv_daily_exercise);
         planExercise = (Button) findViewById(R.id.plan_btn);
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
+
                     case R.id.tv_daily_exercise:
                         Intent i = new Intent(MainActivity.this,WarmupActivity.class);
                         startActivity(i);
@@ -58,6 +69,7 @@ public class MainActivity extends AppCompatActivity
                     case  R.id.plan_btn:
 
                         break;
+
                     default:
                         break;
                 }
@@ -77,27 +89,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -105,17 +117,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
+        if (id == R.id.nav_main_page) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_friends) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_rank) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_exit) {
 
         }
 

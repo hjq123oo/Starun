@@ -7,4 +7,6 @@
     <color name="colorGrayCorner">#bfc1c2</color>
     <color name="colorAppToolbar">#000000</color>
     <color name="colorToolbarText">#ffffff</color>
+    <color name="colorNaviBackground">#363236</color>
+    <color name="colorNaviItenSelected">#262426</color>
 </resources>
