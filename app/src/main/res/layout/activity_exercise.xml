@@ -1,19 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.starun.www.starun.view.ExerciseActivity">
+
+    <include layout="@layout/toolbar_exercise"
+        android:id="@+id/toolbar_exercise_layout"/>
 
     <RelativeLayout
         android:id="@+id/display_rl"
         android:layout_width="290dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="290dp">
+        android:layout_height="290dp"
+        android:layout_below="@id/toolbar_exercise_layout">
 
         <RelativeLayout
-            android:visibility="visible"
+
             android:id="@+id/run_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,56 +40,24 @@
                 android:textSize="20sp"
                 android:layout_below="@id/run_tv"
                 android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/time_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="时间:2m30s"
-                android:textSize="20sp"
                 android:layout_below="@id/run_unit_tv"
-                android:layout_marginTop="10dp"/>
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="时间:"
+                    android:textSize="20dp"/>
+                <Chronometer
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/warmUp_rl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
-                android:textSize="17sp"
-                android:id="@+id/timer_tv"/>
-
-            <ImageView
-                android:id="@+id/warmdis_iv"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/warmupsample"
-                android:layout_below="@id/timer_tv"
-                android:layout_marginTop="5dp"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:id="@+id/warmup_title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/warmdis_iv"
-                android:textSize="17sp"
-                android:layout_marginTop="10dp"
-                android:text="压腿"
-                />
 
         </RelativeLayout>
 
@@ -96,76 +65,49 @@
 
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_below="@id/display_rl"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/run_btn_ll"
-        android:visibility="visible">
+        android:id="@+id/run_btn_ll">
 
         <Button
             android:id="@+id/run_start_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="start"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="left|center_vertical"
+            android:text="继续"
+            android:layout_marginLeft="80dp"
+            android:background="@drawable/circle_btn_shape"/>
         <Button
             android:id="@+id/run_pause_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Pause"/>
+            android:text="暂停"
+            android:background="@drawable/circle_btn_shape"/>
         <Button
             android:id="@+id/run_stop_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Stop"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="80dp"
+            android:text="停止"
+            android:background="@drawable/circle_btn_shape"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:layout_below="@id/display_rl"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:orientation="vertical"
-        android:id="@+id/warmup_btn_ll">
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="地图"-->
+        <!--android:id="@+id/map"-->
+        <!--android:layout_below="@+id/run_btn_ll"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:visibility="invisible" />-->
 
-        <Button
-            android:id="@+id/warmup_start_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="start"/>
-        <Button
-            android:id="@+id/warmup_pause_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Pause"/>
-        <Button
-            android:id="@+id/warmup_stop_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="Stop"/>
 
-    </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="地图"
-        android:id="@+id/map"
-        android:layout_below="@+id/run_btn_ll"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
 
 </RelativeLayout>

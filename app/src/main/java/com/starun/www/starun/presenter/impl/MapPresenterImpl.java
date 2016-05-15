@@ -57,9 +57,11 @@ public class MapPresenterImpl implements MapPresenter{
             //拿到进度，更新UI
             Bundle bundle = intent.getExtras();
             List<LatLng> pointList = bundle.getParcelableArrayList("pointList");
+            double distance = intent.getDoubleExtra("distance", 0) / 1000;
             if(null!=pointList&&0!=pointList.size()) {
                 baiduMapView.drawRealtimePoint(pointList);
             }
+            baiduMapView.showInfo(distance);
         }
     }
 }

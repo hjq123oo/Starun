@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
@@ -25,6 +26,8 @@ public class RegisterActivity extends Activity implements UserView{
     private EditText user_num = null;
     private EditText password1 = null;
     private EditText password2 = null;
+    private EditText nickname = null;
+    private ImageButton back = null;
     private UserPresenter userPresenter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +37,38 @@ public class RegisterActivity extends Activity implements UserView{
         user_num = (EditText)findViewById(R.id.user_num);
         password1 = (EditText)findViewById(R.id.password1);
         password2 = (EditText)findViewById(R.id.password2);
+        nickname = (EditText)findViewById(R.id.nickname);
+        back = (ImageButton)findViewById(R.id.re_back_login);
         userPresenter = new UserPresenterImpl(this);
 
         user_num.addTextChangedListener(textWatcher );
         password1.addTextChangedListener(textWatcher);
         password2.addTextChangedListener(textWatcher);
+        nickname.addTextChangedListener(textWatcher);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!password2.getText().equals(password1.getText())){
-                    Toast.makeText(getActivity(),"两次密码不同！",Toast.LENGTH_LONG).show();
+                if(!password2.getText().toString().equals(password1.getText().toString())){
+                    Toast.makeText(getActivity(),"请确定密码是否相同！",Toast.LENGTH_LONG).show();
                 }
                 else{
                     User user = new User();
                     user.setUsername(user_num.getText().toString());
                     user.setPassword(password1.getText().toString());
+                    user.setNickname(nickname.getText().toString());
                     userPresenter.register(user);
                 }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent();
+                login.setClass(RegisterActivity.this,LoginActivity.class);
+                startActivity(login);
             }
         });
     }
@@ -63,7 +80,8 @@ public class RegisterActivity extends Activity implements UserView{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!user_num.getText().equals("")&&!password1.getText().equals("")&&!password2.getText().equals("")){
+            String temp = user_num.getText().toString();
+            if(!user_num.getText().toString().equals("")&&!password1.getText().toString().equals("")&&!password2.getText().toString().equals("")&&!nickname.getText().toString().equals("")){
                 register.setEnabled(true);
             }
             else{
@@ -81,14 +99,17 @@ public class RegisterActivity extends Activity implements UserView{
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String msg) {
+        if("".equals(msg)){
+            Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
+        }
         Intent intent = new Intent();
         intent.setClass(RegisterActivity.this,LoginActivity.class);
         this.getActivity().startActivity(intent);
     }
 
     @Override
-    public void onFailure(String response) {
-        Toast.makeText(this.getActivity(),"注册失败，"+response,Toast.LENGTH_LONG).show();
+    public void onFailure() {
+        Toast.makeText(this.getActivity(),"注册失败，该用户已注册",Toast.LENGTH_LONG).show();
     }
 }

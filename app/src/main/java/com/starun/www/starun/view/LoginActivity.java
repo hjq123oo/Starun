@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
@@ -24,6 +25,7 @@ public class LoginActivity extends Activity implements UserView{
     private Button login = null;
     private EditText username = null;
     private EditText password = null;
+    private TextView toRegister = null;
     private UserPresenter userPresenter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class LoginActivity extends Activity implements UserView{
         login = (Button)findViewById(R.id.login);
         username = (EditText)findViewById(R.id.user_name);
         password = (EditText)findViewById(R.id.password);
+        toRegister = (TextView)findViewById(R.id.login_to_register);
         userPresenter = new UserPresenterImpl(this);
 
         username.addTextChangedListener(textWatcher );
@@ -42,8 +45,17 @@ public class LoginActivity extends Activity implements UserView{
             public void onClick(View v) {
                 User user = new User();
                 user.setUsername(username.getText().toString());
-                user.setPassword(username.getText().toString());
+                user.setPassword(password.getText().toString());
                 userPresenter.login(user);
+            }
+        });
+
+        toRegister.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent register = new Intent();
+                register.setClass(LoginActivity.this,RegisterActivity.class);
+                startActivity(register);
             }
         });
     }
@@ -55,7 +67,7 @@ public class LoginActivity extends Activity implements UserView{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!username.getText().equals("")&&!password.getText().equals("")){
+            if(!username.getText().toString().equals("")&&!password.getText().toString().equals("")){
                 login.setEnabled(true);
             }
             else{
@@ -73,14 +85,17 @@ public class LoginActivity extends Activity implements UserView{
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String msg) {
+        if("".equals(msg)){
+            Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
+        }
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this,ExerciseActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void onFailure(String response) {
+    public void onFailure() {
         Toast.makeText(this.getActivity(),"登陆失败，请确定用户名或密码是否正确",Toast.LENGTH_LONG).show();
     }
 }

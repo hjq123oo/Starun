@@ -17,4 +17,6 @@ public interface BaiduMapView {
     public void drawRealtimePoint(List<LatLng> pointList);
 
     public Activity getActivity();
+
+    public void showInfo(double distance);
 }
