@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.starun.www.starun.view.RunPlanMainFragment">
 
     <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
@@ -118,4 +119,13 @@
             android:background="@drawable/circle_btn_shape"/>
 
     </FrameLayout>
+
+    <fragment
+        android:id="@+id/music_fragment"
+        android:name="com.starun.www.starun.view.MusicFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/plan_run_btn_ll"
+        android:layout_marginTop="30dp"
+        />
 </RelativeLayout>

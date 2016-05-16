@@ -139,6 +139,11 @@ public class ExerciseActivity extends AppCompatActivity implements RunView,Music
     }
 
     @Override
+    public Chronometer getChronometer() {
+        return timer;
+    }
+
+    @Override
     public void onUpdateRunInfo(IRun run) {
         /**
          *   写界面的人在此补充方法

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RunPlanActivity extends FragmentActivity implements RunPlanMainFragment.OnFragmentInteractionListener,
-        RunPlanTipFragment.OnFragmentInteractionListener {
+        RunPlanTipFragment.OnFragmentInteractionListener,MusicFragment.OnFragmentInteractionListener {
     RunPlanPageAdapter pager = null;
     ArrayList<Fragment> fragments = null;
     ViewPager vp;
