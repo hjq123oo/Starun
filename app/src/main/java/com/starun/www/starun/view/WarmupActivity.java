@@ -72,6 +72,7 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
 
     @Override
     public void onUpdateWarmUpInfo(int progress, WarmUpData warmUpData) {
+        tv_CountDown.setText(progress+"");
         tv_Title.setText(warmUpData.getTitle());
         btn_Continue.setVisibility(View.INVISIBLE);
         btn_Pause.setVisibility(View.VISIBLE);

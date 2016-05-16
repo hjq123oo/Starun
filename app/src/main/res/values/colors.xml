@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFF</color>
+    <color name="colorPrimary">#eeeeee</color>
     <color name="colorText">#000</color>
     <color name="colorBlue">#2196f3</color>
     <color name="colorWhiteBackground">#FFF</color>
@@ -9,4 +9,5 @@
     <color name="colorToolbarText">#ffffff</color>
     <color name="colorNaviBackground">#363236</color>
     <color name="colorNaviItenSelected">#262426</color>
+    <color name="colorHorizontalRule">#c8c8c8</color>
 </resources>

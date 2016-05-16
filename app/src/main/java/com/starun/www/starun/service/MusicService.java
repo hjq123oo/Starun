@@ -119,6 +119,12 @@ public class MusicService extends Service {
      * 上一首
      */
     private void prev(){
+        current--;
+        if(current < 0) { //变为第一首的位置继续播放
+            current = mp3Infos.size() - 1;
+        }
+
+        path = mp3Infos.get(current).getUrl();
         play(0);
     }
 
@@ -126,7 +132,14 @@ public class MusicService extends Service {
      * 下一首
      */
     private void next(){
+        current++;
+        if(current > mp3Infos.size() - 1) { //变为第一首的位置继续播放
+            current = 0;
+        }
+
+        path = mp3Infos.get(current).getUrl();
         play(0);
+
     }
 
 

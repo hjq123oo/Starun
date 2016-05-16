@@ -3,6 +3,7 @@ package com.starun.www.starun.view;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.IdRes;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,7 @@ import com.starun.www.starun.presenter.impl.RunPresenterImpl;
 import com.starun.www.starun.pview.RunView;
 
 
-public class ExerciseActivity extends AppCompatActivity implements RunView{
+public class ExerciseActivity extends AppCompatActivity implements RunView,MusicFragment.OnFragmentInteractionListener{
 
     private RunPresenter runPresenter = null;
   //  private BottomBar mBottomBar;
@@ -105,7 +107,7 @@ public class ExerciseActivity extends AppCompatActivity implements RunView{
         start_btn.setOnClickListener(listener);
         stop_btn.setOnClickListener(listener);
         pause_btn.setOnClickListener(listener);
-        Button map = (Button)findViewById(R.id.map_btn);
+        ImageButton map = (ImageButton)findViewById(R.id.map_btn);
         map.setOnClickListener(listener);
         //动态注册广播接收器
         runPresenter.registerReceiver();
@@ -165,5 +167,10 @@ public class ExerciseActivity extends AppCompatActivity implements RunView{
          longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
         }
         return SystemClock.elapsedRealtime()-longTime;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

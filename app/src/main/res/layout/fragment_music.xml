@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,27 +6,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.starun.www.starun.view.MusicActivity"
-    android:background="#eeeeee">
+    android:background="@color/colorPrimary"
+    tools:context="com.starun.www.starun.view.MusicFragment">
+
+
+    <TextView
+        android:id="@+id/tv_hr"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorHorizontalRule">
+    </TextView>
+
 
     <LinearLayout
-        android:id="@+id/mainLayout"
+        android:id="@+id/music_ll"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="horizontal">
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/mainLayout"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_hr"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+
             android:orientation="vertical"
             android:layout_weight="2">
 
@@ -35,10 +39,10 @@
                 android:id="@+id/btn_music_prev"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="#eeeeee"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/music_prev"/>
 
         </LinearLayout>
@@ -53,9 +57,9 @@
                 android:id="@+id/btn_music_play"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="#eeeeee"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/music_play"/>
 
         </LinearLayout>
@@ -70,10 +74,10 @@
                 android:id="@+id/btn_music_next"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="#eeeeee"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/music_next"/>
         </LinearLayout>
 
@@ -81,21 +85,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+
+            android:layout_weight="2">
 
             <ImageButton
                 android:id="@+id/btn_music_menu"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginTop="20dp"
-                android:background="#eeeeee"
+                android:background="@color/colorPrimary"
                 android:src="@drawable/music_menu"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </RelativeLayout>
