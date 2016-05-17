@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
+import com.starun.www.starun.presenter.impl.RunPlanExecutionPresenterImpl;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +37,7 @@ public class RunPlanTipFragment extends Fragment {
 
     private View view;
     private TextView tipTextView;
+    private RunPlanExecutionPresenter runPlanExecutionPresenter;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -72,8 +75,11 @@ public class RunPlanTipFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_run_plan_tip, container, false);
         tipTextView = (TextView)view.findViewById(R.id.tv_plan_tip);
+        runPlanExecutionPresenter = ((RunPlanActivity)getActivity()).getRunPlanExecutionPresenter();
         return view;
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -116,6 +122,9 @@ public class RunPlanTipFragment extends Fragment {
 
 
     public void onUpdateTip(String tip){
-        tipTextView.setText(tip);
+        if(tip != null){
+            tipTextView.setText(tip);
+        }
+
     }
 }

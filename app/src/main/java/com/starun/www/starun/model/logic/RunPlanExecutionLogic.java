@@ -131,11 +131,11 @@ public class RunPlanExecutionLogic {
         if(moveState.equals("km")){
             iRunPlanExecution.setMovementState("跑步"+str+"公里");
         }else if(moveState.equals("run")){
-            iRunPlanExecution.setMovementState("跑步"+str+"分钟");
+            iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
             moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
         }else if(moveState.equals("walk")){
-            iRunPlanExecution.setMovementState("行走"+str+"分钟");
+            iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
             moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
         }
@@ -189,9 +189,9 @@ public class RunPlanExecutionLogic {
             String str = movement[1];
 
             if(moveState.equals("run")){
-                iRunPlanExecution.setMovementState("跑步"+str+"分钟");
+                iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
             }else if(moveState.equals("walk")){
-                iRunPlanExecution.setMovementState("行走"+str+"分钟");
+                iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
             }
 
 

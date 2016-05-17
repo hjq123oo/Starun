@@ -20,6 +20,11 @@ public interface RunPlanExecutionPresenter {
     void doTagFinish();
 
     /**
+     * 加载建议
+     */
+    void doLoadTip();
+
+    /**
      * 开始跑步计划
      */
     void doRunStart();
@@ -43,6 +48,7 @@ public interface RunPlanExecutionPresenter {
      * 注销广播
      */
     void unregisterReceiver();
+
 
 
 }

@@ -91,9 +91,11 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
         view = inflater.inflate(R.layout.fragment_run_plan_main, container, false);
         runPlanExecutionPresenter = ((RunPlanActivity)getActivity()).getRunPlanExecutionPresenter();
         init();
+        runPlanExecutionPresenter.doRunPrepare();
         return view;
 
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -144,6 +146,7 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
         start_btn.setVisibility(View.INVISIBLE);
         stop_btn.setVisibility(View.INVISIBLE);
         pause_btn.setVisibility(View.VISIBLE);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

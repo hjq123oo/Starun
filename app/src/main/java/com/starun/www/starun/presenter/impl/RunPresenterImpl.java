@@ -71,7 +71,7 @@ public class RunPresenterImpl implements RunPresenter {
         }else if (timeArry.length==3){//如果时间是HH:MM:SS格式
             longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
         }
-        return SystemClock.elapsedRealtime()-longTime;
+        return longTime;
     }
 
     /**

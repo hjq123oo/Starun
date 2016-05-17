@@ -110,8 +110,16 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
 
     @Override
     public void onWarmUpStop() {
-        Intent i = new Intent(WarmupActivity.this,ExerciseActivity.class);
-        startActivity(i);
-        finish();
+        String StartActivity = (String)getIntent ().getExtras().get("StartActivity");
+        if(StartActivity.equals("ExerciseActivity")){
+            Intent i = new Intent(WarmupActivity.this,ExerciseActivity.class);
+            startActivity(i);
+            finish();
+        }else if(StartActivity.equals("RunPlanActivity")){
+            Intent i = new Intent(WarmupActivity.this,RunPlanActivity.class);
+            startActivity(i);
+            finish();
+        }
+
     }
 }

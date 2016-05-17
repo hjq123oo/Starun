@@ -65,11 +65,6 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
             }
         });
 
-        runPlanExecutionPresenter.doRunPrepare();
-        runPlanExecutionPresenter.registerReceiver();
-
-
-
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_exercise);
        // init();
     }
@@ -85,6 +80,24 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
         pager = new RunPlanPageAdapter(getSupportFragmentManager(),fragments);
         vp = (ViewPager) findViewById(R.id.run_plan_viewpager);
         vp.setAdapter(pager);
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 1){
+                    runPlanExecutionPresenter.doLoadTip();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 //        adapter = new RunPlanPageAdapter(getSupportFragmentManager(),fragments);
 //        pager.setAdapter(adapter);
     }
@@ -93,6 +106,7 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 
     @Override
     protected void onDestroy() {
@@ -103,6 +117,7 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
     @Override
     protected void onResume() {
         super.onResume();
+
         //动态注册广播接收器
         runPlanExecutionPresenter.registerReceiver();
     }
@@ -125,7 +140,7 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
     }
 
     @Override
-    public void onShowRun(IRunPlanExecution iRunPlanExecution) {
+    public void onShowTip(IRunPlanExecution iRunPlanExecution) {
         runPlanTipFragment.onUpdateTip(iRunPlanExecution.getSuggestion());
 
     }
@@ -149,8 +164,6 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
 
     @Override
     public void onShowOptions(List<String> options) {
-
-
         alert = null;
         builder = new AlertDialog.Builder(RunPlanActivity.this);
         alert = builder.setTitle("选择运动方式")

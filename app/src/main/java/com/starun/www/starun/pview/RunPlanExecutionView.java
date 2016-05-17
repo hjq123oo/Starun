@@ -25,10 +25,10 @@ public interface RunPlanExecutionView {
     public abstract Chronometer getChronometer();
 
     /**
-     * 展示跑步界面
+     * 展示建议
      * @param iRunPlanExecution 视图逻辑交互数据
      */
-    public abstract void onShowRun(IRunPlanExecution iRunPlanExecution);
+    public abstract void onShowTip(IRunPlanExecution iRunPlanExecution);
 
     /**
      * 展示提示标签界面

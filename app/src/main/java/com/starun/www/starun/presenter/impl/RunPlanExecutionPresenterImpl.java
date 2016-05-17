@@ -42,7 +42,8 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         if(state == 1){
             runPlanExecutionLogic.startRun();
             //回调跑步界面
-            runPlanExecutionView.onShowRun(runPlanExecutionLogic.getIRunPlanExecution());
+
+            doRunStart();
         }else if(state == 2){
             //回调选项对话框
             runPlanExecutionView.onShowOptions(runPlanExecutionLogic.getRunOptions());
@@ -56,12 +57,16 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
     public void doRunOptionChose(int position) {
         runPlanExecutionLogic.chooseOption(position);
         runPlanExecutionLogic.startRun();
-        //回掉跑步界面
-        runPlanExecutionView.onShowRun(runPlanExecutionLogic.getIRunPlanExecution());
+
+
+        doRunStart();
     }
 
 
-
+    @Override
+    public void doLoadTip() {
+        runPlanExecutionView.onShowTip(runPlanExecutionLogic.getIRunPlanExecution());
+    }
 
     @Override
     public void doRunStart() {
@@ -146,7 +151,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         }else if (timeArry.length==3){//如果时间是HH:MM:SS格式
             longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
         }
-        return SystemClock.elapsedRealtime()-longTime;
+        return longTime;
     }
 
 
