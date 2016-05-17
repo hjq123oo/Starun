@@ -22,7 +22,7 @@ public class RunPresenterImpl implements RunPresenter {
     private MsgReceiver msgReceiver = null;
     private RunRecordDao runRecordDao = null;
     private RunRecord runRecord = new RunRecord();
-
+    private boolean isStart = false;
 
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
@@ -31,9 +31,17 @@ public class RunPresenterImpl implements RunPresenter {
 
     @Override
     public void doRunStart() {
-        runRecord.setStartTime(System.currentTimeMillis()/1000);
-        Intent service = new Intent(runView.getActivity(),TraceService.class);
-        runView.getActivity().startService(service);
+        if(isStart){
+            Intent service = new Intent(runView.getActivity(),TraceService.class);
+            runView.getActivity().startService(service);
+        }else{
+            isStart = true;
+            runRecord.setStartTime(System.currentTimeMillis() / 1000);
+            Intent service = new Intent(runView.getActivity(),TraceService.class);
+            runView.getActivity().startService(service);
+        }
+
+
     }
 
     @Override

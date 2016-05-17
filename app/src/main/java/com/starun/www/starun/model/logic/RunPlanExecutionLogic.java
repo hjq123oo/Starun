@@ -9,6 +9,7 @@ import com.starun.www.starun.model.data.RunPlanData;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.presenter.RunPlanPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,48 +33,93 @@ public class RunPlanExecutionLogic {
     private IRunPlanExecution iRunPlanExecution;
 
 
+    //带选项的跑步计划列表
+    List<RunPlanData> optionedRunPlanDatas = null;
+    //选项名列表
+    List<String>  optionList = null;
 
     public RunPlanExecutionLogic(Context context) {
         runPlanDao = new RunPlanDao(context);
         runPlanSharedPreferences = new RunPlanSharedPreferences(context);
 
-
     }
 
 
-
-
     /**
-     * 获取跑步计划类型
-     * @return true：当前计划代表跑步；false：当前计划代表提示文本
+     * 准备跑步计划
+     * @return 跑步计划类型
      */
-    public boolean isRun(){
-        if(runPlanData.getTagIndex() == 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * 开始计划
-     */
-    public void startPlan() {
+    public int preparePlan(){
         Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
         int runPlanId = (int) map.get("runPlanId");
         runPlanData = runPlanDao.getRunPlanData(runPlanId);
 
-        //当前计划为显示提示文本
-        if(runPlanData.getTagIndex() == 0){
-            return;
+        int state = getPlanState();
+
+        if(state == 2){
+            optionedRunPlanDatas = runPlanDao.getRunPlanDatasByWeek(runPlanData.getWeekIndex());
+
+            optionList = new ArrayList<String>();
+
+            int size = optionedRunPlanDatas.size();
+
+            for(int i=0;i<size;i++){
+                optionList.add(optionedRunPlanDatas.get(i).getOptionName());
+            }
+
         }
 
+        return state;
+    }
+
+    /**
+     * 得到跑步计划类型
+     * @return 1：跑步计划；2：带选项的跑步计划；3：跑步计划标签
+     */
+    private int getPlanState(){
+        if(runPlanData.getTagIndex() == 0){
+            if(runPlanData.getOptionIndex() == 0){
+                return 1;
+            }else{
+                return 2;
+            }
+        }else{
+            return 3;
+        }
+    }
+
+    /**
+     * 获取跑步选项
+     * @return 选项列表
+     */
+    public List<String> getRunOptions(){
+        return optionList;
+    }
+
+    /**
+     * 加载某一选项跑步计划
+     */
+    public void chooseOption(int position){
+        if(optionedRunPlanDatas != null){
+            runPlanData = optionedRunPlanDatas.get(position);
+        }
+
+    }
+
+
+    /**
+     * 开始跑步
+     */
+    public void startRun() {
+        Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
 
         //加载跑步计划
         int lessonIndex = (int) map.get("lessonIndex");
         String lessonPlan = runPlanData.getLessonPlan(lessonIndex);
         movements = lessonPlan.split(";");
         curMovementIndex = 0;
+
+        iRunPlanExecution = new IRunPlanExecution();
         iRunPlanExecution.setSuggestion(runPlanData.getDesc());
 
         movement = movements[curMovementIndex].split(",");
@@ -86,12 +132,15 @@ public class RunPlanExecutionLogic {
             iRunPlanExecution.setMovementState("跑步"+str+"公里");
         }else if(moveState.equals("run")){
             iRunPlanExecution.setMovementState("跑步"+str+"分钟");
+            moveTime = Integer.parseInt(str)*60*1000;
+            iRunPlanExecution.setTime(moveTime);
         }else if(moveState.equals("walk")){
             iRunPlanExecution.setMovementState("行走"+str+"分钟");
+            moveTime = Integer.parseInt(str)*60*1000;
+            iRunPlanExecution.setTime(moveTime);
         }
 
 
-        moveTime = Integer.parseInt(str)*60*1000;
     }
 
 
@@ -121,7 +170,10 @@ public class RunPlanExecutionLogic {
      * @return 运动状态 0:运动状态未改变;1:运动状态改变;2:运动结束
      */
     public int executePlan(long time){
-        if(time - lastTime >= moveTime){
+        //超过的时间
+        long restTime = time - lastTime - moveTime;
+
+        if(restTime >= 0){
             lastTime = lastTime+moveTime;
             curMovementIndex++;
 
@@ -142,9 +194,14 @@ public class RunPlanExecutionLogic {
                 iRunPlanExecution.setMovementState("行走"+str+"分钟");
             }
 
+
+
             moveTime = Integer.parseInt(str)*60*1000;
 
+            iRunPlanExecution.setTime(moveTime - restTime);
             return 1;
+        }else{
+            iRunPlanExecution.setTime(0-restTime);
         }
 
         return 0;
@@ -170,12 +227,18 @@ public class RunPlanExecutionLogic {
         float planPercentage = (float)map.get("planPercentage");
 
         //该跑步计划为提示文本时,存储下一个跑步计划id
-        if(runPlanData.getTagIndex() != 0){
+        if(getPlanState() == 3){
             runPlanSharedPreferences.setPlanSchedule(runPlanId+1,1,planPercentage);
         }else{
             //跑步计划执行到该周第三课时,存储下一个跑步计划id;否则,存储下一个跑步课程
             if(lessonIndex==3){
-                runPlanSharedPreferences.setPlanSchedule(runPlanId+1,1,calPlanPercentage(runPlanData.getWeekIndex(),lessonIndex));
+                //该跑步计划包含选项,跑步计划id+2
+                if(getPlanState() == 2){
+                    runPlanSharedPreferences.setPlanSchedule(runPlanId+2,1,calPlanPercentage(runPlanData.getWeekIndex(),lessonIndex));
+                }else{
+                    runPlanSharedPreferences.setPlanSchedule(runPlanId+1,1,calPlanPercentage(runPlanData.getWeekIndex(),lessonIndex));
+                }
+
             }else{
                 runPlanSharedPreferences.setPlanSchedule(runPlanId,lessonIndex+1,calPlanPercentage(runPlanData.getWeekIndex(),lessonIndex));
             }

@@ -5,6 +5,21 @@ package com.starun.www.starun.presenter;
  */
 public interface RunPlanExecutionPresenter {
     /**
+     * 准备跑步
+     */
+    void doRunPrepare();
+
+    /**
+     * 选择跑步选项
+     */
+    void doRunOptionChose(int position);
+
+    /**
+     *用户已了解Tag
+     */
+    void doTagFinish();
+
+    /**
      * 开始跑步计划
      */
     void doRunStart();
@@ -29,8 +44,5 @@ public interface RunPlanExecutionPresenter {
      */
     void unregisterReceiver();
 
-    /**
-     * 保存数据
-     */
-    void saveRunInfo();
+
 }

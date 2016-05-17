@@ -8,7 +8,7 @@ public class IRunPlanExecution {
     private String movementState;//运动状态
     private double kilometer;//已跑的公里数
     private String suggestion;//跑步建议
-    private String time;     //跑步倒计时
+    private long time;     //跑步倒计时
 
     public String getMovementState() {
         return movementState;
@@ -34,11 +34,11 @@ public class IRunPlanExecution {
         this.suggestion = suggestion;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 }
