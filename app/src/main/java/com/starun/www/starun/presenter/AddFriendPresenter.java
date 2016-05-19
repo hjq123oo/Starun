@@ -1,7 +1,5 @@
 package com.starun.www.starun.presenter;
 
-import android.app.Activity;
-
 /**
  * Created by yearsj on 2016/5/17.
  */
