@@ -219,6 +219,7 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
         Intent intent = new Intent(getActivity().getApplicationContext(), MapActivity.class);
         startActivity(intent);
         timer.stop();
+        getActivity().finish();
     }
 
     public void onUpdateInfo(IRunPlanExecution iRunPlanExecution) {

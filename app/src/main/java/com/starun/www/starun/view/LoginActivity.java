@@ -90,8 +90,9 @@ public class LoginActivity extends Activity implements UserView{
             Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
         }
         Intent intent = new Intent();
-        intent.setClass(LoginActivity.this,ExerciseActivity.class);
+        intent.setClass(LoginActivity.this,MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

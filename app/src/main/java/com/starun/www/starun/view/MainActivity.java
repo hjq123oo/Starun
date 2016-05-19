@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity
     //Button btnMainPage,btnFriends,btnRank,btnSetting,btnExit;
     Button planExercise;
     TextView dailyExercise;
+
+    TextView tvRunPlan;
+    TextView tvRunRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +57,30 @@ public class MainActivity extends AppCompatActivity
         tvTotalTime = (TextView) findViewById(R.id.tv_total_time);
         tvStage = (TextView) findViewById(R.id.tv_total_stage);
         tvNickName = (TextView) findViewById(R.id.tv_navi_nickname);
-        ivIcon = (CircleImageView) findViewById(R.id.civ_icon);
+        ivIcon = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.civ_icon);
 
         dailyExercise = (TextView) findViewById(R.id.tv_daily_exercise);
         planExercise = (Button) findViewById(R.id.plan_btn);
+
+        tvRunPlan =  (TextView) findViewById(R.id.tv_run_plan);
+        tvRunRecord =  (TextView) findViewById(R.id.tv_run_record);
+
+        tvRunPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,PlanActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvRunRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,RecordActivity.class);
+                startActivity(intent);
+            }
+        });
+
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -66,13 +91,13 @@ public class MainActivity extends AppCompatActivity
                         i = new Intent(MainActivity.this,WarmupActivity.class);
                         i.putExtra("StartActivity","ExerciseActivity");
                         startActivity(i);
-                        finish();
+                        //finish();
                         break;
                     case  R.id.plan_btn:
                         i = new Intent(MainActivity.this,WarmupActivity.class);
                         i.putExtra("StartActivity","RunPlanActivity");
                         startActivity(i);
-                        finish();
+                        //finish();
                         break;
 
                     default:
@@ -82,6 +107,8 @@ public class MainActivity extends AppCompatActivity
         };
         dailyExercise.setOnClickListener(listener);
         planExercise.setOnClickListener(listener);
+
+
     }
 
     @Override
@@ -89,9 +116,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+
         } else {
             super.onBackPressed();
+
         }
+
     }
 
 //    @Override
@@ -134,8 +164,13 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
 }

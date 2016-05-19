@@ -32,8 +32,8 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
 
         lv = (ListView) findViewById(R.id.record_lv);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("历史记录");
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setTitle("历史记录");
         
 
 

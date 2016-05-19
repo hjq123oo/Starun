@@ -11,7 +11,7 @@
         android:id="@+id/display_rl"
         android:layout_width="290dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="290dp"
+        android:layout_height="240dp"
         android:layout_below="@id/toolbar_exercise_layout">
 
         <RelativeLayout

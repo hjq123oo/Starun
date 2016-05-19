@@ -34,14 +34,13 @@
         <activity android:name=".view.MapActivity" >
         </activity>
         <activity android:name=".view.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".view.RegisterActivity" >
         </activity>
-
-        <activity
-            android:name=".view.RunRecordsActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- 百度鹰眼service组件 -->
         <service
@@ -71,10 +70,7 @@
             android:name=".view.MainActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".view.RunPlanActivity"
             android:theme="@style/AppTheme.NoActionBar">
