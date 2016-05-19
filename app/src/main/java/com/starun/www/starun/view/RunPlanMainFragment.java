@@ -17,6 +17,11 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.model.IRunPlanExecution;
+import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,10 +45,12 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
 
     private Activity mActivity;
     private AppCompatActivity mAppCompatActivity;
-    private TextView dis_tv = null,time_tv;
+    private TextView dis_tv = null,time_tv,plan_time_text_tv;
     private Button start_btn = null,stop_btn = null,pause_btn = null;
     private Chronometer timer;
     private View view;
+    RunPlanExecutionPresenter runPlanExecutionPresenter = null;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -82,10 +89,13 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
        // mActivity = getActivity();
 
         view = inflater.inflate(R.layout.fragment_run_plan_main, container, false);
+        runPlanExecutionPresenter = ((RunPlanActivity)getActivity()).getRunPlanExecutionPresenter();
         init();
+        runPlanExecutionPresenter.doRunPrepare();
         return view;
 
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -128,6 +138,7 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
     public void init(){
         dis_tv = (TextView)view.findViewById(R.id.plan_run_tv);
         time_tv = (TextView) view.findViewById(R.id.plan_time_tv);
+        plan_time_text_tv = (TextView)view.findViewById(R.id.plan_time_text_tv);
         start_btn = (Button)view.findViewById(R.id.plan_run_start_btn);
         pause_btn = (Button) view.findViewById(R.id.plan_run_pause_btn);
         stop_btn = (Button) view.findViewById(R.id.plan_run_stop_btn);
@@ -135,22 +146,16 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
         start_btn.setVisibility(View.INVISIBLE);
         stop_btn.setVisibility(View.INVISIBLE);
         pause_btn.setVisibility(View.VISIBLE);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.plan_run_start_btn:
-                        timer.setBase(convertStrTimeToLong(timer.getText().toString()));
-                        timer.start();
-                        start_btn.setVisibility(View.INVISIBLE);
-                        stop_btn.setVisibility(View.INVISIBLE);
-                        pause_btn.setVisibility(View.VISIBLE);
+                        runPlanExecutionPresenter.doRunStart();
                         break;
                     case R.id.plan_run_pause_btn:
-                        timer.stop();
-                        start_btn.setVisibility(View.VISIBLE);
-                        stop_btn.setVisibility(View.VISIBLE);
-                        pause_btn.setVisibility(View.INVISIBLE);
+                        runPlanExecutionPresenter.doRunPause();
                         break;
                     case R.id.plan_run_stop_btn://跳到地图界面
                         new AlertDialog.Builder(getActivity())
@@ -158,9 +163,8 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
                                 .setPositiveButton("结束", new DialogInterface.OnClickListener() {//添加确定按钮
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+                                        runPlanExecutionPresenter.doRunStop();
 
-                                        Intent intent = new Intent(getActivity().getApplicationContext(), MapActivity.class);
-                                        startActivity(intent);
                                     }
                                 }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮
                             @Override
@@ -189,5 +193,40 @@ public class RunPlanMainFragment extends android.support.v4.app.Fragment {
             longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
         }
         return SystemClock.elapsedRealtime()-longTime;
+    }
+
+    public Chronometer getChronometer(){
+        return timer;
+    }
+
+
+    public void onRunStart() {
+        timer.setBase(convertStrTimeToLong(timer.getText().toString()));
+        timer.start();
+        start_btn.setVisibility(View.INVISIBLE);
+        stop_btn.setVisibility(View.INVISIBLE);
+        pause_btn.setVisibility(View.VISIBLE);
+    }
+
+    public void onRunPause() {
+        timer.stop();
+        start_btn.setVisibility(View.VISIBLE);
+        stop_btn.setVisibility(View.VISIBLE);
+        pause_btn.setVisibility(View.INVISIBLE);
+    }
+
+    public void onRunStop() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), MapActivity.class);
+        startActivity(intent);
+        timer.stop();
+    }
+
+    public void onUpdateInfo(IRunPlanExecution iRunPlanExecution) {
+        dis_tv.setText(iRunPlanExecution.getKilometer()+"");
+        plan_time_text_tv.setText(iRunPlanExecution.getMovementState());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+        String dateFormatted = dateFormat.format(new Date(iRunPlanExecution.getTime()));
+        time_tv.setText(dateFormatted);
+
     }
 }

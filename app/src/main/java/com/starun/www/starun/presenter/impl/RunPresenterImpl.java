@@ -22,7 +22,7 @@ public class RunPresenterImpl implements RunPresenter {
     private MsgReceiver msgReceiver = null;
     private RunRecordDao runRecordDao = null;
     private RunRecord runRecord = new RunRecord();
-
+    private boolean isStart = false;
 
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
@@ -31,9 +31,17 @@ public class RunPresenterImpl implements RunPresenter {
 
     @Override
     public void doRunStart() {
-        runRecord.setStartTime(System.currentTimeMillis()/1000);
-        Intent service = new Intent(runView.getActivity(),TraceService.class);
-        runView.getActivity().startService(service);
+        if(isStart){
+            Intent service = new Intent(runView.getActivity(),TraceService.class);
+            runView.getActivity().startService(service);
+        }else{
+            isStart = true;
+            runRecord.setStartTime(System.currentTimeMillis() / 1000);
+            Intent service = new Intent(runView.getActivity(),TraceService.class);
+            runView.getActivity().startService(service);
+        }
+
+
     }
 
     @Override
@@ -63,7 +71,7 @@ public class RunPresenterImpl implements RunPresenter {
         }else if (timeArry.length==3){//如果时间是HH:MM:SS格式
             longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
         }
-        return SystemClock.elapsedRealtime()-longTime;
+        return longTime;
     }
 
     /**

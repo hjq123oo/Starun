@@ -34,6 +34,7 @@ public class ExerciseActivity extends AppCompatActivity implements RunView,Music
     private TextView dis_tv = null;
     private Button start_btn = null,stop_btn = null,pause_btn = null;
     private Chronometer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

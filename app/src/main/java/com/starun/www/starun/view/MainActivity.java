@@ -59,15 +59,20 @@ public class MainActivity extends AppCompatActivity
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent i = null;
                 switch (v.getId()){
 
                     case R.id.tv_daily_exercise:
-                        Intent i = new Intent(MainActivity.this,WarmupActivity.class);
+                        i = new Intent(MainActivity.this,WarmupActivity.class);
+                        i.putExtra("StartActivity","ExerciseActivity");
                         startActivity(i);
                         finish();
                         break;
                     case  R.id.plan_btn:
-
+                        i = new Intent(MainActivity.this,WarmupActivity.class);
+                        i.putExtra("StartActivity","RunPlanActivity");
+                        startActivity(i);
+                        finish();
                         break;
 
                     default:

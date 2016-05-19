@@ -38,6 +38,7 @@ public class RunPlanDao {
             runPlanData.setRunPlanId(runPlanId);
             runPlanData.setTitle(cursor.getString(cursor.getColumnIndex(("title"))));
             runPlanData.setWeekIndex(cursor.getInt(cursor.getColumnIndex("week_index")));
+            runPlanData.setTagIndex(cursor.getInt(cursor.getColumnIndex("tag_index")));
             runPlanData.setOptionIndex(cursor.getInt(cursor.getColumnIndex("option_index")));
             runPlanData.setOptionName(cursor.getString(cursor.getColumnIndex("option_name")));
             runPlanData.setLessonOne(cursor.getString(cursor.getColumnIndex("lesson_one")));
@@ -76,6 +77,7 @@ public class RunPlanDao {
             RunPlanData runPlanData = new RunPlanData();
             runPlanData.setRunPlanId(cursor.getInt(cursor.getColumnIndex("run_plan_id")));
             runPlanData.setTitle(cursor.getString(cursor.getColumnIndex(("title"))));
+            runPlanData.setTagIndex(cursor.getInt(cursor.getColumnIndex("tag_index")));
             runPlanData.setWeekIndex(cursor.getInt(cursor.getColumnIndex("week_index")));
             runPlanData.setOptionIndex(cursor.getInt(cursor.getColumnIndex("option_index")));
             runPlanData.setOptionName(cursor.getString(cursor.getColumnIndex("option_name")));
@@ -107,6 +109,7 @@ public class RunPlanDao {
             runPlanData = new RunPlanData();
             runPlanData.setRunPlanId(cursor.getInt(cursor.getColumnIndex("run_plan_id")));
             runPlanData.setTitle(cursor.getString(cursor.getColumnIndex(("title"))));
+            runPlanData.setTagIndex(cursor.getInt(cursor.getColumnIndex("tag_index")));
             runPlanData.setWeekIndex(cursor.getInt(cursor.getColumnIndex("week_index")));
             runPlanData.setOptionIndex(cursor.getInt(cursor.getColumnIndex("option_index")));
             runPlanData.setOptionName(cursor.getString(cursor.getColumnIndex("option_name")));

@@ -130,11 +130,11 @@ public class RunPlanData {
     public String getLessonPlan(int lessonIndex) {
         switch (lessonIndex) {
             case 1:
-                return getLessonOne();
+                return getLessonOnePlan();
             case 2:
-                return getLessonTwo();
+                return getLessonTwoPlan();
             case 3:
-                return getLessonThree();
+                return getLessonThreePlan();
             default:
                 return null;
         }
