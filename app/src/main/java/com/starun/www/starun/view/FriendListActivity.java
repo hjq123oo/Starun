@@ -1,5 +1,6 @@
 package com.starun.www.starun.view;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -73,6 +74,14 @@ public class FriendListActivity extends FragmentActivity {
         @Override
         public void onClick(View v){
             mViewPager.setCurrentItem(index);
+            if(0 == index){
+                planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
+                dailyList.setBackgroundResource(R.drawable.tab_btn_unclick);
+            }
+            else{
+                planList.setBackgroundResource(R.drawable.tab_btn_unclick);
+                dailyList.setBackgroundResource(R.drawable.tab_btn_onclicked);
+            }
         }
     }
 }
