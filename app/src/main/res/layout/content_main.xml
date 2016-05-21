@@ -58,12 +58,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
+                    android:textSize="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/tv_total_time"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorTextviewContent"
                     android:text="累计时长"/>
             </LinearLayout>
             <LinearLayout
@@ -81,11 +84,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="25dp"
                     android:text="3"
                     android:id="@+id/tv_total_stage"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorTextviewContent"
                     android:text="运动阶段"/>
             </LinearLayout>
         </LinearLayout>
@@ -110,6 +116,7 @@
         android:layout_below="@id/plan_btn"
         android:id="@+id/tv_daily_exercise"
         android:layout_centerVertical="true"
+        android:textColor="@color/colorDailyButtom"
         android:layout_centerHorizontal="true" />
 
 
