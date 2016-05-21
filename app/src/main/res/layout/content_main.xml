@@ -7,6 +7,8 @@
     tools:context="com.starun.www.starun.view.MainActivity"
     android:background="@drawable/activity_main1">
 
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,6 +112,27 @@
         android:layout_centerHorizontal="true" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跑步计划"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/tv_daily_exercise"
+        android:id="@+id/tv_run_plan"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跑步记录"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_daily_exercise"
+        android:id="@+id/tv_run_record"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
 
 
 </RelativeLayout>

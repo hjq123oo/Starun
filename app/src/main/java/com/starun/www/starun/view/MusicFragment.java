@@ -253,6 +253,7 @@ public class MusicFragment extends Fragment implements MusicView{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
+            musicPopWindow.dismiss();
             musicPresenter.doMusicPlayByPosition(position);
 
         }

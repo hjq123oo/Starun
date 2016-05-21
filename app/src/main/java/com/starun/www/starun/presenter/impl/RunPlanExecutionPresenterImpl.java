@@ -131,9 +131,8 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
                 runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());
             }else if(state == 2){
                 //回调运动结束
-                runRecord.setRunTime(convertStrTimeToLong(chronometer.getText().toString()));
                 runPlanExecutionLogic.finishPlan();
-                saveRunInfo();
+                doRunStop();
             }
 
 

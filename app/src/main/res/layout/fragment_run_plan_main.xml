@@ -14,7 +14,7 @@
         android:id="@+id/plan_display_rl"
         android:layout_width="290dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="290dp">
+        android:layout_height="240dp">
 
         <RelativeLayout
 

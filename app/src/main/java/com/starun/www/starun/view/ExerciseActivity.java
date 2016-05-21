@@ -88,6 +88,7 @@ public class ExerciseActivity extends AppCompatActivity implements RunView,Music
                                         runPresenter.saveRunInfo();
                                         Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮
                                     @Override
