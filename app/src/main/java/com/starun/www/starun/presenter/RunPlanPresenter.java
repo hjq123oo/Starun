@@ -10,11 +10,12 @@ import java.lang.annotation.RetentionPolicy;
  */
 public interface RunPlanPresenter {
 
-    @IntDef({RUN_PLAN, CHECK})
+    @IntDef({RUN_PLAN, CHECK,PRINCIPLE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface RUN_TAG_TYPE {}
     public static final int RUN_PLAN = 1;
     public static final int CHECK = 2;
+    public static final int PRINCIPLE = -1;
 
     void doLoadRunPlan(int week); //这个是load第几周的
     void doLoadTag(@RUN_TAG_TYPE int type);

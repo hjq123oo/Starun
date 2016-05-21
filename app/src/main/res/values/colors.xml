@@ -9,4 +9,7 @@
     <color name="colorToolbarText">#ffffff</color>
     <color name="colorTextviewContent">#9e9b9e</color>
     <color name="colorDailyButtom">#5e5d5e</color>
+    <color name="colorNaviBackground">#363236</color>
+    <color name="colorNaviItenSelected">#262426</color>
+    <color name="colorHorizontalRule">#c8c8c8</color>
 </resources>

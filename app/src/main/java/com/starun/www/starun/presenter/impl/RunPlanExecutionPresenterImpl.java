@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.SystemClock;
 import android.widget.Chronometer;
 
 import com.starun.www.starun.dao.RunRecordDao;
@@ -11,6 +12,7 @@ import com.starun.www.starun.model.data.RunRecord;
 import com.starun.www.starun.model.logic.RunPlanExecutionLogic;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.pview.RunPlanExecutionView;
+import com.starun.www.starun.service.TraceService;
 
 
 /**
@@ -25,68 +27,130 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
     private MsgReceiver msgReceiver = null;
     private RunRecordDao runRecordDao = null;
     private RunRecord runRecord = new RunRecord();
+    private boolean isStart = false;
 
     public RunPlanExecutionPresenterImpl(RunPlanExecutionView runPlanExecutionView){
         this.runPlanExecutionView = runPlanExecutionView;
-        chronometer = this.runPlanExecutionView.getChronometer();
 
         runPlanExecutionLogic = new RunPlanExecutionLogic(runPlanExecutionView.getActivity());
     }
 
 
     @Override
-    public void doRunStart() {
-        runPlanExecutionLogic.startPlan();
+    public void doRunPrepare() {
+        int state = runPlanExecutionLogic.preparePlan();
+        if(state == 1){
+            runPlanExecutionLogic.startRun();
+            //回调跑步界面
 
-        if(!runPlanExecutionLogic.isRun()){
+            doRunStart();
+        }else if(state == 2){
+            //回调选项对话框
+            runPlanExecutionView.onShowOptions(runPlanExecutionLogic.getRunOptions());
+        }else if(state == 3){
             //回调提示对话框
-            runPlanExecutionLogic.getRunPlanData().getDesc();
+            runPlanExecutionView.onShowTag(runPlanExecutionLogic.getRunPlanData().getTitle(),runPlanExecutionLogic.getRunPlanData().getDesc());
+        }
+    }
+
+    @Override
+    public void doRunOptionChose(int position) {
+        runPlanExecutionLogic.chooseOption(position);
+        runPlanExecutionLogic.startRun();
 
 
-            runPlanExecutionLogic.finishPlan();
+        doRunStart();
+    }
+
+
+    @Override
+    public void doLoadTip() {
+        runPlanExecutionView.onShowTip(runPlanExecutionLogic.getIRunPlanExecution());
+    }
+
+    @Override
+    public void doRunStart() {
+        if(isStart){
+            Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
+            runPlanExecutionView.getActivity().startService(service);
         }else{
+            isStart = true;
+            chronometer = runPlanExecutionView.getChronometer();
             chronometer.setOnChronometerTickListener(new MyOnChronometerTickListener());
-            runRecord.setStartTime(System.currentTimeMillis()/1000);
-            //Intent service = new Intent(runView.getActivity(),TraceService.class);
-            //runView.getActivity().startService(service);
+            runRecord.setStartTime(System.currentTimeMillis() / 1000);
+            Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
+            runPlanExecutionView.getActivity().startService(service);
         }
 
+        //回调跑步开始
+        runPlanExecutionView.onRunStart();
     }
 
     @Override
     public void doRunPause() {
         //暂停service
-        //Intent service = new Intent(runView.getActivity(),TraceService.class);
-        //runView.getActivity().stopService(service);
+        Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
+        runPlanExecutionView.getActivity().stopService(service);
+
+        //回调跑步暂停
+        runPlanExecutionView.onRunPause();
     }
 
     @Override
     public void doRunStop() {
         //停止service
         runRecord.setEndTime(System.currentTimeMillis()/1000);
-        //Intent service = new Intent(runView.getActivity(),TraceService.class);
-        //runView.getActivity().stopService(service);
+        runRecord.setRunTime(convertStrTimeToLong(chronometer.getText().toString()));
+        Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
+        runPlanExecutionView.getActivity().stopService(service);
+        saveRunInfo();
+
+        //回调跑步结束
+        runPlanExecutionView.onRunStop();
     }
+
+    @Override
+    public void doTagFinish() {
+        runPlanExecutionLogic.finishPlan();
+    }
+
 
     class MyOnChronometerTickListener implements Chronometer.OnChronometerTickListener{
 
         @Override
         public void onChronometerTick(Chronometer chronometer) {
             //获取计时器时间
-            long time = 0;
+            long time = convertStrTimeToLong(chronometer.getText().toString());
 
             int state = runPlanExecutionLogic.executePlan(time);
-            if(state == 1){
+            if(state == 0){
+                //时间改变
+                runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());
+            }else if(state == 1){
                 //回调运动状态改变
+                runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());
             }else if(state == 2){
-                chronometer.stop();
+                //回调运动结束
                 runPlanExecutionLogic.finishPlan();
-
+                doRunStop();
             }
 
 
 
         }
+    }
+
+
+    private long convertStrTimeToLong(String strTime) {
+        // TODO Auto-generated method stub
+        String []timeArry=strTime.split(":");
+        long longTime=0;
+        if (timeArry.length==2) {//如果时间是MM:SS格式
+            longTime=Integer.parseInt(timeArry[0])*1000*60+Integer.parseInt(timeArry[1])*1000;
+        }else if (timeArry.length==3){//如果时间是HH:MM:SS格式
+            longTime=Integer.parseInt(timeArry[0])*1000*60*60+Integer.parseInt(timeArry[1]) *1000*60+Integer.parseInt(timeArry[0])*1000;
+        }
+        return longTime;
     }
 
 
@@ -106,7 +170,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
 
             runPlanExecutionLogic.getIRunPlanExecution().setKilometer(distance);
             //回调更新
-
+            runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());
         }
     }
 
@@ -118,7 +182,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             msgReceiver = new MsgReceiver();
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("com.starun.www.starun.DISTANCE");
-            //runView.getActivity().registerReceiver(msgReceiver, intentFilter);
+            runPlanExecutionView.getActivity().registerReceiver(msgReceiver, intentFilter);
         }
     }
 
@@ -127,15 +191,17 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
      */
     public void unregisterReceiver(){
         if(null!=msgReceiver){
-            //runView.getActivity().unregisterReceiver(msgReceiver);
-            //msgReceiver = null;
+            runPlanExecutionView.getActivity().unregisterReceiver(msgReceiver);
+            msgReceiver = null;
         }
     }
 
-    @Override
-    public void saveRunInfo() {
+
+    private void saveRunInfo() {
         if(null!=runRecord.getTraceEntity())
             runRecordDao.addRunRecord(runRecord);
 
     }
+
+
 }

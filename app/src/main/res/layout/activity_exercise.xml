@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     tools:context="com.starun.www.starun.view.ExerciseActivity">
 
     <include layout="@layout/toolbar_exercise"
@@ -10,7 +11,7 @@
         android:id="@+id/display_rl"
         android:layout_width="290dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="290dp"
+        android:layout_height="240dp"
         android:layout_below="@id/toolbar_exercise_layout">
 
         <RelativeLayout
@@ -107,7 +108,13 @@
         <!--android:layout_centerHorizontal="true"-->
         <!--android:visibility="invisible" />-->
 
-
-
+    <fragment
+        android:id="@+id/music_fragment"
+        android:name="com.starun.www.starun.view.MusicFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/run_btn_ll"
+        android:layout_marginTop="30dp"
+        />
 
 </RelativeLayout>

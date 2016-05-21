@@ -38,7 +38,13 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题1", "要领1", R.drawable.warm_up_1, null
+                        "胸大肌伸展",
+                        "两手放置背后，十指交扣。\n" +
+                        "双手向外延展，放置于背后，两手交迭，十指相交扣，抬头挺胸，背杆打直。\n" +
+                        "双手从背后交迭，向上拉举。\n" +
+                        "两手交迭后，将手缓慢地往上抬举，身体向后伸展，背部维持平行直线，此动作维持30秒，加强胸部的扩胸伸展。",
+                        R.drawable.warm_up_1,
+                        null
                 });
 
         db.execSQL("INSERT INTO warm_up(" +
@@ -49,31 +55,11 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题2", "要领2", R.drawable.warm_up_2, null
-                });
-
-
-        db.execSQL("INSERT INTO warm_up(" +
-                        "title," +
-                        "gist," +
-                        "img_id," +
-                        "sound_id" +
-                        ") " +
-                        "VALUES (?,?,?,?)",
-                new Object[]{
-                        "标题3", "要领3", R.drawable.warm_up_3, null
-                });
-
-
-        db.execSQL("INSERT INTO warm_up(" +
-                        "title," +
-                        "gist," +
-                        "img_id," +
-                        "sound_id" +
-                        ") " +
-                        "VALUES (?,?,?,?)",
-                new Object[]{
-                        "标题4", "要领4", R.drawable.warm_up_4, null
+                        "股四头肌伸展",
+                        "单脚站立，另一脚向后举起。\n" +
+                                "右脚站立，左脚向后抬起，将脚贴近臀部，用左手勾住左边脚踝，动作维持30秒，以相互轮替方式，换脚进行，伸展大腿肌群。",
+                        R.drawable.warm_up_2,
+                        null
                 });
 
 
@@ -85,7 +71,13 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题5", "要领5", R.drawable.warm_up_5, null
+                        "弓箭步蹲",
+                        "脚向前跨步，膝盖维持90度角。\n" +
+                                "左脚向前跨一步，膝盖弯曲呈90度。右脚膝盖打直，让腿部保持一直线，脚掌完全贴住地面。\n" +
+                                "上半身挺直，身体下压，进行腿部的延展。\n" +
+                                "双手放置于前脚膝盖上，后脚打直，保持上半身抬头挺胸，动作维持30秒，两脚相互轮替进行伸展，拉动小腿、大腿后侧肌群。",
+                        R.drawable.warm_up_3,
+                        null
                 });
 
 
@@ -97,7 +89,11 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题6", "要领6", R.drawable.warm_up_6, null
+                        "手臂伸展",
+                        "单手平举，另一手弯曲勾住平举之手。\n" +
+                                "左手平举，右手肘弯曲，并以右 手从左手下方勾起， 往对侧拉 (左边)，动作维持30秒，双手 交换进行，伸展手臂肌群。",
+                        R.drawable.warm_up_4,
+                        null
                 });
 
 
@@ -109,7 +105,13 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题7", "要领7", R.drawable.warm_up_7, null
+                        "脊柱扭转",
+                        "双手平行抬举，将手与身体进行同方向摆动。\n" +
+                                "两脚张开与肩同宽，双手平行向上伸直，将手与身体同时进行摆动，身体与手的方向要同一侧。\n" +
+                                "动作重复交叉。\n" +
+                                "两手和身体向左边 进行转动后，再摆 动到另一侧，此动 作重复交叉实行， 来回共进行2 分 钟，可让身体温度 提高，伸展腰部。",
+                        R.drawable.warm_up_5,
+                        null
                 });
 
 
@@ -121,19 +123,15 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                         ") " +
                         "VALUES (?,?,?,?)",
                 new Object[]{
-                        "标题8", "要领8", R.drawable.warm_up_8, null
+                        "空手跳绳", "双手握拳，想象手握跳绳。\n" +
+                        "想象你手中握有跳绳，双手握拳，向两侧举起。单脚站立，以金鸡独立方式，维持全身平衡感。\n" +
+                        "进行单脚或双脚交叉的跳绳动作。\n" +
+                        "双脚向上跳跃时，两手跟着往上摆动，呈现跳绳姿态，如果手边有跳绳，不妨直接运用在此伸展操中，进行30-50下跳跃。此招以跳动姿势和手脚协调动作，来活动全身，达到暖身效果。",
+                        R.drawable.warm_up_6,
+                        null
                 });
 
-        db.execSQL("INSERT INTO warm_up(" +
-                        "title," +
-                        "gist," +
-                        "img_id," +
-                        "sound_id" +
-                        ") " +
-                        "VALUES (?,?,?,?)",
-                new Object[]{
-                        "标题9", "要领9", R.drawable.warm_up_9, null
-                });
+
 
         db.execSQL("CREATE TABLE \"run_plan\" (\n" +
                 "\"run_plan_id\"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
@@ -152,7 +150,7 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
                 ");");
 
 
-        db.execSQL("INSERT INTO \"run_plan\" VALUES (1, '计划简介', 1, 0, 0, null, null, null, null, null, null, null, '一旦你准备开始一项锻炼计划，就需要记住3个锻炼原则：适度、一致和休息。这些原则非常简单，如果让它们伴随着你的生活，你会发现，选择过积极的生活将会比选择那种慵懒的经久不动的生活要愉快得多。你也将走向一条很长的不会受伤的路，让你少走数月甚至数年的弯路。\n" +
+        db.execSQL("INSERT INTO \"run_plan\" VALUES (1, '锻炼原则', 1, 0, 0, null, null, null, null, null, null, null, '一旦你准备开始一项锻炼计划，就需要记住3个锻炼原则：适度、一致和休息。这些原则非常简单，如果让它们伴随着你的生活，你会发现，选择过积极的生活将会比选择那种慵懒的经久不动的生活要愉快得多。你也将走向一条很长的不会受伤的路，让你少走数月甚至数年的弯路。\n" +
                 "当然，让这3个原则伴随着你的生活并不一定会让你完全不受伤或感到疼痛。但是，这些原则可以帮助你更容易达到健身方面更高的层次，这是通过让你的身体担负适量的压力来实现的。 \n" +
                 "\n" +
                 "原则1：适度\n" +

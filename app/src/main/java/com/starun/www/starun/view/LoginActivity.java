@@ -67,7 +67,7 @@ public class LoginActivity extends Activity implements UserView{
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if(!username.getText().equals("")&&!password.getText().equals("")){
+            if(!username.getText().toString().equals("")&&!password.getText().toString().equals("")){
                 login.setEnabled(true);
             }
             else{
@@ -85,14 +85,18 @@ public class LoginActivity extends Activity implements UserView{
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(String msg) {
+        if("".equals(msg)){
+            Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
+        }
         Intent intent = new Intent();
-        intent.setClass(LoginActivity.this,ExerciseActivity.class);
+        intent.setClass(LoginActivity.this,MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
-    public void onFailure(String response) {
+    public void onFailure() {
         Toast.makeText(this.getActivity(),"登陆失败，请确定用户名或密码是否正确",Toast.LENGTH_LONG).show();
     }
 }
