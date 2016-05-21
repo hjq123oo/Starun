@@ -9,6 +9,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.FriendOrRankListPresenter;
+import com.starun.www.starun.presenter.impl.FriendOrRankListPresenterImpl;
+import com.starun.www.starun.pview.FriendOrRankListView;
+import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.customview.UserAdapter;
 
@@ -18,7 +22,7 @@ import java.util.List;
 /**
  * Created by yearsj on 2016/5/20.
  */
-public class PlanFragment  extends BaseFragment {
+public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
     //标志位，标志已经初始化完成
     private boolean isPrepared;
     //是否已被加载过一次，第二次就不再去请求数据了
@@ -26,38 +30,19 @@ public class PlanFragment  extends BaseFragment {
 
     private UserAdapter userAdapter = null;
     private ListView listView = null;
-    private List<User> userList = null;
+    //private List<User> userList = null;
 
     private View view = null;
+
+    private FriendOrRankListPresenter friendOrRankListPresenter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan,container, false);
+        friendOrRankListPresenter = new FriendOrRankListPresenterImpl(this,false);
         isPrepared = true;
         lazyLoad();
         return view;
-    }
-
-    private void initView(){
-        listView = (ListView)view.findViewById(R.id.user_list_view);
-        userList = new ArrayList<User>();
-
-        User user1 = new User();
-        user1.setUser_id(1);
-        user1.setUsername("yearsj");
-        User user2 = new User();
-        user2.setUser_id(2);
-        user2.setUsername("rr");
-        User user3 = new User();
-        user3.setUser_id(3);
-        user3.setUsername("xx");
-
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
-
-        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),userList);
-        listView.setAdapter(userAdapter);
     }
 
     //刷新界面
@@ -84,7 +69,7 @@ public class PlanFragment  extends BaseFragment {
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    initView();
+                    friendOrRankListPresenter.showListForPlan(user_id);
                     refreshData();
                     mHasLoadedOnce = true;
                 } else {
@@ -106,5 +91,25 @@ public class PlanFragment  extends BaseFragment {
                 return true;
             }
         }.execute();
+    }
+
+    @Override
+    public void showListForPlan(List<User> users) {
+        listView = (ListView)view.findViewById(R.id.user_list_view);
+        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users);
+        listView.setAdapter(userAdapter);
+    }
+
+    @Override
+    public void showListForDaily(List<User> users) {}
+
+    @Override
+    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend) {
+
+    }
+
+    @Override
+    public void showError() {
+
     }
 }
