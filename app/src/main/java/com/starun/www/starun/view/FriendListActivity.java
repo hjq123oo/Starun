@@ -1,5 +1,6 @@
 package com.starun.www.starun.view;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.FriendOrRankListPresenter;
+import com.starun.www.starun.presenter.impl.FriendOrRankListPresenterImpl;
+import com.starun.www.starun.pview.FriendOrRankListView;
+import com.starun.www.starun.server.data.RunTotalInfo;
+import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.customview.MyFragmentAdapter;
 import com.starun.www.starun.view.fragment.DailyFragment;
 import com.starun.www.starun.view.fragment.PlanFragment;
@@ -39,11 +45,12 @@ public class FriendListActivity extends FragmentActivity {
         fragments.add(new DailyFragment());
         mViewPager.setAdapter(new MyFragmentAdapter(this.getSupportFragmentManager(), fragments));
         mViewPager.setCurrentItem(0);
-        mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         planList = (Button)findViewById(R.id.plan_btn_list);
         planList.setOnClickListener(new ClickListener(0));
+        planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
         dailyList = (Button)findViewById(R.id.daily_btn_list);
         dailyList.setOnClickListener(new ClickListener(1));
+        mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
     }
 
     /**
@@ -60,6 +67,14 @@ public class FriendListActivity extends FragmentActivity {
         @Override
         public void onPageSelected(int arg0) {
             // TODO Auto-generated method stub
+            if(0 == arg0){
+                planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
+                dailyList.setBackgroundResource(R.drawable.tab_btn_unclick);
+            }
+            else{
+                planList.setBackgroundResource(R.drawable.tab_btn_unclick);
+                dailyList.setBackgroundResource(R.drawable.tab_btn_onclicked);
+            }
         }
     }
 
@@ -74,14 +89,6 @@ public class FriendListActivity extends FragmentActivity {
         @Override
         public void onClick(View v){
             mViewPager.setCurrentItem(index);
-            if(0 == index){
-                planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
-                dailyList.setBackgroundResource(R.drawable.tab_btn_unclick);
-            }
-            else{
-                planList.setBackgroundResource(R.drawable.tab_btn_unclick);
-                dailyList.setBackgroundResource(R.drawable.tab_btn_onclicked);
-            }
         }
     }
 }

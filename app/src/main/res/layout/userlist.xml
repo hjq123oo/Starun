@@ -23,7 +23,7 @@
             android:id="@+id/tex_name"
             android:text="sun"
             android:textSize="20sp"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorNaviBackground"
             android:layout_alignParentTop="true"/>
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_alignParentRight="true"
         android:text="1"
         android:textSize="25sp"
-        android:textColor="@color/colorGrayCorner"/>
+        android:textColor="@color/colorText"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,5 +53,5 @@
         android:layout_toLeftOf="@id/text_rank"
         android:layout_centerVertical="true"
         android:textSize="25sp"
-        android:textColor="@color/colorGrayCorner"/>
+        android:textColor="@color/colorText"/>
 </RelativeLayout>
