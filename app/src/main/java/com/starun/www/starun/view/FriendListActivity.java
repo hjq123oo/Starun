@@ -1,6 +1,7 @@
 package com.starun.www.starun.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.presenter.FriendOrRankListPresenter;
@@ -30,6 +32,8 @@ public class FriendListActivity extends FragmentActivity {
     private List<Fragment>  fragments;
     private Button planList;
     private Button dailyList;
+    private ImageView more;
+    private ImageView addFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,23 @@ public class FriendListActivity extends FragmentActivity {
         dailyList = (Button)findViewById(R.id.daily_btn_list);
         dailyList.setOnClickListener(new ClickListener(1));
         mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+
+        more = (ImageView)findViewById(R.id.more);
+        addFriend = (ImageView)findViewById(R.id.add_friend);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(FriendListActivity.this,MainActivity.class);
+//                startActivity(intent);
+            }
+        });
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //进入添加好友的界面
+            }
+        });
     }
 
     /**
