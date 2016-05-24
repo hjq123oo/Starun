@@ -18,12 +18,13 @@ import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.customview.UserAdapter;
+
 import java.util.List;
 
 /**
  * Created by yearsj on 2016/5/20.
  */
-public class RankPlanFragment  extends BaseFragment implements FriendOrRankListView{
+public class RankDailyFragment extends BaseFragment implements FriendOrRankListView{
     //标志位，标志已经初始化完成
     private boolean isPrepared;
     //是否已被加载过一次，第二次就不再去请求数据了
@@ -38,12 +39,12 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
     private TextView no2 = null;
     private TextView no3 = null;
 
-    public static final RankPlanFragment newInstance(Boolean rank){
-        RankPlanFragment rankPlanFragment = new RankPlanFragment();
+    public static final RankDailyFragment newInstance(Boolean rank){
+        RankDailyFragment rankDailyFragment = new RankDailyFragment();
         Bundle bd = new Bundle();
         bd.putBoolean("rank",rank);
-        rankPlanFragment.setArguments(bd);
-        return rankPlanFragment;
+        rankDailyFragment.setArguments(bd);
+        return rankDailyFragment;
     }
 
     @Override
@@ -87,12 +88,12 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    friendOrRankListPresenter.showListForPlanRank();
+                    friendOrRankListPresenter.showListForDailyRank();
                     refreshData();
                     mHasLoadedOnce = true;
                 } else {
                     // 加载失败
-                    Log.i("RankPlanFragment", "加载失败");
+                    Log.i("RankDailyFragment", "加载失败");
                 }
                 //关闭对话框
                 // UIHelper.hideDialogForLoading();

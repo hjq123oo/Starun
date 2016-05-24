@@ -37,8 +37,10 @@ public class ConnectUtil {
             conn.setConnectTimeout(3 * 1000);
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            outputStream = conn.getOutputStream();
-            outputStream.write(message.getBytes("UTF-8"));
+            if(null!=message){
+                outputStream = conn.getOutputStream();
+                outputStream.write(message.getBytes("UTF-8"));
+            }
             if(SUCCESS == conn.getResponseCode()){
                 inputStream = conn.getInputStream();
                 result = StringUtil.readString(inputStream);

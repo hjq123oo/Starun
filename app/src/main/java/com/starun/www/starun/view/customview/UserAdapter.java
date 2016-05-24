@@ -31,11 +31,17 @@ public class UserAdapter extends BaseAdapter {
     private Context context;
     private List<User> userList;
     private FriendOrRankListPresenter friendOrRankListPresenter = null;
+    private int begin = 0;
 
-    public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter){
+    public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter, int begin){
         this.context = context;
         this.userList= userList;
         this.friendOrRankListPresenter = friendOrRankListPresenter;
+        this.begin = begin;
+    }
+
+    public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter){
+        this(context,userList,friendOrRankListPresenter,0);
     }
 
     @Override

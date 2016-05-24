@@ -79,7 +79,7 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    //friendOrRankListPresenter.showListForPlan(user_id);
+                    friendOrRankListPresenter.showListForPlan(user_id);
                     refreshData();
                     mHasLoadedOnce = true;
                 } else {

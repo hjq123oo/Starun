@@ -41,6 +41,7 @@ public class DailyFragment extends BaseFragment implements FriendOrRankListView{
         dailyFragment.setArguments(bd);
         return dailyFragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan,container, false);

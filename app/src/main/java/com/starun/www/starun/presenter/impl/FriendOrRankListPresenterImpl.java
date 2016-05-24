@@ -70,31 +70,7 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
             public void run() {
                 super.run();
                 String message = "user_id="+user_id;
-                String response = null;
-                if(rank){
-                    response = ConnectUtil.getResponse("rank/forplan", message);
-                }
-                else{
-                    response = ConnectUtil.getResponse("friendlist/forplan", message);
-                }
-
-                String result = null;
-                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                });
-
-                if(null!=map){
-                    result= map.get("result");
-                }
-                if("true".equals(result)&&null!=result){
-                    String friendlist = map.get("msg");
-                    Message msg = new Message();
-                    msg.what = FORUSER;
-                    msg.obj = friendlist;
-                    myHandler.sendMessage(msg);
-                }
-                else{
-                    myHandler.sendEmptyMessage(FAILURE);
-                }
+                getMessage("friendlist/forplan",message);
             }
         }.start();
     }
@@ -106,30 +82,30 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
             public void run() {
                 super.run();
                 String message = "user_id="+user_id;
-                String response = null;
-                if(rank){
-                    response = ConnectUtil.getResponse("rank/fordaily", message);
-                }
-                else{
-                    response = ConnectUtil.getResponse("friendlist/fordaily", message);
-                }
-                String result = null;
-                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                });
+                getMessage("friendlist/fordaily",message);
+            }
+        }.start();
+    }
 
-                if(null!=map){
-                    result= map.get("result");
-                }
-                if("true".equals(result)&&null!=result){
-                    String friendlist = map.get("msg");
-                    Message msg = new Message();
-                    msg.what = FORUSER;
-                    msg.obj = friendlist;
-                    myHandler.sendMessage(msg);
-                }
-                else{
-                    myHandler.sendEmptyMessage(FAILURE);
-                }
+
+    @Override
+    public void showListForPlanRank() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                getMessage("rank/forplan",null);
+            }
+        }.start();
+    }
+
+    @Override
+    public void showListForDailyRank() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                getMessage("rank/fordaily",null);
             }
         }.start();
     }
@@ -167,5 +143,27 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
                 }
             }
         }.start();
+    }
+
+    private void getMessage(String operationUrl, String message){
+        String response = null;
+        response = ConnectUtil.getResponse(operationUrl, message);
+        String result = null;
+        Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+        });
+
+        if(null!=map){
+            result= map.get("result");
+        }
+        if("true".equals(result)&&null!=result){
+            String friendlist = map.get("msg");
+            Message msg = new Message();
+            msg.what = FORUSER;
+            msg.obj = friendlist;
+            myHandler.sendMessage(msg);
+        }
+        else{
+            myHandler.sendEmptyMessage(FAILURE);
+        }
     }
 }

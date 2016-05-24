@@ -24,4 +24,14 @@ public interface FriendOrRankListPresenter {
      * @param user_id
      */
     public void showFriendDetail(String user_id);
+
+    /**
+     * 计划全国排名
+     */
+    public void showListForPlanRank();
+
+    /**
+     * 日常跑步全国排名
+     */
+    public void showListForDailyRank();
 }
