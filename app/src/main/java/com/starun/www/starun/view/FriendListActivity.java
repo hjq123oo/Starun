@@ -61,9 +61,9 @@ public class FriendListActivity extends FragmentActivity {
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setClass(FriendListActivity.this,MainActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent();
+                intent.setClass(FriendListActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
         addFriend.setOnClickListener(new View.OnClickListener() {
