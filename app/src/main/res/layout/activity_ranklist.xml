@@ -13,22 +13,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:id="@+id/more"
+            android:id="@+id/ranklist_bank"
             android:src="@drawable/more"
             android:layout_marginLeft="20dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="朋友"
+            android:text="全国排名"
             android:textColor="@color/colorToolbarText"
             android:textSize="25sp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:id="@+id/add_friend"
-            android:src="@drawable/add_friend"
-            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -40,20 +34,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:id="@+id/sp_temp" />
+            android:id="@+id/sp_temp_rank" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:id="@+id/plan_btn_list"
-            android:layout_toLeftOf="@id/sp_temp"
+            android:id="@+id/plan_btn_list_rank"
+            android:layout_toLeftOf="@id/sp_temp_rank"
             android:background="@drawable/tab_btn"
             android:text="计划"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/daily_btn_list"
-                android:layout_toRightOf="@id/sp_temp"
+                android:id="@+id/daily_btn_list_rank"
+                android:layout_toRightOf="@id/sp_temp_rank"
                 android:background="@drawable/tab_btn"
                 android:text="日常"/>
     </RelativeLayout>
@@ -62,6 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/fri_viewpager">
+        android:id="@+id/fri_viewpager_rank">
     </android.support.v4.view.ViewPager>
 </LinearLayout>
