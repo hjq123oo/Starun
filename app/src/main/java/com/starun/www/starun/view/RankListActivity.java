@@ -1,8 +1,6 @@
 package com.starun.www.starun.view;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,51 +18,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by yearsj on 2016/5/20.
+ * Created by Administrator on 2016/5/24.
  */
-public class FriendListActivity extends FragmentActivity {
+public class RankListActivity extends FragmentActivity {
     private ViewPager mViewPager;
-    private List<Fragment>  fragments;
+    private List<Fragment> fragments;
     private Button planList;
     private Button dailyList;
-    private ImageView more;
-    private ImageView addFriend;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friendlist);
+        setContentView(R.layout.activity_ranklist);
         init();
     }
 
     public void init(){
-        mViewPager = (ViewPager)findViewById(R.id.fri_viewpager);
+        mViewPager = (ViewPager)findViewById(R.id.fri_viewpager_rank);
         fragments = new ArrayList<Fragment>();
         fragments.add(new PlanFragment());
         fragments.add(new DailyFragment());
         mViewPager.setAdapter(new MyFragmentAdapter(this.getSupportFragmentManager(), fragments));
         mViewPager.setCurrentItem(0);
-        planList = (Button)findViewById(R.id.plan_btn_list);
+        planList = (Button)findViewById(R.id.plan_btn_list_rank);
         planList.setOnClickListener(new ClickListener(0));
         planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
         dailyList = (Button)findViewById(R.id.daily_btn_list);
         dailyList.setOnClickListener(new ClickListener(1));
         mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
 
-        more = (ImageView)findViewById(R.id.more);
-        addFriend = (ImageView)findViewById(R.id.add_friend);
-        more.setOnClickListener(new View.OnClickListener() {
+        back = (ImageView)findViewById(R.id.more);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(FriendListActivity.this,MainActivity.class);
+                intent.setClass(RankListActivity.this,MainActivity.class);
                 startActivity(intent);
-            }
-        });
-        addFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //进入添加好友的界面
             }
         });
     }
