@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.FriendOrRankListPresenter;
+import com.starun.www.starun.pview.FriendOrRankListView;
 import com.starun.www.starun.server.data.User;
 
 import java.util.List;
@@ -28,10 +30,12 @@ public class UserAdapter extends BaseAdapter {
 
     private Context context;
     private List<User> userList;
+    private FriendOrRankListPresenter friendOrRankListPresenter = null;
 
-    public UserAdapter(Context context, List<User> userList){
+    public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter){
         this.context = context;
         this.userList= userList;
+        this.friendOrRankListPresenter = friendOrRankListPresenter;
     }
 
     @Override
@@ -76,6 +80,7 @@ public class UserAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "userid="+userList.get(position).getUser_id(),Toast.LENGTH_SHORT).show();
+                friendOrRankListPresenter.showFriendDetail(String.valueOf(userList.get(position).getUser_id()));
             }
         });
         return convertView;

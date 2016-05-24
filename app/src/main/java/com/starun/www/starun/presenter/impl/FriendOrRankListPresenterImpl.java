@@ -21,8 +21,7 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
 
     private FriendOrRankListView friendListView = null;
     private boolean rank = false;
-    private static final int FORPLAN = 1;
-    private static final int FORDAILY = 2;
+    private static final int FORUSER = 1;
     private static final int DETAIL = 3;
     private static final int FAILURE = 0;
 
@@ -37,15 +36,10 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 //判断发送的消息
-                case FORPLAN:
+                case FORUSER:
                     String strlist1 = (String) msg.obj;
                     List<User> users1 = JSON.parseObject(strlist1,new TypeReference<List<User>>(){});
-                    friendListView.showListForPlan(users1);
-                    break;
-                case FORDAILY:
-                    String strlist2 = (String) msg.obj;
-                    List<User> users2 = JSON.parseObject(strlist2,new TypeReference<List<User>>(){});
-                    friendListView.showListForPlan(users2);
+                    friendListView.showUserList(users1);
                     break;
                 case DETAIL:
                     String str = (String) msg.obj;
@@ -94,7 +88,7 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
                 if("true".equals(result)&&null!=result){
                     String friendlist = map.get("msg");
                     Message msg = new Message();
-                    msg.what = FORPLAN;
+                    msg.what = FORUSER;
                     msg.obj = friendlist;
                     myHandler.sendMessage(msg);
                 }
@@ -129,7 +123,7 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
                 if("true".equals(result)&&null!=result){
                     String friendlist = map.get("msg");
                     Message msg = new Message();
-                    msg.what = FORPLAN;
+                    msg.what = FORUSER;
                     msg.obj = friendlist;
                     myHandler.sendMessage(msg);
                 }

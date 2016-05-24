@@ -41,8 +41,8 @@ public class FriendListActivity extends FragmentActivity {
     public void init(){
         mViewPager = (ViewPager)findViewById(R.id.fri_viewpager);
         fragments = new ArrayList<Fragment>();
-        fragments.add(new PlanFragment());
-        fragments.add(new DailyFragment());
+        fragments.add(PlanFragment.newInstance(false));
+        fragments.add(DailyFragment.newInstance(false));
         mViewPager.setAdapter(new MyFragmentAdapter(this.getSupportFragmentManager(), fragments));
         mViewPager.setCurrentItem(0);
         planList = (Button)findViewById(R.id.plan_btn_list);

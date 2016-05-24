@@ -11,18 +11,11 @@ import java.util.List;
  * Created by yearsj on 2016/5/17.
  */
 public interface FriendOrRankListView {
-
-    /**
-     * 显示按照计划排名的好友列表
-     * @param users
-     */
-    public void showListForPlan(List<User> users);
-
     /**
      * 显示按照日常跑步的好友列表
      * @param users
      */
-    public void showListForDaily(List<User> users);
+    public void showUserList(List<User> users);
 
     /**
      * 显示详细信息

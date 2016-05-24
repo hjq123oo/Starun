@@ -2,6 +2,7 @@ package com.starun.www.starun.view.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,8 @@ import com.starun.www.starun.presenter.impl.FriendOrRankListPresenterImpl;
 import com.starun.www.starun.pview.FriendOrRankListView;
 import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
+import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.customview.UserAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,16 +30,26 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
 
     private UserAdapter userAdapter = null;
     private ListView listView = null;
-    //private List<User> userList = null;
-
     private View view = null;
-
     private FriendOrRankListPresenter friendOrRankListPresenter = null;
+    private String user_id = null;
+
+    public static final PlanFragment newInstance(Boolean rank){
+        PlanFragment planFragment = new PlanFragment();
+        Bundle bd = new Bundle();
+        bd.putBoolean("rank",rank);
+        planFragment.setArguments(bd);
+        return planFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_plan,container, false);
-        friendOrRankListPresenter = new FriendOrRankListPresenterImpl(this,false);
+        friendOrRankListPresenter = new FriendOrRankListPresenterImpl(this,getArguments().getBoolean("rank"));
+        MyApplication myApplication = (MyApplication) this.getActivity().getApplicationContext();
+        if(null!=myApplication.getUser()){
+            user_id = String.valueOf(myApplication.getUser().getUser_id());
+        }
         isPrepared = true;
         lazyLoad();
         return view;
@@ -74,6 +84,7 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
                     mHasLoadedOnce = true;
                 } else {
                     // 加载失败
+                    Log.i("PlanFragment","加载失败");
                 }
                 //关闭对话框
                // UIHelper.hideDialogForLoading();
@@ -94,22 +105,22 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
     }
 
     @Override
-    public void showListForPlan(List<User> users) {
+    public void showUserList(List<User> users) {
         listView = (ListView)view.findViewById(R.id.user_list_view);
-        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users);
+        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users,friendOrRankListPresenter);
         listView.setAdapter(userAdapter);
     }
 
     @Override
-    public void showListForDaily(List<User> users) {}
-
-    @Override
-    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend) {
-
+    public void showError() {
+        Toast.makeText(this.getActivity().getApplicationContext(),"访问网络失败！",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showError() {
-
+    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend) {
+        if(null!=runTotalInfo){
+            //跳转到详情页面
+            Toast.makeText(this.getActivity().getApplicationContext(),"在此跳转到详情页面",Toast.LENGTH_SHORT).show();
+        }
     }
 }
