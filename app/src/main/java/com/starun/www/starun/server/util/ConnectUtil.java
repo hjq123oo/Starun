@@ -53,7 +53,7 @@ public class ConnectUtil {
                 if(null!=outputStream) {
                     outputStream.close();
                 }
-                if(null!=outputStream) {
+                if(null!=inputStream) {
                     inputStream.close();
                 }
                 if(null!=conn){
