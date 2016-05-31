@@ -31,14 +31,9 @@
             android:name=".view.ExerciseActivity"
             android:label="@string/title_activity_exercise" >
         </activity>
-
         <activity android:name=".view.MapActivity" >
         </activity>
         <activity android:name=".view.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".view.RegisterActivity" >
         </activity>
@@ -62,36 +57,40 @@
         <activity android:name=".view.RecordActivity" />
         <activity
             android:name=".view.PlanActivity"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/Theme.AppCompat" >
         </activity>
-
         <activity android:name=".view.WarmupActivity" >
         </activity>
         <activity
             android:name=".view.MainActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" >
-
         </activity>
-        <activity android:name=".view.RunPlanActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
+        <activity
+            android:name=".view.RunPlanActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-
-        <activity android:name=".view.FriendListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".view.FriendListActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
         <service
             android:name=".service.MusicService"
             android:enabled="true"
-            android:exported="true"></service>
-
+            android:exported="true" />
         <service
             android:name=".service.PromptToneService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
+        <activity android:name=".view.SearchFriendActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
