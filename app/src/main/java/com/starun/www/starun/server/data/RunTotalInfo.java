@@ -4,16 +4,16 @@ package com.starun.www.starun.server.data;
  * Created by yearsj on 2016/5/17.
  */
 public class RunTotalInfo {
-    private String user_id;         //用户id
+    private int user_id;         //用户id
     private String total_distance;     //总距离
     private long total_time;            //总时间
     private double plan_percentage;    //计划完成进度
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
