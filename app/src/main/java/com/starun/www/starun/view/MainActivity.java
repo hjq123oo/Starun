@@ -155,9 +155,13 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_main_page) {
             // Handle the camera action
         } else if (id == R.id.nav_friends) {
+            Intent i = new Intent(MainActivity.this,FriendListActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_rank) {
 
+            Intent i = new Intent(MainActivity.this,RankListActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_setting) {
 
             Intent i = new Intent(MainActivity.this,SettingActivity.class);
