@@ -86,4 +86,11 @@ public class MusicPresenterImpl implements MusicPresenter {
         musicView.getMusicActivity().startService(intent);       //启动服务
         musicView.onMusicPlay();
     }
+
+    public void doMusicExit(){
+        Intent intent = new Intent();
+        intent.setClass(musicView.getMusicActivity(), MusicService.class);
+        musicView.getMusicActivity().stopService(intent);
+
+    }
 }

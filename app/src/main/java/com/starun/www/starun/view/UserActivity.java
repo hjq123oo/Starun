@@ -1,5 +1,6 @@
 package com.starun.www.starun.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +50,14 @@ public class UserActivity extends AppCompatActivity {
     private void initLayoutForOwn(){
         btnTool.setText("头像");
         ownLinearLayout.setVisibility(View.VISIBLE);
+
+        btnTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this,AvatarActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

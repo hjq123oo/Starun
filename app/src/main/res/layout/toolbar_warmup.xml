@@ -17,14 +17,15 @@
         android:textColor="@color/colorText"
         android:textSize="30dp" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="跳过热身"
+        android:background="@android:color/transparent"
         android:textColor="@color/colorText"
-        android:textSize="10dp"
-        android:id="@+id/tv_ignore_warmup"/>
+        android:textSize="14dp"
+        android:id="@+id/btn_ignore_warmup"/>
 
 
 </android.support.v7.widget.Toolbar>

@@ -64,7 +64,7 @@ public class RunPlanExecutionLogic {
         new Thread(){
             @Override
             public void run() {
-                super.run();
+               /* super.run();
                 String userMessage = "user_id="+ ((MyApplication)context).getUser().getUser_id();
                 String response = ConnectUtil.getResponse("getPlan", userMessage);
                 String result = null;
@@ -87,6 +87,14 @@ public class RunPlanExecutionLogic {
                 }
                 else{
 
+                }*/
+
+                if(plan == null){
+                    plan = new Plan();
+                    plan.setUser_id(((MyApplication)context).getUser().getUser_id());
+                    plan.setRun_plan_id(1);
+                    plan.setLesson_index(1);
+                    plan.setPlan_percentage(0);
                 }
             }
         }.start();

@@ -48,7 +48,7 @@ public class RunPresenterImpl implements RunPresenter {
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
         runRecord = new RunRecord();
-        runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
+        //runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
         //runRecordDao = new RunRecordDao(runView.getActivity());
     }
 

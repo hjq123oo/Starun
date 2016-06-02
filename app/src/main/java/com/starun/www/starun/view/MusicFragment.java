@@ -260,7 +260,11 @@ public class MusicFragment extends Fragment implements MusicView{
     }
 
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        musicPresenter.doMusicExit();
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -288,6 +292,8 @@ public class MusicFragment extends Fragment implements MusicView{
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -21,7 +21,8 @@ import com.starun.www.starun.pview.WarmUpView;
 
 public class WarmupActivity extends AppCompatActivity implements WarmUpView{
     WarmUpPresenter warmUpPresenter;
-    TextView tv_CountDown,tv_Title,tvIgnoreWarmup;
+    TextView tv_CountDown,tv_Title;
+    Button btnIgnoreWarmup;
     ImageView iv_Pic;
     Button btn_Continue,btn_Pause;
     @Override
@@ -35,7 +36,7 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
     public void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_warmup);
         setSupportActionBar(toolbar);
-        tvIgnoreWarmup = (TextView) findViewById(R.id.tv_ignore_warmup);
+        btnIgnoreWarmup = (Button)findViewById(R.id.btn_ignore_warmup);
         tv_CountDown = (TextView) findViewById(R.id.tv_warmup_count_down);
         tv_Title = (TextView) findViewById(R.id.tv_warmup_title);
         iv_Pic = (ImageView) findViewById(R.id.iv_warmup_pic);
@@ -52,7 +53,7 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
                     case R.id.btn_warmup_pause:
                         warmUpPresenter.doWarmUpPause();
                         break;
-                    case R.id.tv_ignore_warmup:
+                    case R.id.btn_ignore_warmup:
                         warmUpPresenter.doWarmUpStop();
                         break;
                     default:
@@ -62,7 +63,7 @@ public class WarmupActivity extends AppCompatActivity implements WarmUpView{
         };
         btn_Pause.setOnClickListener(listener);
         btn_Continue.setOnClickListener(listener);
-        tvIgnoreWarmup.setOnClickListener(listener);
+        btnIgnoreWarmup.setOnClickListener(listener);
     }
 
     @Override

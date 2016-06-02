@@ -39,4 +39,9 @@ public interface MusicPresenter {
      * @param position 播放第几首音乐，position为音乐列表的位置
      */
     void doMusicPlayByPosition(int position);
+
+    /**
+     * 退出音乐
+     */
+    void doMusicExit();
 }
