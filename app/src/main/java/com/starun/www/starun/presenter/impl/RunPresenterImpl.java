@@ -4,14 +4,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.SystemClock;
+import android.os.Handler;
+import android.os.Message;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.dao.RunRecordDao;
 import com.starun.www.starun.model.IRun;
-import com.starun.www.starun.model.data.RunRecord;
 import com.starun.www.starun.presenter.RunPresenter;
 import com.starun.www.starun.pview.RunView;
+import com.starun.www.starun.server.data.RunRecord;
+import com.starun.www.starun.server.data.User;
+import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.service.TraceService;
+import com.starun.www.starun.view.application.MyApplication;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yearsj on 2016/4/7.
@@ -20,13 +29,27 @@ public class RunPresenterImpl implements RunPresenter {
 
     private RunView runView = null;
     private MsgReceiver msgReceiver = null;
-    private RunRecordDao runRecordDao = null;
-    private RunRecord runRecord = new RunRecord();
+    //private RunRecordDao runRecordDao = null;
+    private RunRecord runRecord;
     private boolean isStart = false;
+
+
+    private static final int FAILURE = 0;
+    Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case FAILURE:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
-        runRecordDao = new RunRecordDao(runView.getActivity());
+        runRecord = new RunRecord();
+        runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
+        //runRecordDao = new RunRecordDao(runView.getActivity());
     }
 
     @Override
@@ -118,7 +141,30 @@ public class RunPresenterImpl implements RunPresenter {
 
     @Override
     public void saveRunInfo() {
-        if(null!=runRecord.getTraceEntity())
-            runRecordDao.addRunRecord(runRecord);
+        if(null!=runRecord.getTraceEntity()){
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    String message;
+                    message = JSON.toJSONString(runRecord);
+                    String response =  ConnectUtil.getResponse("search", message);
+                    String result = null;
+                    Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                    });
+
+                    if(null!=map){
+                        result= map.get("result");
+                    }
+                    if("true".equals(result)&&null!=result){
+
+                    }
+                    else{
+                        myHandler.sendEmptyMessage(FAILURE);
+                    }
+                }
+            }.start();
+        }
+            //runRecordDao.addRunRecord(runRecord);
     }
 }
