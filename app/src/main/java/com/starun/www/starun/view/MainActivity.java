@@ -65,6 +65,14 @@ public class MainActivity extends AppCompatActivity
         tvRunPlan =  (TextView) findViewById(R.id.tv_run_plan);
         tvRunRecord =  (TextView) findViewById(R.id.tv_run_record);
 
+        ivIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserActivity.class);
+                startActivity(intent);
+            }
+        });
+
         tvRunPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
