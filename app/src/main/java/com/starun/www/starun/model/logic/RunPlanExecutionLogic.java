@@ -1,13 +1,19 @@
 package com.starun.www.starun.model.logic;
 
 import android.content.Context;
+import android.os.Message;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.dao.RunPlanDao;
 import com.starun.www.starun.dao.RunPlanSharedPreferences;
 import com.starun.www.starun.model.IRunPlanExecution;
 import com.starun.www.starun.model.data.RunPlanData;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.presenter.RunPlanPresenter;
+import com.starun.www.starun.server.data.Plan;
+import com.starun.www.starun.server.util.ConnectUtil;
+import com.starun.www.starun.view.application.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +24,12 @@ import java.util.Map;
  * Created by hjq on 2016/4/28.
  */
 public class RunPlanExecutionLogic {
+    Context context = null;
+
     private RunPlanDao runPlanDao;
     private RunPlanSharedPreferences runPlanSharedPreferences;
+
+    private Plan plan; //服务器存储的当前plan
 
     private RunPlanData runPlanData;
 
@@ -30,6 +40,8 @@ public class RunPlanExecutionLogic {
     private long moveTime; //运动所需时间
     private long lastTime; //上次运动改变的时间
 
+    private double moveKilometer; //运动所需公里数
+
     private IRunPlanExecution iRunPlanExecution;
 
 
@@ -39,17 +51,44 @@ public class RunPlanExecutionLogic {
     List<String>  optionList = null;
 
     public RunPlanExecutionLogic(Context context) {
+        this.context = context;
         runPlanDao = new RunPlanDao(context);
         runPlanSharedPreferences = new RunPlanSharedPreferences(context);
 
     }
 
 
+    public int preparePlan(){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                String userMessage = "user_id="+ ((MyApplication)context).getUser().getUser_id();
+                String response = ConnectUtil.getResponse("getPlan", userMessage);
+                String result = null;
+                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                });
+
+                if(null!=map){
+                    result= map.get("result");
+                }
+                if("true".equals(result)&&null!=result){
+                    plan = JSON.parseObject("msg",new TypeReference<Plan>(){});
+                }
+                else{
+
+                }
+            }
+        }.start();
+
+        return 0;
+    }
+
     /**
      * 准备跑步计划
      * @return 跑步计划类型
      */
-    public int preparePlan(){
+    public int preparePlanForLocal(){
         Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
         int runPlanId = (int) map.get("runPlanId");
         runPlanData = runPlanDao.getRunPlanData(runPlanId);
@@ -130,6 +169,7 @@ public class RunPlanExecutionLogic {
         lastTime = 0;
         if(moveState.equals("km")){
             iRunPlanExecution.setMovementState("跑步"+str+"公里");
+            moveKilometer = Double.parseDouble(str);
         }else if(moveState.equals("run")){
             iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
             moveTime = Integer.parseInt(str)*1000;//*60*1000;
@@ -138,6 +178,7 @@ public class RunPlanExecutionLogic {
             iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
             moveTime = Integer.parseInt(str)*1000;//*60*1000;
             iRunPlanExecution.setTime(moveTime);
+
         }
 
 
@@ -169,42 +210,54 @@ public class RunPlanExecutionLogic {
      * @param time 计划已执行的时间
      * @return 运动状态 0:运动状态未改变;1:运动状态改变;2:运动结束
      */
-    public int executePlan(long time){
-        //超过的时间
-        long restTime = time - lastTime - moveTime;
+    public int executePlan(long time,double kilometer){
+        if(useTimeOrKm()){
+            //超过的时间
+            long restTime = time - lastTime - moveTime;
 
-        if(restTime >= 0){
-            lastTime = lastTime+moveTime;
-            curMovementIndex++;
+            if(restTime >= 0){
+                lastTime = lastTime+moveTime;
+                curMovementIndex++;
 
-            //运动结束
-            if(curMovementIndex >= movements.length){
-                return 2;
+                //运动结束
+                if(curMovementIndex >= movements.length){
+                    return 2;
+                }
+
+                //改变运动状态
+                movement = movements[curMovementIndex].split(",");
+
+                String moveState = movement[0];
+                String str = movement[1];
+
+                if(moveState.equals("run")){
+                    iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
+                }else if(moveState.equals("walk")){
+                    iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
+                }
+
+
+
+                moveTime = Integer.parseInt(str)*1000;//*60*1000;
+
+                iRunPlanExecution.setTime(moveTime - restTime);
+                return 1;
+            }else{
+                iRunPlanExecution.setTime(0-restTime);
             }
 
-            //改变运动状态
-            movement = movements[curMovementIndex].split(",");
-
-            String moveState = movement[0];
-            String str = movement[1];
-
-            if(moveState.equals("run")){
-                iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
-            }else if(moveState.equals("walk")){
-                iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
-            }
-
-
-
-            moveTime = Integer.parseInt(str)*1000;//*60*1000;
-
-            iRunPlanExecution.setTime(moveTime - restTime);
-            return 1;
+            return 0;
         }else{
-            iRunPlanExecution.setTime(0-restTime);
+            if(kilometer >= moveKilometer){
+                //运动结束
+                if(curMovementIndex >= movements.length){
+                    return 2;
+                }
+            }
+
+            return 0;
         }
 
-        return 0;
 
     }
 
@@ -217,10 +270,14 @@ public class RunPlanExecutionLogic {
     }
 
 
+    public void finishPlan(){
+
+    }
+
     /**
      * 完成计划
      */
-    public void finishPlan(){
+    public void finishPlanForLocal(){
         Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
         int runPlanId = (int)map.get("runPlanId");
         int lessonIndex = (int)map.get("lessonIndex");

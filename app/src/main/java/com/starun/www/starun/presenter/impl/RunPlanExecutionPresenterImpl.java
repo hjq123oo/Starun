@@ -122,7 +122,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             //获取计时器时间
             long time = convertStrTimeToLong(chronometer.getText().toString());
 
-            int state = runPlanExecutionLogic.executePlan(time);
+            int state = runPlanExecutionLogic.executePlan(time,runRecord.getKilometer());
             if(state == 0){
                 //时间改变
                 runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());

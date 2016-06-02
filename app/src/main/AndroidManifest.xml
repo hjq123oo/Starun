@@ -96,7 +96,6 @@
 
         <activity android:name=".view.UserActivity" />
         <activity android:name=".view.AvatarActivity" />
-        <activity android:name=".view.SettingActivity"></activity>
 
     </application>
 
