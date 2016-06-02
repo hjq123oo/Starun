@@ -11,8 +11,8 @@ import android.widget.ImageView;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.view.customview.MyFragmentAdapter;
-import com.starun.www.starun.view.fragment.DailyFragment;
-import com.starun.www.starun.view.fragment.PlanFragment;
+import com.starun.www.starun.view.fragment.RankDailyFragment;
+import com.starun.www.starun.view.fragment.RankPlanFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +37,18 @@ public class RankListActivity extends FragmentActivity {
     public void init(){
         mViewPager = (ViewPager)findViewById(R.id.fri_viewpager_rank);
         fragments = new ArrayList<Fragment>();
-        fragments.add(new PlanFragment());
-        fragments.add(new DailyFragment());
+        fragments.add(RankPlanFragment.newInstance(true));
+        fragments.add(RankDailyFragment.newInstance(true));
         mViewPager.setAdapter(new MyFragmentAdapter(this.getSupportFragmentManager(), fragments));
         mViewPager.setCurrentItem(0);
         planList = (Button)findViewById(R.id.plan_btn_list_rank);
         planList.setOnClickListener(new ClickListener(0));
         planList.setBackgroundResource(R.drawable.tab_btn_onclicked);
-        dailyList = (Button)findViewById(R.id.daily_btn_list);
+        dailyList = (Button)findViewById(R.id.daily_btn_list_rank);
         dailyList.setOnClickListener(new ClickListener(1));
         mViewPager.addOnPageChangeListener(new MyOnPageChangeListener());
 
-        back = (ImageView)findViewById(R.id.more);
+        back = (ImageView)findViewById(R.id.ranklist_bank);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

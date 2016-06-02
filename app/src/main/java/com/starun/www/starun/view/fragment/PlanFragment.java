@@ -17,6 +17,8 @@ import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.customview.UserAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +60,35 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
     //刷新界面
     private void refreshData(){
         Toast.makeText(this.getContext(), "PlanFragment", Toast.LENGTH_LONG).show();
+        List<User> users = new ArrayList<User>();
+        listView = (ListView)view.findViewById(R.id.user_list_view);
+        users = new ArrayList<User>();
+        User user = new User();
+        user.setUsername("yearsj");
+        user.setNickname("yearsj");
+        user.setUser_id(1);
+        users.add(user);
+
+        User user2 = new User();
+        user2.setUsername("hjq");
+        user2.setNickname("hjq");
+        user2.setUser_id(2);
+        users.add(user2);
+
+        User user3 = new User();
+        user3.setUsername("lxn");
+        user3.setNickname("lxn");
+        user3.setUser_id(1);
+        users.add(user3);
+
+        User user4 = new User();
+        user4.setUsername("tala");
+        user4.setNickname("tala");
+        user4.setUser_id(1);
+        users.add(user4);
+
+        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users,friendOrRankListPresenter);
+        listView.setAdapter(userAdapter);
     }
 
     @Override
@@ -79,7 +110,7 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    friendOrRankListPresenter.showListForPlan(user_id);
+                    //friendOrRankListPresenter.showListForPlan(user_id);
                     refreshData();
                     mHasLoadedOnce = true;
                 } else {
