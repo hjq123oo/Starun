@@ -85,6 +85,9 @@
             android:exported="true" />
 
         <activity android:name=".view.SearchFriendActivity" >
+
+        </activity>
+        <activity android:name=".view.SettingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

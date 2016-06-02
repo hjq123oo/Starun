@@ -2,6 +2,8 @@ package com.starun.www.starun.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +64,9 @@ public class SearchFriendAdapter extends BaseAdapter {
         else {
             searchFriendListItemView = (SearchFriendListItemView) convertView.getTag();
         }
-        //searchFriendListItemView.image.setBackgroundResource(friends.get(position).getHeadImgPath());
-        //
-        //
-        //
-        searchFriendListItemView.image.setBackgroundResource(R.drawable.pointer);
+        searchFriendListItemView.image.setImageURI(Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                friends.get(position).getHeadImgPath()));
+       // searchFriendListItemView.image.setBackgroundResource(R.drawable.icon1);
         searchFriendListItemView.name.setText(friends.get(position).getNickname());
         return convertView;
     }

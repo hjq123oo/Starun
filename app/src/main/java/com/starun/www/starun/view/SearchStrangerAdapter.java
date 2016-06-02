@@ -2,6 +2,8 @@ package com.starun.www.starun.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,18 +70,17 @@ public class SearchStrangerAdapter  extends BaseAdapter {
         else {
             searchStrangerListItemView = (SearchStrangerListItemView) convertView.getTag();
         }
-        //searchFriendListItemView.image.setBackgroundResource(friends.get(position).getHeadImgPath());
-        //
-        //
-        //
-        searchStrangerListItemView.image.setBackgroundResource(R.drawable.pointer);
+        searchStrangerListItemView.image.setImageURI(Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                strangers.get(position).getHeadImgPath()));
+
+      //  searchStrangerListItemView.image.setImageResource(strangers.get(position).getHeadImgPath());
+       //searchStrangerListItemView.image.setBackgroundResource(R.drawable.icon1);
         searchStrangerListItemView.name.setText(strangers.get(position).getNickname());
         searchStrangerListItemView.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchStrangerListItemView.add.setText("等待确认");
                 searchStrangerListItemView.add.setBackgroundColor(new Color().alpha(0));
-
                 //addFriendPresenter.addFriend();
             }
         });

@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_setting) {
 
+            Intent i = new Intent(MainActivity.this,SettingActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_exit) {
 
         }
