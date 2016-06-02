@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.view.customview.MyFragmentAdapter;
+import com.starun.www.starun.view.fragment.DailyFragment;
+import com.starun.www.starun.view.fragment.PlanFragment;
 import com.starun.www.starun.view.fragment.RankDailyFragment;
 import com.starun.www.starun.view.fragment.RankPlanFragment;
 
