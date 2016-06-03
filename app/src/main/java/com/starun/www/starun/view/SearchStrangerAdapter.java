@@ -76,10 +76,6 @@ public class SearchStrangerAdapter  extends BaseAdapter {
         searchStrangerListItemView.name.setText(strangers.get(position).getNickname());
         searchStrangerListItemView.add.setOnClickListener(new tvListener(convertView, searchStrangerListItemView));
 
-        addFriendPresenter.addFriend();
-        //所以这个ID们应该怎么获取啊QAQ
-        //所以这个ID们应该怎么获取啊QAQ
-        //所以这个ID们应该怎么获取啊QAQ
         return convertView;
     }
     class tvListener implements View.OnClickListener {
@@ -94,6 +90,10 @@ public class SearchStrangerAdapter  extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
+            addFriendPresenter.addFriend();
+            //所以这个ID们应该怎么获取啊QAQ
+            //所以这个ID们应该怎么获取啊QAQ
+            //所以这个ID们应该怎么获取啊QAQ
             item.add.setText("等待确认");
             item.add.setBackgroundColor(Color.TRANSPARENT);
             convertView.setTag(item);
