@@ -27,7 +27,6 @@ import java.util.List;
 
 public class SearchFriendActivity extends AppCompatActivity implements AddFriendView{
     private SearchView sv = null;
-    private  ListView lv = null;
     private TextView tvFriend,tvStranger;
     private ListView lvFriend,lvStranger;
     private SearchFriendAdapter searchFriendAdapter;
@@ -50,14 +49,7 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
         sv = (SearchView) this.findViewById(R.id.sv_search_friend);
         sv.setIconifiedByDefault(false);
         sv.setSubmitButtonEnabled(true);
-        sv.setQueryHint("查询");
-        //通过反射，修改默认的样式，可以从android的search_view.xml中找到需要的组件
-        try {
-            Field field = sv.getClass().getDeclaredField("mSubmitButton");
-            field.setAccessible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sv.setQueryHint("请输入好友账号");
 
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -68,10 +60,6 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
             @Override
             public boolean onQueryTextSubmit(String str) {
                 addFriendPresenter.getSearchResultList(str);
-//                tvStranger.setVisibility(View.VISIBLE);
-//                tvFriend.setVisibility(View.VISIBLE);
-//                lvStranger.setVisibility(View.VISIBLE);
-//                lvFriend.setVisibility(View.VISIBLE);
 //                friendsItems = new ArrayList<User>();
 //                User user = new User();
 //                user.setNickname("Lapidary");
@@ -79,12 +67,13 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
 //                user = new User();
 //                user.setNickname("fish");
 //                friendsItems.add(user);
-//                searchFriendAdapter = new SearchFriendAdapter(SearchFriendActivity.this, friendsItems); //创建适配器
-//                lvFriend.setAdapter(searchFriendAdapter);
-//                searchStrangerAdapter = new SearchStrangerAdapter(SearchFriendActivity.this,friendsItems);
-//                lvStranger.setAdapter(searchStrangerAdapter);
-                // tvFriend.setAdapter(new ArrayAdapter<String>(this, R.layout.friend_listview_item, R.id.itemtext, getResources().getStringArray(R.array.countries_arry)));
-                return false;
+//                user.setNickname("Lapidary");
+//                friendsItems.add(user);
+//                user = new User();
+//                user.setNickname("fish");
+//                friendsItems.add(user);
+//              showSearchResultList(friendsItems,friendsItems);
+                  return false;
             }
 
         });
@@ -105,7 +94,7 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
 
     @Override
     public void addFriend() {
-
+        //并没有什么用
     }
 
     @Override
@@ -123,7 +112,5 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
     public Activity getActivity() {
         return SearchFriendActivity.this;
     }
-//    public Cursor getTestCursor() {
-//        return  null;
-//    }
+
 }

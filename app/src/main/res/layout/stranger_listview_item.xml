@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
     <ImageView
         android:id="@+id/stranger_list_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:maxHeight="72px"
-        android:maxWidth="72px" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+         />
+
 
     <TextView
+        android:layout_toRightOf="@+id/stranger_list_icon"
+        android:paddingLeft="15dp"
         android:id="@+id/stranger_list_name"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:text="kk"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:background="@drawable/friend_list_add"
-        android:id="@+id/stranger_list_add" />
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorText"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:layout_gravity="right"
+        android:background="@drawable/friend_list_add"
+        android:id="@+id/stranger_list_add"/>
+
+</RelativeLayout>

@@ -64,9 +64,9 @@ public class SearchFriendAdapter extends BaseAdapter {
         else {
             searchFriendListItemView = (SearchFriendListItemView) convertView.getTag();
         }
-        searchFriendListItemView.image.setImageURI(Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                friends.get(position).getHeadImgPath()));
-       // searchFriendListItemView.image.setBackgroundResource(R.drawable.icon1);
+//        searchFriendListItemView.image.setImageURI(Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() +
+//                friends.get(position).getHeadImgPath()));
+        searchFriendListItemView.image.setBackgroundResource(R.drawable.icon1);
         searchFriendListItemView.name.setText(friends.get(position).getNickname());
         return convertView;
     }

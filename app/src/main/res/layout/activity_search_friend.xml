@@ -14,24 +14,35 @@
         android:imeOptions="actionSearch"
         android:iconifiedByDefault="true"/>
     <TextView
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="好友"
+        android:textColor="@color/colorTextviewContent"
         android:textSize="16dp"
         android:id="@+id/tv_search_friend"/>
 
     <ListView
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_search_friend"/>
 
     <TextView
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="陌生人"
+        android:textColor="@color/colorTextviewContent"
         android:id="@+id/tv_search_stranger"
         android:textSize="16dp"/>
     <ListView
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_search_stranger"/>
