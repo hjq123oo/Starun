@@ -90,7 +90,7 @@ public class SearchStrangerAdapter  extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            addFriendPresenter.addFriend();
+            //addFriendPresenter.addFriend();
             //所以这个ID们应该怎么获取啊QAQ
             //所以这个ID们应该怎么获取啊QAQ
             //所以这个ID们应该怎么获取啊QAQ

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -37,6 +38,10 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friend);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_search_friend);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvFriend = (TextView) findViewById(R.id.tv_search_friend);
         tvStranger = (TextView) findViewById(R.id.tv_search_stranger);
         lvFriend = (ListView) findViewById(R.id.lv_search_friend);
