@@ -15,6 +15,8 @@ import com.starun.www.starun.server.data.Plan;
 import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.view.application.MyApplication;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +76,14 @@ public class RunPlanExecutionLogic {
                 }
                 if("true".equals(result)&&null!=result){
                     plan = JSON.parseObject("msg",new TypeReference<Plan>(){});
+                    if(plan == null){
+                        plan = new Plan();
+                        plan.setUser_id(((MyApplication)context).getUser().getUser_id());
+                        plan.setRun_plan_id(1);
+                        plan.setLesson_index(1);
+                        plan.setPlan_percentage(0);
+                    }
+
                 }
                 else{
 
@@ -81,7 +91,26 @@ public class RunPlanExecutionLogic {
             }
         }.start();
 
-        return 0;
+        runPlanData = runPlanDao.getRunPlanData(plan.getRun_plan_id());
+
+        int state = getPlanState();
+
+        if(state == 2){
+            optionedRunPlanDatas = runPlanDao.getRunPlanDatasByWeek(runPlanData.getWeekIndex());
+
+            optionList = new ArrayList<String>();
+
+            int size = optionedRunPlanDatas.size();
+
+            for(int i=0;i<size;i++){
+                optionList.add(optionedRunPlanDatas.get(i).getOptionName());
+            }
+
+        }
+
+        return state;
+
+
     }
 
     /**
@@ -146,10 +175,41 @@ public class RunPlanExecutionLogic {
     }
 
 
+    public void startRun(){
+        //加载跑步计划
+        int lessonIndex = plan.getLesson_index();
+        String lessonPlan = runPlanData.getLessonPlan(lessonIndex);
+        movements = lessonPlan.split(";");
+        curMovementIndex = 0;
+
+        iRunPlanExecution = new IRunPlanExecution();
+        iRunPlanExecution.setSuggestion(runPlanData.getDesc());
+
+        movement = movements[curMovementIndex].split(",");
+
+        String moveState = movement[0];
+        String str = movement[1];
+
+        lastTime = 0;
+        if(moveState.equals("km")){
+            iRunPlanExecution.setMovementState("跑步"+str+"公里");
+            moveKilometer = Double.parseDouble(str);
+        }else if(moveState.equals("run")){
+            iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
+            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            iRunPlanExecution.setTime(moveTime);
+        }else if(moveState.equals("walk")){
+            iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
+            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            iRunPlanExecution.setTime(moveTime);
+
+        }
+    }
+
     /**
      * 开始跑步
      */
-    public void startRun() {
+    public void startRunForLocal() {
         Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
 
         //加载跑步计划
@@ -269,14 +329,67 @@ public class RunPlanExecutionLogic {
         return iRunPlanExecution;
     }
 
+    private void uploadPlan(final int planId, final int lessonIndex, final double planPercentage){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                Plan newPlan = new Plan();
+
+                newPlan.setUser_id(((MyApplication)context).getUser().getUser_id());
+                newPlan.setRun_plan_id(planId);
+                newPlan.setLesson_index(lessonIndex);
+                newPlan.setPlan_percentage(planPercentage);
+
+                String message = JSON.toJSONString(newPlan);
+                String response = ConnectUtil.getResponse("updatePlan", message);
+                String result = null;
+                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                });
+
+                if(null!=map){
+                    result= map.get("result");
+                }
+                if("true".equals(result)&&null!=result){
+
+                }
+                else{
+
+                }
+            }
+        }.start();
+    }
 
     public void finishPlan(){
 
+        int runPlanId = plan.getRun_plan_id();
+        int lessonIndex = plan.getLesson_index();
+        double planPercentage = plan.getPlan_percentage();
+
+        //该跑步计划为提示文本时,存储下一个跑步计划id
+        if(getPlanState() == 3){
+            uploadPlan(runPlanId + 1, 1, planPercentage);
+        }else{
+            //跑步计划执行到该周第三课时,存储下一个跑步计划id;否则,存储下一个跑步课程
+            if(lessonIndex==3){
+                //该跑步计划包含选项,跑步计划id+2
+                if(getPlanState() == 2){
+                    uploadPlan(runPlanId + 2, 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                }else{
+                    uploadPlan(runPlanId + 1, 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                }
+
+            }else{
+                uploadPlan(runPlanId, lessonIndex + 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+
+            }
+        }
     }
 
     /**
      * 完成计划
      */
+    /*
     public void finishPlanForLocal(){
         Map<String, Object> map = runPlanSharedPreferences.getPlanSchedule();
         int runPlanId = (int)map.get("runPlanId");
@@ -301,7 +414,9 @@ public class RunPlanExecutionLogic {
             }
         }
 
-    }
+    }*/
+
+
 
     /**
      * 计算计划进度百分比
@@ -309,7 +424,9 @@ public class RunPlanExecutionLogic {
      * @param lessonIndex 第几课
      * @return 进度百分比
      */
-    private float calPlanPercentage(int weekIndex,int lessonIndex){
-        return ((float)((runPlanData.getWeekIndex()-1)*3+lessonIndex))/(13*3);
+    private double calPlanPercentage(int weekIndex,int lessonIndex){
+        return ((double)((runPlanData.getWeekIndex()-1)*3+lessonIndex))/(13*3);
     }
+
+
 }

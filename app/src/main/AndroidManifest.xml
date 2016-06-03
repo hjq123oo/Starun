@@ -74,6 +74,7 @@
             android:name=".view.FriendListActivity"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity android:name=".view.RankListActivity"/>
 
 
         <service
