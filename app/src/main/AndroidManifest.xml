@@ -37,7 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".view.RegisterActivity" />
 
@@ -77,11 +76,8 @@
         <activity
             android:name=".view.FriendListActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-
         </activity>
-        <activity android:name=".view.RankListActivity">
-
-        </activity>
+        <activity android:name=".view.RankListActivity"/>
 
 
         <service

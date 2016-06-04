@@ -58,7 +58,7 @@ public class SearchStrangerAdapter  extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView==null){
+        if (convertView == null) {
             searchStrangerListItemView = new SearchStrangerListItemView();
             convertView = listContainer.inflate(R.layout.stranger_listview_item, null);
             searchStrangerListItemView.image = (ImageView) convertView.findViewById(R.id.stranger_list_icon);
@@ -66,25 +66,37 @@ public class SearchStrangerAdapter  extends BaseAdapter {
             searchStrangerListItemView.add = (TextView) convertView.findViewById(R.id.stranger_list_add);
             convertView.setTag(searchStrangerListItemView);
 
-        }
-        else {
+        } else {
             searchStrangerListItemView = (SearchStrangerListItemView) convertView.getTag();
         }
         searchStrangerListItemView.image.setImageURI(Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() +
                 strangers.get(position).getHeadImgPath()));
 
-      //  searchStrangerListItemView.image.setImageResource(strangers.get(position).getHeadImgPath());
-       //searchStrangerListItemView.image.setBackgroundResource(R.drawable.icon1);
+        searchStrangerListItemView.image.setBackgroundResource(R.drawable.icon1);
         searchStrangerListItemView.name.setText(strangers.get(position).getNickname());
-        searchStrangerListItemView.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchStrangerListItemView.add.setText("等待确认");
-                searchStrangerListItemView.add.setBackgroundColor(new Color().alpha(0));
-                //addFriendPresenter.addFriend();
-            }
-        });
+        searchStrangerListItemView.add.setOnClickListener(new tvListener(convertView, searchStrangerListItemView));
+
         return convertView;
     }
+    class tvListener implements View.OnClickListener {
+        private  View convertView;
+        private SearchStrangerListItemView item;
 
+
+        tvListener( View convertView,SearchStrangerListItemView item) {
+            this.convertView  = convertView;
+            this.item = item;
+        }
+
+        @Override
+        public void onClick(View v) {
+            //addFriendPresenter.addFriend();
+            //所以这个ID们应该怎么获取啊QAQ
+            //所以这个ID们应该怎么获取啊QAQ
+            //所以这个ID们应该怎么获取啊QAQ
+            item.add.setText("等待确认");
+            item.add.setBackgroundColor(Color.TRANSPARENT);
+            convertView.setTag(item);
+        }
+    }
 }
