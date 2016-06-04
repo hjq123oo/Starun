@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="com.starun.www.starun.view.UserActivity">
+    tools:context=".view.UserInfoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:textColor="#EEEEEE"
             android:text="头像"
 
@@ -91,15 +91,16 @@
                     android:layout_gravity="center"/>
 
                 <TextView
+                    android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.00K"
+                    android:text="0.00km"
                     android:textColor="#101010"
                     android:layout_gravity="center"
                     android:textSize="18dp"/>
 
                 <TextView
-                    android:id="@+id/tv_distance"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="累计距离"
@@ -133,7 +134,7 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00.00"
+                    android:text="00.00h"
                     android:textColor="#101010"
                     android:layout_gravity="center"
                     android:textSize="18dp"/>
@@ -264,6 +265,7 @@
 
         <ProgressBar
             style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/progress_plan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"

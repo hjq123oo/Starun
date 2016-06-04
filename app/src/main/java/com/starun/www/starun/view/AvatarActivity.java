@@ -1,5 +1,7 @@
 package com.starun.www.starun.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,13 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.AvatarPresenter;
+import com.starun.www.starun.presenter.impl.AvatarPresenterImpl;
+import com.starun.www.starun.pview.AvatarView;
+import com.starun.www.starun.view.application.MyApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AvatarActivity extends AppCompatActivity {
+public class AvatarActivity extends AppCompatActivity implements AvatarView{
 
     public static int[] avatars = { R.drawable.user_avatar_1, R.drawable.user_avatar_2, R.drawable.user_avatar_3,
             R.drawable.user_avatar_4, R.drawable.user_avatar_5, R.drawable.user_avatar_6, R.drawable.user_avatar_7,
@@ -31,6 +37,8 @@ public class AvatarActivity extends AppCompatActivity {
 
     private int width;
 
+    private AvatarPresenter avatarPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +49,25 @@ public class AvatarActivity extends AppCompatActivity {
 
         width = getWindow().getWindowManager().getDefaultDisplay().getWidth();
 
+        avatarPresenter = new AvatarPresenterImpl(this);
 
         mGridView.setAdapter(new AdapterGridView());
 
     }
 
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void onAvatarUpload() {
+
+        Intent intent = new Intent(AvatarActivity.this,UserInfoActivity.class);
+        intent.putExtra("user_id",((MyApplication)getApplication()).getUser().getUser_id());
+        startActivity(intent);
+        finish();
+    }
 
 
     class AdapterGridView extends BaseAdapter {
@@ -65,7 +87,7 @@ public class AvatarActivity extends AppCompatActivity {
             return position;
         }
 
-        public View getView(int position, View convertView, ViewGroup arg2) {
+        public View getView(final int position, View convertView, ViewGroup arg2) {
             // TODO Auto-generated method stub
 
             if (convertView == null) {
@@ -81,6 +103,13 @@ public class AvatarActivity extends AppCompatActivity {
                 mParams.height=(width / 3);
                 mImageView.setLayoutParams(mParams);
 
+                mImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String avatarFileName = "user_avatar_"+(position+1);
+                        avatarPresenter.doAvatarUpload(avatarFileName);
+                    }
+                });
             }
 
             return convertView;

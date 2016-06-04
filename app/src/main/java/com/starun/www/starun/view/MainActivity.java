@@ -1,12 +1,8 @@
 package com.starun.www.starun.view;
 
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,16 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.starun.www.starun.R;
+import com.starun.www.starun.presenter.MainPresenter;
+import com.starun.www.starun.presenter.impl.MainPresenterImpl;
+import com.starun.www.starun.pview.MainView;
+import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.view.utilview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,MainView {
     TextView tvTotalDist,tvTotalTime,tvStage;
     TextView tvNickName;
     CircleImageView ivIcon;
@@ -31,8 +30,7 @@ public class MainActivity extends AppCompatActivity
     Button planExercise;
     TextView dailyExercise;
 
-    TextView tvRunPlan;
-    TextView tvRunRecord;
+    MainPresenter mainPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,32 +60,17 @@ public class MainActivity extends AppCompatActivity
         dailyExercise = (TextView) findViewById(R.id.tv_daily_exercise);
         planExercise = (Button) findViewById(R.id.plan_btn);
 
-        tvRunPlan =  (TextView) findViewById(R.id.tv_run_plan);
-        tvRunRecord =  (TextView) findViewById(R.id.tv_run_record);
+        mainPresenter = new MainPresenterImpl(this);
+
 
         ivIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,UserActivity.class);
+                Intent intent = new Intent(MainActivity.this,UserInfoActivity.class);
                 startActivity(intent);
             }
         });
 
-        tvRunPlan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,PlanActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        tvRunRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,RecordActivity.class);
-                startActivity(intent);
-            }
-        });
 
         View.OnClickListener listener = new View.OnClickListener(){
             @Override
@@ -186,5 +169,29 @@ public class MainActivity extends AppCompatActivity
 
 
         return true;
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void onDataShow(RunTotalInfo runTotalInfo, int planStage) {
+
+        tvNickName.setText(runTotalInfo.getNickname());
+
+        ivIcon.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(runTotalInfo.getHeadImgPath(), "drawable", getPackageName())));
+
+        tvTotalDist.setText(String.format("%.2f",runTotalInfo.getTotal_distance())+"km");
+
+        long totalTime = runTotalInfo.getTotal_time();
+        double hours = ((double)totalTime)/1000/60/60;
+
+        tvTotalTime.setText(String.format("%.2f", hours) + "h");
+
+        tvStage.setText("" + planStage);
+
+        planExercise.setBackgroundDrawable(getResources().getDrawable(getResources().getIdentifier("plan_btn_"+(planStage-1), "drawable", getPackageName())));
     }
 }

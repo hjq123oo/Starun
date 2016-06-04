@@ -33,11 +33,13 @@ public class RunPresenterImpl implements RunPresenter {
     private RunRecord runRecord;
     private boolean isStart = false;
 
-
+    private static final int SUCCESS = 1;
     private static final int FAILURE = 0;
     Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case SUCCESS:
+                    break;
                 case FAILURE:
                     break;
             }
@@ -48,7 +50,7 @@ public class RunPresenterImpl implements RunPresenter {
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
         runRecord = new RunRecord();
-        //runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
+        runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
         //runRecordDao = new RunRecordDao(runView.getActivity());
     }
 
@@ -157,7 +159,7 @@ public class RunPresenterImpl implements RunPresenter {
                         result= map.get("result");
                     }
                     if("true".equals(result)&&null!=result){
-
+                        myHandler.sendEmptyMessage(SUCCESS);
                     }
                     else{
                         myHandler.sendEmptyMessage(FAILURE);

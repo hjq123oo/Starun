@@ -102,7 +102,7 @@
 
         </activity>
 
-        <activity android:name=".view.UserActivity" />
+        <activity android:name=".view.UserInfoActivity" />
         <activity android:name=".view.AvatarActivity" />
 
     </application>

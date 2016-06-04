@@ -24,7 +24,7 @@
         android:text="跳过热身"
         android:background="@android:color/transparent"
         android:textColor="@color/colorText"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:id="@+id/btn_ignore_warmup"/>
 
 

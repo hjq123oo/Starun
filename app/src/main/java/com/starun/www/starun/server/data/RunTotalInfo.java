@@ -5,7 +5,9 @@ package com.starun.www.starun.server.data;
  */
 public class RunTotalInfo {
     private int user_id;         //用户id
-    private String total_distance;     //总距离
+    private String headImgPath;     //用户头像
+    private String nickname;        //用户昵称
+    private double total_distance;     //总距离
     private long total_time;            //总时间
     private double plan_percentage;    //计划完成进度
 
@@ -17,11 +19,27 @@ public class RunTotalInfo {
         this.user_id = user_id;
     }
 
-    public String getTotal_distance() {
+    public String getHeadImgPath() {
+        return headImgPath;
+    }
+
+    public void setHeadImgPath(String headImgPath) {
+        this.headImgPath = headImgPath;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public double getTotal_distance() {
         return total_distance;
     }
 
-    public void setTotal_distance(String total_distance) {
+    public void setTotal_distance(double total_distance) {
         this.total_distance = total_distance;
     }
 

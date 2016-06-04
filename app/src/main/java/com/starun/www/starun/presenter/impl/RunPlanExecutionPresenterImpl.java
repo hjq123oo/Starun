@@ -4,15 +4,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.widget.Chronometer;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.dao.RunRecordDao;
-import com.starun.www.starun.model.data.RunRecord;
+
 import com.starun.www.starun.model.logic.RunPlanExecutionLogic;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.pview.RunPlanExecutionView;
+import com.starun.www.starun.server.data.RunRecord;
+import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.service.TraceService;
+
+import java.util.Map;
 
 
 /**
@@ -25,9 +33,24 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
     private Chronometer chronometer;
 
     private MsgReceiver msgReceiver = null;
-    private RunRecordDao runRecordDao = null;
+    //private RunRecordDao runRecordDao = null;
     private RunRecord runRecord = new RunRecord();
     private boolean isStart = false;
+
+    private static final int SUCCESS = 1;
+    private static final int FAILURE = 0;
+    Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SUCCESS:
+                    break;
+                case FAILURE:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
 
     public RunPlanExecutionPresenterImpl(RunPlanExecutionView runPlanExecutionView){
         this.runPlanExecutionView = runPlanExecutionView;
@@ -198,8 +221,31 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
 
 
     private void saveRunInfo() {
-        if(null!=runRecord.getTraceEntity())
-            runRecordDao.addRunRecord(runRecord);
+        if(null!=runRecord.getTraceEntity()){
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    String message;
+                    message = JSON.toJSONString(runRecord);
+                    String response =  ConnectUtil.getResponse("search", message);
+                    String result = null;
+                    Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                    });
+
+                    if(null!=map){
+                        result= map.get("result");
+                    }
+                    if("true".equals(result)&&null!=result){
+                        myHandler.sendEmptyMessage(SUCCESS);
+                    }
+                    else{
+                        myHandler.sendEmptyMessage(FAILURE);
+                    }
+                }
+            }.start();
+        }
+            //runRecordDao.addRunRecord(runRecord);
 
     }
 
