@@ -2,7 +2,8 @@ package com.starun.www.starun.pview;
 
 import android.app.Activity;
 
-import com.starun.www.starun.model.data.RunRecord;
+
+import com.starun.www.starun.server.data.RunRecord;
 
 import java.util.List;
 
@@ -18,8 +19,14 @@ public interface RunRecordView{
 
 
     /**
-     * RunRecordPresenter回调View层显示所有跑步记录
+     * RunRecordPresenter回调View层显示跑步记录
      * @param records 包含所有跑步记录的List
      */
     public abstract void onShowRunRecords(List<RunRecord> records);
+
+
+    /**
+     * 更新跑步记录
+     */
+    public abstract void onUpdateRunRecords();
 }

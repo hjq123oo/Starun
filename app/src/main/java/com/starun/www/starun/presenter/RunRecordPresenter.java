@@ -8,7 +8,13 @@ import com.starun.www.starun.pview.RunRecordView;
  */
 public interface RunRecordPresenter {
     /**
-     *加载所有跑步记录
+     * 初始化跑步记录
      */
-    public abstract void loadRunRecords();
+    public abstract void doRunRecordsInit();
+
+
+    /**
+     *加载跑步记录
+     */
+    public abstract void doRunRecordsLoad();
 }

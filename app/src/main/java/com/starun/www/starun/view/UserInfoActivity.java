@@ -16,6 +16,7 @@ import com.starun.www.starun.presenter.UserInfoPresenter;
 import com.starun.www.starun.presenter.impl.UserInfoPresenterImpl;
 import com.starun.www.starun.pview.UserInfoView;
 import com.starun.www.starun.server.data.RunTotalInfo;
+import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.utilview.CircleImageView;
 
@@ -38,7 +39,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
     private UserInfoPresenter userInfoPresenter;
 
 
-    private int user_id;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +74,16 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
 
         Intent intent = getIntent();
         Bundle bundle=intent.getExtras();
-        user_id = bundle.getInt("user_id");
+        user = (User)bundle.get("user");
+
+        nicknameTextView.setText(user.getNickname());
+
+        circleImageView.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(user.getHeadImgPath(), "drawable", getPackageName())));
+
 
         userInfoPresenter = new UserInfoPresenterImpl(this);
 
-        userInfoPresenter.doLoadUserInfo(user_id);
+        userInfoPresenter.doLoadUserInfo(user.getUser_id());
 
 
     }
@@ -161,9 +167,6 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
 
 
     private void showRunTotalInfo(RunTotalInfo runTotalInfo){
-        nicknameTextView.setText(runTotalInfo.getNickname());
-
-        circleImageView.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(runTotalInfo.getHeadImgPath(), "drawable", getPackageName())));
 
         distanceTextView.setText(String.format("%.2f",runTotalInfo.getTotal_distance())+"km");
 
