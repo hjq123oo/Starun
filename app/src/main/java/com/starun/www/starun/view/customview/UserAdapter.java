@@ -31,7 +31,7 @@ public class UserAdapter extends BaseAdapter {
     private Context context;
     private List<User> userList;
     private FriendOrRankListPresenter friendOrRankListPresenter = null;
-    private int begin = 0;
+    private int begin = 1;
 
     public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter, int begin){
         this.context = context;
@@ -41,7 +41,7 @@ public class UserAdapter extends BaseAdapter {
     }
 
     public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter){
-        this(context,userList,friendOrRankListPresenter,0);
+        this(context,userList,friendOrRankListPresenter,1);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class UserAdapter extends BaseAdapter {
 
         //holder.portrait.setImageDrawable(Drawable.createFromPath(userList.get(position).getHeadImgPath()));
         holder.username.setText(userList.get(position).getUsername());
-        holder.no.setText(String.valueOf(position+1));
+        holder.no.setText(String.valueOf(position+begin));
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
