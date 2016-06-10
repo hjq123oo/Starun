@@ -110,8 +110,8 @@ public class DailyFragment extends BaseFragment implements FriendOrRankListView{
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    //friendOrRankListPresenter.showListForDaily(user_id);
-                    refreshData();
+                    friendOrRankListPresenter.showListForDaily(user_id);
+                    //refreshData();
                     mHasLoadedOnce = true;
                 } else {
                     // 加载失败
@@ -137,9 +137,14 @@ public class DailyFragment extends BaseFragment implements FriendOrRankListView{
 
     @Override
     public void showUserList(List<User> users) {
-        listView = (ListView)view.findViewById(R.id.user_list_view);
-        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users,friendOrRankListPresenter);
-        listView.setAdapter(userAdapter);
+        if(0 == users.size()){
+            Toast.makeText(this.getActivity(),"好友为空，请添加好友",Toast.LENGTH_LONG).show();
+        }
+        else{
+            listView = (ListView)view.findViewById(R.id.user_list_view);
+            userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users,friendOrRankListPresenter);
+            listView.setAdapter(userAdapter);
+        }
     }
 
     @Override

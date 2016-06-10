@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.presenter.FriendOrRankListPresenter;
 import com.starun.www.starun.pview.FriendOrRankListView;
@@ -38,7 +39,7 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
                 //判断发送的消息
                 case FORUSER:
                     String strlist1 = (String) msg.obj;
-                    List<User> users1 = JSON.parseObject(strlist1,new TypeReference<List<User>>(){});
+                    List<User> users1 = JSON.parseObject(strlist1, new TypeReference<List<User>>(){});
                     friendListView.showUserList(users1);
                     break;
                 case DETAIL:
@@ -149,14 +150,13 @@ public class FriendOrRankListPresenterImpl implements FriendOrRankListPresenter 
         String response = null;
         response = ConnectUtil.getResponse(operationUrl, message);
         String result = null;
-        Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-        });
+        JSONObject jsonObject = JSON.parseObject(response);
 
-        if(null!=map){
-            result= map.get("result");
+        if(null!=jsonObject){
+            result= jsonObject.getString("result");
         }
         if("true".equals(result)&&null!=result){
-            String friendlist = map.get("msg");
+            String friendlist = jsonObject.getJSONObject("msg").getString("users");
             Message msg = new Message();
             msg.what = FORUSER;
             msg.obj = friendlist;

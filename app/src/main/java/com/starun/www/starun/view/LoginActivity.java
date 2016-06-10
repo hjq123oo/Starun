@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.R;
 import com.starun.www.starun.presenter.UserPresenter;
 import com.starun.www.starun.presenter.impl.UserPresenterImpl;
@@ -28,7 +30,6 @@ public class LoginActivity extends Activity implements UserView{
     private EditText password = null;
     private TextView toRegister = null;
     private UserPresenter userPresenter = null;
-    private User user  = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class LoginActivity extends Activity implements UserView{
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = new User();
+                User user = new User();
                 user.setUsername(username.getText().toString());
                 user.setPassword(password.getText().toString());
                 userPresenter.login(user);
@@ -89,11 +90,10 @@ public class LoginActivity extends Activity implements UserView{
 
     @Override
     public void onSuccess(String msg) {
-        if("".equals(msg)){
-            Toast.makeText(this.getActivity(),msg,Toast.LENGTH_LONG).show();
-        }
         //这里服务器最好能返回user
-        ((MyApplication)this.getApplicationContext()).setUser(user);
+        User tempuser = JSON.parseObject(msg, new TypeReference<User>() {
+        });
+        ((MyApplication)this.getApplicationContext()).setUser(tempuser);
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this,MainActivity.class);
         startActivity(intent);
