@@ -18,6 +18,7 @@ import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.customview.UserAdapter;
+import com.starun.www.starun.view.utilview.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,10 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
     private TextView no1 = null;
     private TextView no2 = null;
     private TextView no3 = null;
+    private View no1_3 = null;
+    private CircleImageView zhuangyuan = null;
+    private CircleImageView bangyan = null;
+    private CircleImageView tanhua = null;
 
     public static final RankPlanFragment newInstance(Boolean rank){
         RankPlanFragment rankPlanFragment = new RankPlanFragment();
@@ -50,15 +55,20 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_plan_rank,container, true);
+        view = inflater.inflate(R.layout.fragment_plan_rank,container, false);
         friendOrRankListPresenter = new FriendOrRankListPresenterImpl(this,getArguments().getBoolean("rank"));
         MyApplication myApplication = (MyApplication) this.getActivity().getApplicationContext();
         if(null!=myApplication.getUser()){
             user_id = String.valueOf(myApplication.getUser().getUser_id());
         }
-        no1 = (TextView)view.findViewById(R.id.no1);
-        no2 = (TextView)view.findViewById(R.id.no2);
-        no3 = (TextView)view.findViewById(R.id.no3);
+        no1_3 = (View)view.findViewById(R.id.no1_3);
+        no1_3.setVisibility(View.GONE);
+        no1 = (TextView)view.findViewById(R.id.zhuangyuan_name);
+        no2 = (TextView)view.findViewById(R.id.bangyan_name);
+        no3 = (TextView)view.findViewById(R.id.tanhua_name);
+        zhuangyuan = (CircleImageView)view.findViewById(R.id.zhuangyuan);
+        bangyan = (CircleImageView)view.findViewById(R.id.bangyan);
+        tanhua = (CircleImageView)view.findViewById(R.id.tanhua);
 
         isPrepared = true;
         lazyLoad();
@@ -67,7 +77,7 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
 
     //刷新界面
     private void refreshData(){
-        Toast.makeText(this.getContext(), "PlanFragment", Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), "RankPlanFragment", Toast.LENGTH_LONG).show();
         List<User> users = new ArrayList<User>();
         User user = new User();
         user.setUsername("yearsj");
@@ -92,12 +102,19 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
         user4.setNickname("tala");
         user4.setUser_id(1);
         users.add(user4);
+
+        User user5 = new User();
+        user5.setUsername("zcy");
+        user5.setNickname("zcy");
+        user5.setUser_id(1);
+        users.add(user5);
+
         for(int i = 0; i<3;i++){
             if(null!=users.get(i)){
                 switch (i){
-                    case 0: no1.setText(users.get(i).getUser_id()); break;
-                    case 1: no2.setText(users.get(i).getUser_id()); break;
-                    case 2: no3.setText(users.get(i).getUser_id()); break;
+                    case 0: no1.setText(users.get(i).getUsername()); zhuangyuan.setOnClickListener(new ClickListener(users.get(i).getUser_id())); break;
+                    case 1: no2.setText(users.get(i).getUsername()); bangyan.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
+                    case 2: no3.setText(users.get(i).getUsername()); tanhua.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
                 }
             }
             else
@@ -105,7 +122,7 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
         }
         if(users.size()>3){
             listView = (ListView)view.findViewById(R.id.user_list_view_rank);
-            userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,3);
+            userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,4);
             listView.setAdapter(userAdapter);
         }
     }
@@ -129,8 +146,8 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
             protected void onPostExecute(Boolean isSuccess) {
                 if (isSuccess) {
                     // 加载成功
-                    //friendOrRankListPresenter.showListForPlanRank();
-                    refreshData();
+                    friendOrRankListPresenter.showListForPlanRank();
+                    //refreshData();
                     mHasLoadedOnce = true;
                 } else {
                     // 加载失败
@@ -157,23 +174,25 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
     @Override
     public void showUserList(List<User> users) {
 
-        for(int i = 0; i<3;i++){
-            if(null!=users.get(i)){
-                switch (i){
-                    case 0: no1.setText(users.get(i).getUser_id()); break;
-                    case 1: no2.setText(users.get(i).getUser_id()); break;
-                    case 2: no3.setText(users.get(i).getUser_id()); break;
+        if(0!=users.size()){
+            no1_3.setVisibility(View.VISIBLE);
+            for(int i = 0; i<3;i++){
+                if(null!=users.get(i)){
+                    switch (i){
+                        case 0: no1.setText(users.get(i).getUsername()); zhuangyuan.setOnClickListener(new ClickListener(users.get(i).getUser_id())); break;
+                        case 1: no2.setText(users.get(i).getUsername()); bangyan.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
+                        case 2: no3.setText(users.get(i).getUsername()); tanhua.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
+                    }
                 }
+                else
+                    break;
             }
-            else
-                break;
+            if(users.size()>3){
+                listView = (ListView)view.findViewById(R.id.user_list_view_rank);
+                userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,3);
+                listView.setAdapter(userAdapter);
+            }
         }
-        if(users.size()>3){
-            listView = (ListView)view.findViewById(R.id.user_list_view_rank);
-            userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,3);
-            listView.setAdapter(userAdapter);
-        }
-
     }
 
     @Override
@@ -186,6 +205,20 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
         if(null!=runTotalInfo){
             //跳转到详情页面
             Toast.makeText(this.getActivity().getApplicationContext(),"在此跳转到详情页面",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 内部类---点击事件
+     */
+    public class ClickListener implements View.OnClickListener{
+        private int user_id = 0;
+        public ClickListener(int user_id){
+            this.user_id = user_id;
+        }
+        @Override
+        public void onClick(View v){
+            //此处跳转到详情页面
         }
     }
 }

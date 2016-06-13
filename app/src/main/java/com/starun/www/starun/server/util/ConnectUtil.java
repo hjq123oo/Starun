@@ -17,6 +17,8 @@ public class ConnectUtil {
     private static final String IPADDRESS = "http://121.42.215.215:5000/";
     /**响应成功代码**/
     private static final int SUCCESS = 200;
+    /*响应失败代码*/
+    private static final int FAILURE = 400;
 
     /**
      * 连接服务器并发送请求
@@ -41,7 +43,7 @@ public class ConnectUtil {
                 outputStream = conn.getOutputStream();
                 outputStream.write(message.getBytes("UTF-8"));
             }
-            if(SUCCESS == conn.getResponseCode()){
+            if(FAILURE != conn.getResponseCode()){
                 inputStream = conn.getInputStream();
                 result = StringUtil.readString(inputStream);
             }

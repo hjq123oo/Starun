@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.presenter.FriendOrRankListPresenter;
-import com.starun.www.starun.pview.FriendOrRankListView;
 import com.starun.www.starun.server.data.User;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class UserAdapter extends BaseAdapter {
     private Context context;
     private List<User> userList;
     private FriendOrRankListPresenter friendOrRankListPresenter = null;
-    private int begin = 0;
+    private int begin = 1;
 
     public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter, int begin){
         this.context = context;
@@ -41,7 +40,7 @@ public class UserAdapter extends BaseAdapter {
     }
 
     public UserAdapter(Context context, List<User> userList,FriendOrRankListPresenter friendOrRankListPresenter){
-        this(context,userList,friendOrRankListPresenter,0);
+        this(context,userList,friendOrRankListPresenter,1);
     }
 
     @Override
@@ -79,13 +78,16 @@ public class UserAdapter extends BaseAdapter {
             holder=(ViewHolder) convertView.getTag();
         }
 
-        //holder.portrait.setImageDrawable(Drawable.createFromPath(userList.get(position).getHeadImgPath()));
+
+        holder.portrait.setImageDrawable(context.getResources().getDrawable(context.getResources().getIdentifier(userList.get(position).getHeadImgPath(), "drawable", context.getPackageName())));
         holder.username.setText(userList.get(position).getUsername());
-        holder.no.setText(String.valueOf(position+1));
+        holder.no.setText(String.valueOf(position+begin));
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "userid="+userList.get(position).getUser_id(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "userid="+userList.get(position).getUser_id(), Toast.LENGTH_SHORT).show();
+
+                //此处要进行修改
                 friendOrRankListPresenter.showFriendDetail(String.valueOf(userList.get(position).getUser_id()));
             }
         });
