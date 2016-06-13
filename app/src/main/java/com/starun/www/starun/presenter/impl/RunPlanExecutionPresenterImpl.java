@@ -16,10 +16,13 @@ import com.starun.www.starun.dao.RunRecordDao;
 import com.starun.www.starun.model.logic.RunPlanExecutionLogic;
 import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.pview.RunPlanExecutionView;
+import com.starun.www.starun.server.data.Plan;
 import com.starun.www.starun.server.data.RunRecord;
 import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.service.TraceService;
+import com.starun.www.starun.view.application.MyApplication;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -37,11 +40,29 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
     private RunRecord runRecord = new RunRecord();
     private boolean isStart = false;
 
+    private Plan plan = null;
+
+    private int user_id;
+
+    int state; //跑步计划类型
+
+    private static final int PLAN_UPLOAD = 3;
+    private static final int PLAN_LOAD = 2;
     private static final int SUCCESS = 1;
     private static final int FAILURE = 0;
     Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case PLAN_UPLOAD:
+                    if(state == 1){
+                        doRunStop();
+                    }else if(state == 3){
+                        runPlanExecutionView.onTagFinish();
+                    }
+                    break;
+                case PLAN_LOAD:
+                    preparePlan();
+                    break;
                 case SUCCESS:
                     break;
                 case FAILURE:
@@ -56,12 +77,65 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         this.runPlanExecutionView = runPlanExecutionView;
 
         runPlanExecutionLogic = new RunPlanExecutionLogic(runPlanExecutionView.getActivity());
+
+        user_id = ((MyApplication)runPlanExecutionView.getActivity().getApplication()).getUser().getUser_id();
+
+        runRecord.setUser_id(user_id);
     }
 
 
     @Override
     public void doRunPrepare() {
-        int state = runPlanExecutionLogic.preparePlan();
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+
+                String userMessage = "user_id="+ user_id;
+                String response = ConnectUtil.getResponse("getPlan", userMessage);
+                String result = null;
+                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                });
+
+                if(null!=map){
+                    result= map.get("result");
+                }
+                if("true".equals(result)&&null!=result){
+                    String msg = map.get("msg");
+                    Map<String, String> msgMap = JSON.parseObject(msg, new TypeReference<Map<String, String>>() {
+                    });
+
+                    plan = JSON.parseObject(msgMap.get("plan"),new TypeReference<Plan>(){});
+                    if(plan == null){
+                        plan = new Plan();
+                        plan.setUser_id(user_id);
+                        plan.setRun_plan_id(1);
+                        plan.setLesson_index(1);
+                        plan.setPlan_percentage(0);
+                    }
+                    myHandler.sendEmptyMessage(PLAN_LOAD);
+                }
+                else if(result == null){
+
+                }else if(result.equals("false")){
+                    if(plan == null){
+                        plan = new Plan();
+                        plan.setUser_id(user_id);
+                        plan.setRun_plan_id(1);
+                        plan.setLesson_index(1);
+                        plan.setPlan_percentage(0);
+                    }
+                    myHandler.sendEmptyMessage(PLAN_LOAD);
+                }
+
+            }
+        }.start();
+
+    }
+
+
+    private void preparePlan(){
+        state = runPlanExecutionLogic.preparePlan(plan);
         if(state == 1){
             runPlanExecutionLogic.startRun();
             //回调跑步界面
@@ -74,6 +148,39 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             //回调提示对话框
             runPlanExecutionView.onShowTag(runPlanExecutionLogic.getRunPlanData().getTitle(),runPlanExecutionLogic.getRunPlanData().getDesc());
         }
+    }
+
+
+    private void uploadPlan(final Plan uploadPlan){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                Plan newPlan = new Plan();
+
+                newPlan.setUser_id(user_id);
+                newPlan.setRun_plan_id(uploadPlan.getRun_plan_id());
+                newPlan.setLesson_index(uploadPlan.getLesson_index());
+                newPlan.setPlan_percentage(uploadPlan.getPlan_percentage());
+
+                String message = JSON.toJSONString(newPlan);
+                String response = ConnectUtil.getResponsePostJson("updatePlan", message);
+                String result = null;
+                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
+                });
+
+                if(null!=map){
+                    result= map.get("result");
+
+                }
+                if(null!=result&&"true".equals(result)){
+                    myHandler.sendEmptyMessage(PLAN_UPLOAD);
+                }
+                else{
+
+                }
+            }
+        }.start();
     }
 
     @Override
@@ -134,7 +241,8 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
 
     @Override
     public void doTagFinish() {
-        runPlanExecutionLogic.finishPlan();
+        Plan uplpadPlan = runPlanExecutionLogic.finishPlan();
+        uploadPlan(uplpadPlan);
     }
 
 
@@ -154,8 +262,9 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
                 runPlanExecutionView.onUpdateInfo(runPlanExecutionLogic.getIRunPlanExecution());
             }else if(state == 2){
                 //回调运动结束
-                runPlanExecutionLogic.finishPlan();
-                doRunStop();
+                Plan plan = runPlanExecutionLogic.finishPlan();
+                uploadPlan(plan);
+
             }
 
 
@@ -221,14 +330,23 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
 
 
     private void saveRunInfo() {
-        if(null!=runRecord.getTraceEntity()){
+
+        if(runRecord.getTraceEntity() != null){
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
                     String message;
-                    message = JSON.toJSONString(runRecord);
-                    String response =  ConnectUtil.getResponse("search", message);
+                    Map<String,Object> sendMap = new HashMap<String, Object>();
+                    sendMap.put("user_id",runRecord.getUser_id()+"");
+                    sendMap.put("startTime",runRecord.getStartTime()+"");
+                    sendMap.put("endTime",runRecord.getEndTime() + "");
+                    sendMap.put("runTime",runRecord.getRunTime());
+                    sendMap.put("kilometer",runRecord.getKilometer());
+                    sendMap.put("traceEntity",runRecord.getTraceEntity());
+
+                    message = JSON.toJSONString(sendMap);
+                    String response =  ConnectUtil.getResponsePostJson("saveRunRecord", message);
                     String result = null;
                     Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
                     });
@@ -245,6 +363,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
                 }
             }.start();
         }
+
             //runRecordDao.addRunRecord(runRecord);
 
     }

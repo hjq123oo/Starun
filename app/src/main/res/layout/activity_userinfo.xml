@@ -134,7 +134,7 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00.00h"
+                    android:text="0.00h"
                     android:textColor="#101010"
                     android:layout_gravity="center"
                     android:textSize="18sp"/>
@@ -269,7 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:progress="18" />
+            android:progress="0" />
     </LinearLayout>
 
 

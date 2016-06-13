@@ -67,4 +67,50 @@ public class ConnectUtil {
         }
         return result;
     }
+
+
+    public static String getResponsePostJson(String urlOperation, String message){
+        String urlString = IPADDRESS+urlOperation;
+        URL url = null;
+        HttpURLConnection conn = null;
+        OutputStream outputStream = null;
+        InputStream inputStream = null;
+        String result = null;
+        try {
+            url = new URL(urlString);
+            conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type","application/json");
+            conn.setConnectTimeout(3 * 1000);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            if(null!=message){
+                outputStream = conn.getOutputStream();
+                outputStream.write(message.getBytes("UTF-8"));
+            }
+            if(FAILURE != conn.getResponseCode()){
+                inputStream = conn.getInputStream();
+                result = StringUtil.readString(inputStream);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if(null!=outputStream) {
+                    outputStream.close();
+                }
+                if(null!=inputStream) {
+                    inputStream.close();
+                }
+                if(null!=conn){
+                    conn.disconnect();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
 }

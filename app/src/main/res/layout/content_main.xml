@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="82dp"
             android:layout_marginRight="82dp"
-            android:text="00.00"
+            android:text="0.00"
             android:textSize="40dp"
             android:id="@+id/tv_total_dist"
             android:layout_gravity="center"/>
@@ -56,7 +56,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00"
+                    android:text="0:00h"
                     android:textSize="25dp"
                     android:layout_gravity="center"
                     android:id="@+id/tv_total_time"/>
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="25dp"
-                    android:text="3"
+                    android:text="1"
                     android:id="@+id/tv_total_stage"/>
                 <TextView
                     android:layout_width="wrap_content"

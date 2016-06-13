@@ -60,41 +60,9 @@ public class RunPlanExecutionLogic {
     }
 
 
-    public int preparePlan(){
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                String userMessage = "user_id="+ ((MyApplication)context).getUser().getUser_id();
-                String response = ConnectUtil.getResponse("getPlan", userMessage);
-                String result = null;
-                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                });
+    public int preparePlan(Plan plan){
+        this.plan = plan;
 
-                if(null!=map){
-                    result= map.get("result");
-                }
-                if("true".equals(result)&&null!=result){
-                    String msg = map.get("msg");
-                    Map<String, String> msgMap = JSON.parseObject(msg, new TypeReference<Map<String, String>>() {
-                    });
-
-                    plan = JSON.parseObject(msgMap.get("plan"),new TypeReference<Plan>(){});
-                    if(plan == null){
-                        plan = new Plan();
-                        plan.setUser_id(((MyApplication)context).getUser().getUser_id());
-                        plan.setRun_plan_id(1);
-                        plan.setLesson_index(1);
-                        plan.setPlan_percentage(0);
-                    }
-
-                }
-                else{
-
-                }
-
-            }
-        }.start();
 
         runPlanData = runPlanDao.getRunPlanData(plan.getRun_plan_id());
 
@@ -334,38 +302,8 @@ public class RunPlanExecutionLogic {
         return iRunPlanExecution;
     }
 
-    private void uploadPlan(final int planId, final int lessonIndex, final double planPercentage){
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                Plan newPlan = new Plan();
 
-                newPlan.setUser_id(((MyApplication)context).getUser().getUser_id());
-                newPlan.setRun_plan_id(planId);
-                newPlan.setLesson_index(lessonIndex);
-                newPlan.setPlan_percentage(planPercentage);
-
-                String message = JSON.toJSONString(newPlan);
-                String response = ConnectUtil.getResponse("updatePlan", message);
-                String result = null;
-                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                });
-
-                if(null!=map){
-                    result= map.get("result");
-                }
-                if("true".equals(result)&&null!=result){
-
-                }
-                else{
-
-                }
-            }
-        }.start();
-    }
-
-    public void finishPlan(){
+    public Plan finishPlan(){
 
         int runPlanId = plan.getRun_plan_id();
         int lessonIndex = plan.getLesson_index();
@@ -373,20 +311,36 @@ public class RunPlanExecutionLogic {
 
         //该跑步计划为提示文本时,存储下一个跑步计划id
         if(getPlanState() == 3){
-            uploadPlan(runPlanId + 1, 1, planPercentage);
+            Plan rPlan = new Plan();
+            rPlan.setRun_plan_id(runPlanId + 1);
+            rPlan.setLesson_index(1);
+            rPlan.setPlan_percentage(planPercentage);
+            return rPlan;
         }else{
             //跑步计划执行到该周第三课时,存储下一个跑步计划id;否则,存储下一个跑步课程
             if(lessonIndex==3){
                 //该跑步计划包含选项,跑步计划id+2
                 if(getPlanState() == 2){
-                    uploadPlan(runPlanId + 2, 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                    Plan rPlan = new Plan();
+                    rPlan.setRun_plan_id(runPlanId + 2);
+                    rPlan.setLesson_index(1);
+                    rPlan.setPlan_percentage( calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                    return rPlan;
+
                 }else{
-                    uploadPlan(runPlanId + 1, 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                    Plan rPlan = new Plan();
+                    rPlan.setRun_plan_id(runPlanId + 1);
+                    rPlan.setLesson_index(1);
+                    rPlan.setPlan_percentage(calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                    return rPlan;
                 }
 
             }else{
-                uploadPlan(runPlanId, lessonIndex + 1, calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
-
+                Plan rPlan = new Plan();
+                rPlan.setRun_plan_id(runPlanId);
+                rPlan.setLesson_index(lessonIndex + 1);
+                rPlan.setPlan_percentage(calPlanPercentage(runPlanData.getWeekIndex(), lessonIndex));
+                return rPlan;
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.presenter.MainPresenter;
 import com.starun.www.starun.pview.MainView;
@@ -35,6 +36,7 @@ public class MainPresenterImpl implements MainPresenter {
             switch (msg.what) {
                 //判断发送的消息
                 case FAILURE:
+                    mainView.onDataShow(runTotalInfo, planStage);
                     break;
                 case SUCCESS:
                     mainView.onDataShow(runTotalInfo, planStage);
@@ -58,24 +60,32 @@ public class MainPresenterImpl implements MainPresenter {
             public void run() {
                 super.run();
                 String message = "user_id="+user_id;
-                String response = ConnectUtil.getResponse("detailOfFriend", message);
+                String response = ConnectUtil.getResponse("detailOfUser", message);
                 String result = null;
-                Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                });
+                JSONObject jsonObject = JSON.parseObject(response);
 
-                if(null!=map){
-                    result= map.get("result");
+                if(null!=jsonObject){
+                    result= jsonObject.getString("result");
                 }
                 if("true".equals(result)&&null!=result){
-                    String msg = map.get("msg");
-
-                    runTotalInfo = JSON.parseObject(msg,new TypeReference<RunTotalInfo>(){});
+                    JSONObject msgObj = jsonObject.getJSONObject("msg");
+                    runTotalInfo = JSON.parseObject(msgObj.getString("runTotalInfo"), new TypeReference<RunTotalInfo>() {
+                    });
 
                     planStage = getPlanStageByPlanPercentage(runTotalInfo.getPlan_percentage());
 
                     myHandler.sendEmptyMessage(SUCCESS);
                 }
-                else{
+                else if(result == null){
+
+                }else if(result.equals("false")){
+                    runTotalInfo = new RunTotalInfo();
+                    runTotalInfo.setUser_id(user_id);
+                    runTotalInfo.setTotal_time(0);
+                    runTotalInfo.setPlan_percentage(0);
+                    runTotalInfo.setTotal_distance(0);
+
+                    planStage = 1;
                     myHandler.sendEmptyMessage(FAILURE);
                 }
             }

@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.presenter.FriendRequestPresenter;
 import com.starun.www.starun.pview.FriendRequestView;
@@ -81,10 +83,16 @@ public class FriendRequestPresenterImpl implements FriendRequestPresenter {
 
                 if("true".equals(result) &&null!=result){
                     String msg = map.get("msg");
-                    mapList = JSON.parseObject(msg,new TypeReference< List<Map<String,Object>>>(){});
-
-                    for(Map<String,Object> myMap : mapList){
-                        users.add((User) myMap.get("user"));
+                    JSONObject obj = JSON.parseObject(msg);
+                    JSONArray arr = JSON.parseArray(JSON.parseObject(obj.getString("user")).getString("resultarr"));
+                    for(int i=0;i<arr.size();i++){
+                        JSONArray dataArr = JSON.parseArray(arr.getString(i));
+                        User myUser = new User();
+                        myUser.setUser_id((int)dataArr.get(0));
+                        myUser.setUsername((String) dataArr.get(1));
+                        myUser.setNickname((String)dataArr.get(3));
+                        myUser.setHeadImgPath((String)dataArr.get(8));
+                        users.add(myUser);
                     }
 
                     myHandler.sendEmptyMessage(LOAD);

@@ -59,7 +59,7 @@ public class AvatarPresenterImpl implements AvatarPresenter{
                 user.setHeadImgPath(avatarFileName);
                 String message = JSON.toJSONString(user);
 
-                String response =  ConnectUtil.getResponse("updateUserInfo ", message);
+                String response =  ConnectUtil.getResponsePostJson("updateUserInfo ", message);
                 String result = null;
                 Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
                 });

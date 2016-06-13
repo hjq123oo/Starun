@@ -74,7 +74,14 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
 
         Intent intent = getIntent();
         Bundle bundle=intent.getExtras();
-        user = (User)bundle.get("user");
+
+
+        if(bundle == null){
+            user = ((MyApplication)getApplication()).getUser();
+        }else{
+            User reUser = (User)bundle.get("user");
+            user = reUser;
+        }
 
         nicknameTextView.setText(user.getNickname());
 
@@ -103,6 +110,7 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
             public void onClick(View v) {
                 Intent intent = new Intent(UserInfoActivity.this,AvatarActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

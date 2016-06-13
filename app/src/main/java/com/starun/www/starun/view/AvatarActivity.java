@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
@@ -39,10 +40,14 @@ public class AvatarActivity extends AppCompatActivity implements AvatarView{
 
     private AvatarPresenter avatarPresenter;
 
+    private ImageButton btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
+
+        btnBack = (ImageButton)findViewById(R.id.btn_back);
 
         mGridView = (GridView)findViewById(R.id.gridView);
 
@@ -53,6 +58,14 @@ public class AvatarActivity extends AppCompatActivity implements AvatarView{
 
         mGridView.setAdapter(new AdapterGridView());
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AvatarActivity.this,UserInfoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -64,7 +77,6 @@ public class AvatarActivity extends AppCompatActivity implements AvatarView{
     public void onAvatarUpload() {
 
         Intent intent = new Intent(AvatarActivity.this,UserInfoActivity.class);
-        intent.putExtra("user_id",((MyApplication)getApplication()).getUser().getUser_id());
         startActivity(intent);
         finish();
     }
@@ -97,12 +109,14 @@ public class AvatarActivity extends AppCompatActivity implements AvatarView{
                 ImageView mImageView = (ImageView) convertView
                         .findViewById(R.id.img_view_avatar);
 
-                mImageView.setBackgroundResource(avatars[position]);
+
+                mImageView.setImageResource(avatars[position]);
+
                 LinearLayout.LayoutParams mParams=(LinearLayout.LayoutParams) mImageView.getLayoutParams();
                 mParams.weight=(width / 3);
                 mParams.height=(width / 3);
                 mImageView.setLayoutParams(mParams);
-
+                mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 mImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

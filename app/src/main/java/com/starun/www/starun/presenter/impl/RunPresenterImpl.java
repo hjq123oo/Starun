@@ -19,6 +19,7 @@ import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.service.TraceService;
 import com.starun.www.starun.view.application.MyApplication;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,8 @@ public class RunPresenterImpl implements RunPresenter {
     //private RunRecordDao runRecordDao = null;
     private RunRecord runRecord;
     private boolean isStart = false;
+
+    private int user_id;
 
     private static final int SUCCESS = 1;
     private static final int FAILURE = 0;
@@ -50,7 +53,8 @@ public class RunPresenterImpl implements RunPresenter {
     public RunPresenterImpl(RunView runView){
         this.runView = runView;
         runRecord = new RunRecord();
-        runRecord.setUser_id(((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id());
+        user_id = ((MyApplication)runView.getActivity().getApplication()).getUser().getUser_id();
+        runRecord.setUser_id(user_id);
         //runRecordDao = new RunRecordDao(runView.getActivity());
     }
 
@@ -143,14 +147,22 @@ public class RunPresenterImpl implements RunPresenter {
 
     @Override
     public void saveRunInfo() {
-        if(null!=runRecord.getTraceEntity()){
+        if(runRecord.getTraceEntity() != null){
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
                     String message;
-                    message = JSON.toJSONString(runRecord);
-                    String response =  ConnectUtil.getResponse("search", message);
+                    Map<String,Object> sendMap = new HashMap<String, Object>();
+                    sendMap.put("user_id",runRecord.getUser_id()+"");
+                    sendMap.put("startTime",runRecord.getStartTime()+"");
+                    sendMap.put("endTime",runRecord.getEndTime() + "");
+                    sendMap.put("runTime",runRecord.getRunTime());
+                    sendMap.put("kilometer",runRecord.getKilometer());
+                    sendMap.put("traceEntity",runRecord.getTraceEntity());
+
+                    message = JSON.toJSONString(sendMap);
+                    String response =  ConnectUtil.getResponsePostJson("saveRunRecord", message);
                     String result = null;
                     Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
                     });
@@ -167,6 +179,8 @@ public class RunPresenterImpl implements RunPresenter {
                 }
             }.start();
         }
+
+
             //runRecordDao.addRunRecord(runRecord);
     }
 }

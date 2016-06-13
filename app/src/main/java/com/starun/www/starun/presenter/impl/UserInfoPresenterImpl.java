@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.presenter.UserInfoPresenter;
 import com.starun.www.starun.pview.UserInfoView;
@@ -11,7 +12,6 @@ import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.util.ConnectUtil;
 import com.starun.www.starun.view.application.MyApplication;
 
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -68,6 +68,40 @@ public class UserInfoPresenterImpl implements UserInfoPresenter{
                 public void run() {
                     super.run();
                     String message = "user_id="+user_id;
+                    String response = ConnectUtil.getResponse("detailOfUser", message);
+                    String result = null;
+                    JSONObject jsonObject = JSON.parseObject(response);
+
+                    if(null!=jsonObject){
+                        result= jsonObject.getString("result");
+                    }
+                    if("true".equals(result)&&null!=result){
+                        JSONObject msgObj = jsonObject.getJSONObject("msg");
+                        runTotalInfo = JSON.parseObject(msgObj.getString("runTotalInfo"), new TypeReference<RunTotalInfo>() {
+                        });
+
+                        myHandler.sendEmptyMessage(OWN_SHOW);
+                    }
+                    else if(result == null){
+
+                    }else if(result.equals("false")){
+                        runTotalInfo = new RunTotalInfo();
+                        runTotalInfo.setUser_id(user_id);
+                        runTotalInfo.setTotal_time(0);
+                        runTotalInfo.setPlan_percentage(0);
+                        runTotalInfo.setTotal_distance(0);
+
+                        myHandler.sendEmptyMessage(OWN_SHOW);
+                    }
+                }
+            }.start();
+
+        }else{
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    String message = "user_id="+user_id+"&me_id="+ownUserId;
                     String response = ConnectUtil.getResponse("detailOfFriend", message);
                     String result = null;
                     Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
@@ -78,37 +112,11 @@ public class UserInfoPresenterImpl implements UserInfoPresenter{
                     }
                     if("true".equals(result)&&null!=result){
                         String msg = map.get("msg");
-                        runTotalInfo = JSON.parseObject(msg,new TypeReference<RunTotalInfo>(){});
-                        myHandler.sendEmptyMessage(OWN_SHOW);
-                    }
-                    else{
-                        myHandler.sendEmptyMessage(FAILURE);
-                    }
-                }
-            }.start();
-
-        }else{
-            new Thread(){
-                @Override
-                public void run() {
-                    super.run();
-                    String message = "user_id="+user_id;
-                    String response = ConnectUtil.getResponse("detailOfUser", message);
-                    String result = null;
-                    Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {
-                    });
-
-                    if(null!=map){
-                        result= map.get("result");
-                    }
-                    if("true".equals(result)&&null!=result){
-                        String msg = map.get("msg");
-
                         Map<String, String> msgMap = JSON.parseObject(msg, new TypeReference<Map<String, String>>() {
                         });
 
                         boolean isfriend = JSON.parseObject(msgMap.get("isfriend"),new TypeReference<Boolean>(){});
-                        runTotalInfo = JSON.parseObject(msg,new TypeReference<RunTotalInfo>(){});
+                        runTotalInfo = JSON.parseObject(msgMap.get("runTotalInfo"),new TypeReference<RunTotalInfo>(){});
                         if(isfriend){
                             myHandler.sendEmptyMessage(FRIEND_SHOW);
                         }else {

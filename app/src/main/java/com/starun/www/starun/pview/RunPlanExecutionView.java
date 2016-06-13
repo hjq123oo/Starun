@@ -67,4 +67,6 @@ public interface RunPlanExecutionView {
     public abstract void onUpdateInfo(IRunPlanExecution iRunPlanExecution);
 
 
+    public abstract void onTagFinish();
+
 }

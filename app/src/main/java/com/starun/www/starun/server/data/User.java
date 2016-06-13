@@ -13,7 +13,7 @@ public class User implements Serializable{
     private String nickname;  //用户昵称
     private double stature;  //用户身高
     private double weight;   //用户体重
-    private Date birthday;    //用户生日
+    private long birthday;    //用户生日
     private int sex;          //用户性别
     private String headImgPath;  //用户头像
 
@@ -65,11 +65,11 @@ public class User implements Serializable{
         this.weight = weight;
     }
 
-    public Date getBirthday() {
+    public long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 

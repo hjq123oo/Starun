@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void init(){
-        user = ((MyApplication)getActivity().getApplication()).getUser();
+        user = ((MyApplication)getApplication()).getUser();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainactivity_toolbar);
         setSupportActionBar(toolbar);
@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity
         tvTotalDist = (TextView) findViewById(R.id.tv_total_dist);
         tvTotalTime = (TextView) findViewById(R.id.tv_total_time);
         tvStage = (TextView) findViewById(R.id.tv_total_stage);
-        tvNickName = (TextView) findViewById(R.id.tv_navi_nickname);
+
+        tvNickName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_navi_nickname);
         ivIcon = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.civ_icon);
 
         dailyExercise = (TextView) findViewById(R.id.tv_daily_exercise);
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         dailyExercise.setOnClickListener(listener);
         planExercise.setOnClickListener(listener);
 
-
+        mainPresenter.doDataLoad();
     }
 
     @Override
@@ -187,9 +188,12 @@ public class MainActivity extends AppCompatActivity
 
         tvNickName.setText(user.getNickname());
 
+        if(user.getHeadImgPath().equals("")){
+            user.setHeadImgPath("user_avatar_1");
+        }
         ivIcon.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(user.getHeadImgPath(), "drawable", getPackageName())));
 
-        tvTotalDist.setText(String.format("%.2f",runTotalInfo.getTotal_distance())+"km");
+        tvTotalDist.setText(String.format("%.2f",runTotalInfo.getTotal_distance()));
 
         long totalTime = runTotalInfo.getTotal_time();
         double hours = ((double)totalTime)/1000/60/60;
@@ -198,6 +202,6 @@ public class MainActivity extends AppCompatActivity
 
         tvStage.setText("" + planStage);
 
-        planExercise.setBackgroundDrawable(getResources().getDrawable(getResources().getIdentifier("plan_btn_"+(planStage-1), "drawable", getPackageName())));
+        planExercise.setBackgroundDrawable(getResources().getDrawable(getResources().getIdentifier("plan_btn_" + (planStage - 1), "drawable", getPackageName())));
     }
 }

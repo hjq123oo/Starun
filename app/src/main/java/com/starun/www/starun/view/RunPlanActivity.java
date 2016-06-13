@@ -156,7 +156,7 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         runPlanExecutionPresenter.doTagFinish();
-                        runPlanExecutionPresenter.doRunPrepare();
+
                     }
                 }).create();
         alert.show();
@@ -198,5 +198,10 @@ public class RunPlanActivity extends FragmentActivity implements RunPlanMainFrag
 
     public RunPlanExecutionPresenter getRunPlanExecutionPresenter(){
         return runPlanExecutionPresenter;
+    }
+
+    @Override
+    public void onTagFinish() {
+        runPlanExecutionPresenter.doRunPrepare();
     }
 }
