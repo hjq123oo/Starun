@@ -68,6 +68,7 @@ public class MainPresenterImpl implements MainPresenter {
                 }
                 if("true".equals(result)&&null!=result){
                     String msg = map.get("msg");
+
                     runTotalInfo = JSON.parseObject(msg,new TypeReference<RunTotalInfo>(){});
 
                     planStage = getPlanStageByPlanPercentage(runTotalInfo.getPlan_percentage());

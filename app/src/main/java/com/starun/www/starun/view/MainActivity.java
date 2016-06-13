@@ -19,6 +19,8 @@ import com.starun.www.starun.presenter.MainPresenter;
 import com.starun.www.starun.presenter.impl.MainPresenterImpl;
 import com.starun.www.starun.pview.MainView;
 import com.starun.www.starun.server.data.RunTotalInfo;
+import com.starun.www.starun.server.data.User;
+import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.utilview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     Button planExercise;
     TextView dailyExercise;
 
+    User user;
+
     MainPresenter mainPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void init(){
+        user = ((MyApplication)getActivity().getApplication()).getUser();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainactivity_toolbar);
         setSupportActionBar(toolbar);
 
@@ -179,9 +185,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDataShow(RunTotalInfo runTotalInfo, int planStage) {
 
-        tvNickName.setText(runTotalInfo.getNickname());
+        tvNickName.setText(user.getNickname());
 
-        ivIcon.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(runTotalInfo.getHeadImgPath(), "drawable", getPackageName())));
+        ivIcon.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(user.getHeadImgPath(), "drawable", getPackageName())));
 
         tvTotalDist.setText(String.format("%.2f",runTotalInfo.getTotal_distance())+"km");
 
