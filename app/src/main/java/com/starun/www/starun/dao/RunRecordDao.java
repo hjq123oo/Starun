@@ -32,7 +32,7 @@ public class RunRecordDao {
                 "end_time," +
                 "run_time" +
                 "kilometer," +
-                "trace_entity," +
+                "trace_entity" +
                 ") " +
                 "values (?,?,?,?,?)";
         SQLiteDatabase db = dbHelper.getWritableDatabase();

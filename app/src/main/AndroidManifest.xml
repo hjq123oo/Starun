@@ -59,48 +59,44 @@
         <activity android:name=".view.RecordActivity" />
         <activity
             android:name=".view.PlanActivity"
-
-            android:theme="@style/Theme.AppCompat" >
-        </activity>
-        <activity android:name=".view.WarmupActivity" >
-        </activity>
+            android:theme="@style/Theme.AppCompat" />
+        <activity android:name=".view.WarmupActivity" />
         <activity
             android:name=".view.MainActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.RunPlanActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.FriendListActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity android:name=".view.RankListActivity"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.RankListActivity" />
 
         <service
             android:name=".service.MusicService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".service.PromptToneService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".view.SearchFriendActivity" >
-
-        </activity>
-        <activity android:name=".view.SettingActivity" >
-
-
-        </activity>
-
+        <activity android:name=".view.SearchFriendActivity" />
+        <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.UserInfoActivity" />
         <activity android:name=".view.AvatarActivity" />
 
+        <service
+            android:name=".service.FriendNoticeService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.starun.www.starun.service.FRIEND_NOTICE_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".view.FriendRequestActivity"></activity>
     </application>
 
 </manifest>

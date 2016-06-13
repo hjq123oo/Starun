@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="#FFFFFF"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16px"
+        android:paddingBottom="16px">
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/portrait_img"
+            android:layout_centerVertical="true"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_nickname"
+                android:text="sun"
+                android:textSize="20sp"
+                android:textColor="@color/colorNaviBackground"
+                android:layout_alignParentTop="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:text="请求添加您为好友"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/tex_detail"
+                android:textSize="16sp"
+                android:textColor="@color/colorHorizontalRule"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="删除"
+            android:textSize="11sp"
+            android:textColor="#01A5E0"
+            android:background="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btn_delete"
+            android:text="添加"
+            android:textSize="11sp"
+            android:textColor="#01A5E0"
+            android:background="#FFFFFF"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/line_hr"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#BBBBBB">
+
+    </LinearLayout>
+</LinearLayout>

@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="#EEEEEE"
             android:text="头像"
 
@@ -60,7 +60,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginLeft="15dp"
             android:textColor="#101010"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="昵称"/>
     </LinearLayout>
 
@@ -97,7 +97,7 @@
                     android:text="0.00km"
                     android:textColor="#101010"
                     android:layout_gravity="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
 
@@ -106,7 +106,7 @@
                     android:text="累计距离"
                     android:textColor="#101010"
                     android:layout_gravity="center"
-                    android:textSize="15dp"/>
+                    android:textSize="15sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -137,7 +137,7 @@
                     android:text="00.00h"
                     android:textColor="#101010"
                     android:layout_gravity="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                     android:text="累计时长"
                     android:textColor="#101010"
                     android:layout_gravity="center"
-                    android:textSize="15dp"/>
+                    android:textSize="15sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="#101010"
                 android:text="历史记录"
                 android:layout_toRightOf="@id/iv_history"
@@ -224,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="#101010"
                 android:text="计划详情"
                 android:layout_toRightOf="@id/iv_plan"
@@ -250,7 +250,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="计划完成情况："
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:layout_alignParentRight="true"/>
     </LinearLayout>
 

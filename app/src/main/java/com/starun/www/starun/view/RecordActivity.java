@@ -116,7 +116,7 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
 
         @Override
         public Object getItem(int position) {
-            return position;
+            return records.get(position);
         }
 
         @Override
