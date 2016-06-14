@@ -65,7 +65,7 @@ public class RunPresenterImpl implements RunPresenter {
             runView.getActivity().startService(service);
         }else{
             isStart = true;
-            runRecord.setStartTime(System.currentTimeMillis() / 1000);
+            runRecord.setStartTime(System.currentTimeMillis());
             Intent service = new Intent(runView.getActivity(),TraceService.class);
             runView.getActivity().startService(service);
         }
@@ -83,7 +83,7 @@ public class RunPresenterImpl implements RunPresenter {
     @Override
     public void doRunStop() {
         //停止service
-        runRecord.setEndTime(System.currentTimeMillis() / 1000);
+        runRecord.setEndTime(System.currentTimeMillis());
         //获取计时器时间
 
         runRecord.setRunTime(convertStrTimeToLong(runView.getChronometer().getText().toString()));
@@ -160,7 +160,7 @@ public class RunPresenterImpl implements RunPresenter {
                     sendMap.put("runTime",runRecord.getRunTime());
                     sendMap.put("kilometer",runRecord.getKilometer());
                     sendMap.put("traceEntity",runRecord.getTraceEntity());
-
+                    sendMap.put("traceEntity","entity");
                     message = JSON.toJSONString(sendMap);
                     String response =  ConnectUtil.getResponsePostJson("saveRunRecord", message);
                     String result = null;

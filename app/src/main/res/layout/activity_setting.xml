@@ -5,15 +5,34 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.starun.www.starun.view.SettingActivity">
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:id="@+id/toolbar_setting"
-        android:layout_height="?attr/actionBarSize"
-        app:theme="@style/AppTheme.NoActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent" >
-    </android.support.v7.widget.Toolbar>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#1F1D1F">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_left_white"
+            />
+
+        <TextView
+            android:id="@+id/tv_listname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="#EEEEEE"
+            android:text="设置" />
+
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_below="@+id/toolbar_setting"
         android:layout_width="fill_parent"
@@ -88,6 +107,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/view_music"
            >
 
             <ImageView
@@ -171,10 +191,5 @@
 
         </LinearLayout>
     </LinearLayout>
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="退出"
-        android:layout_gravity="bottom"/>
+
 </RelativeLayout>

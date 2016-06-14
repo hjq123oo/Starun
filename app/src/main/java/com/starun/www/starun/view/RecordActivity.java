@@ -2,6 +2,7 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.starun.www.starun.presenter.impl.RunRecordPresenterImpl;
 import com.starun.www.starun.pview.RunRecordView;
 import com.starun.www.starun.server.data.RunRecord;
 import com.starun.www.starun.utils.TimeUtils;
+import com.starun.www.starun.view.utilview.RefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,52 +34,49 @@ import java.util.List;
 public class RecordActivity extends AppCompatActivity implements RunRecordView {
 
     ListView lv;
-    SwipeRefreshLayout swipeRefreshLayout;
+    RefreshLayout refreshLayout;
     RunRecordPresenter runRecordPresenter;
 
     RecordListAdapter recordListAdapter;
+
+    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-
+        btnBack = (ImageButton)findViewById(R.id.btn_back);
         lv = (ListView) findViewById(R.id.record_lv);
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        refreshLayout = (RefreshLayout)findViewById(R.id.swipe_layout);
         runRecordPresenter = new RunRecordPresenterImpl(this);
 
-
-        swipeRefreshLayout.setProgressViewEndTarget(true, 100);
-
-        runRecordPresenter.doRunRecordsInit();
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        runRecordPresenter.doRunRecordsLoad();
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+            public void onClick(View v) {
+                finish();
             }
         });
 
-        /*
-        RunRecordDao runRecordDao = new RunRecordDao(getApplicationContext());
-        List<RunRecord> runRecords = runRecordDao.getRunRecords();
-        if (runRecords.size()>0) {
-            lv.setAdapter(new RecordListAdapter(getApplicationContext(), (ArrayList) runRecords));
-        }
-        else {
-            Log.d(TAG, "runRecords is null");
-        }*/
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+        refreshLayout.setRefreshing(false);
+        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+
+            @Override
+            public void onLoad() {
+                runRecordPresenter.doRunRecordsLoad();
+
+            }
+        });
+
+
+        runRecordPresenter.doRunRecordsInit();
 
     }
 
@@ -94,8 +94,15 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
     @Override
     public void onUpdateRunRecords() {
         recordListAdapter.notifyDataSetChanged();
+        // 加载完后调用该方法
+        refreshLayout.setLoading(false);
+        /*refreshLayout.setRefreshing(false);*/
     }
 
+    @Override
+    public void onInitRunRecords() {
+        recordListAdapter.notifyDataSetChanged();
+    }
 
     class RecordListAdapter extends BaseAdapter {
         Context context;
@@ -143,8 +150,12 @@ public class RecordActivity extends AppCompatActivity implements RunRecordView {
             holder.icon1 = (ImageView)rootView.findViewById(R.id.icon1);
             holder.icon2 = (ImageView)rootView.findViewById(R.id.icon2);
             holder.date_tv.setText(TimeUtils.long2DateStr(records.get(position).getStartTime()));
-            holder.distance_tv.setText(records.get(position).getKilometer()+"公里");
-            holder.spend_time_tv.setText(TimeUtils.long2MS(records.get(position).getRunTime()));
+            holder.distance_tv.setText(records.get(position).getKilometer()+"");
+            long runTime = records.get(position).getRunTime();
+            long hour = runTime/(60*60*1000);
+            long minute = (runTime - hour*60*60*1000)/(60*1000);
+            long second = (runTime - hour*60*60*1000 - minute*60*1000)/1000;
+            holder.spend_time_tv.setText(minute+":"+second);
             return rootView;
         }
     }

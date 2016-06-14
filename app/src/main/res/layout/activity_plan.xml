@@ -1,153 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#EDEDED"
-    android:layout_height="match_parent">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.starun.www.starun.view.PlanActivity"
-        android:orientation="vertical">
+        android:layout_height="50dp"
+        android:background="#1F1D1F">
 
-        <com.starun.www.starun.view.customview.HorizontalListView
-            android:id="@+id/plan_hl"
-            android:layout_width="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_height="50dp">
-        </com.starun.www.starun.view.customview.HorizontalListView>
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_left_white"
+            />
 
-        <LinearLayout
-            android:visibility="invisible"
-            android:id="@+id/normal_ll"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_listname"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/plan_hl"
-            android:orientation="vertical">
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="#EEEEEE"
+            android:text="计划" />
 
-            <LinearLayout
-                android:background="@android:color/white"
-                android:id="@+id/desc1_rl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/week1_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="第一课" />
-                <TextView
-                    android:id="@+id/rundesc1_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/darker_gray"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="跑步1分钟，行走2分钟" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="5dp"
-                    android:background="#000"></View>
-
-            </LinearLayout>
-            <LinearLayout
-                android:background="@android:color/white"
-                android:id="@+id/desc2_rl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/week2_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="第二课" />
-                <TextView
-                    android:id="@+id/rundesc2_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/darker_gray"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="跑步1分钟，行走2分钟" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#000"></View>
-
-            </LinearLayout>
-            <LinearLayout
-                android:background="@android:color/white"
-                android:id="@+id/desc3_rl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/week3_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="第三课" />
-                <TextView
-                    android:id="@+id/rundesc3_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/darker_gray"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:layout_margin="10dp"
-                    android:text="跑步1分钟，行走2分钟" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="5dp"
-                    android:background="#000"></View>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/more_text_ll"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/plan_hl"
-            android:background="@android:color/white"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/more_text1_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@android:color/black"
-                android:text=""/>
-
-        </LinearLayout>
 
     </RelativeLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="#EDEDED"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.starun.www.starun.view.customview.HorizontalListView
+                android:id="@+id/plan_hl"
+                android:layout_width="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_height="50dp">
+            </com.starun.www.starun.view.customview.HorizontalListView>
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:id="@+id/normal_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plan_hl"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@android:color/white"
+                    android:id="@+id/desc1_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/week1_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="第一课" />
+                    <TextView
+                        android:id="@+id/rundesc1_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@android:color/darker_gray"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="跑步1分钟，行走2分钟" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="5dp"
+                        android:background="#000"></View>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@android:color/white"
+                    android:id="@+id/desc2_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/week2_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="第二课" />
+                    <TextView
+                        android:id="@+id/rundesc2_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/darker_gray"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="跑步1分钟，行走2分钟" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#000"></View>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@android:color/white"
+                    android:id="@+id/desc3_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/week3_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/black"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="第三课" />
+                    <TextView
+                        android:id="@+id/rundesc3_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/darker_gray"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:layout_margin="10dp"
+                        android:text="跑步1分钟，行走2分钟" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="5dp"
+                        android:background="#000"></View>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/more_text_ll"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plan_hl"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/more_text1_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@android:color/black"
+                    android:text=""/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

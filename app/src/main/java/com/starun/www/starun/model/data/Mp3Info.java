@@ -7,8 +7,8 @@ public class Mp3Info {
     private long id;
     private String title;
     private String artist;
+    private String album;
     private long duration;
-    private long size;
     private String url;
 
     public long getId() {
@@ -43,12 +43,12 @@ public class Mp3Info {
         this.duration = duration;
     }
 
-    public long getSize() {
-        return size;
+    public String getAlbum() {
+        return album;
     }
 
-    public void setSize(long size) {
-        this.size = size;
+    public void setAlbum(String album) {
+        this.album = album;
     }
 
     public String getUrl() {

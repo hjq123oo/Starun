@@ -2,7 +2,6 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -10,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +28,8 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
     private HorizontalListView hListView;
     RunPlanPresenter runPlanPresenter;
 
+
+    private ImageButton btnBack;
     private HorizontalListView planHl;
     private LinearLayout normalLl;
     private LinearLayout desc1Rl;
@@ -55,47 +57,50 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         runPlanPresenter.doLoadPrinciple();
 
         hListView = (HorizontalListView)findViewById(R.id.plan_hl);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("计划");
+        btnBack = (ImageButton)findViewById(R.id.btn_back);
 
         ArrayList<String> weekStrs = new ArrayList<String>();
         weekStrs.add("原则");
-        weekStrs.add("第一周");
-        weekStrs.add("第二周");
-        weekStrs.add("第三周");
-        weekStrs.add("第四周");
-        weekStrs.add("第五周");
-        weekStrs.add("第六周");
-        weekStrs.add("中断检查");
-        weekStrs.add("第七周");
-        weekStrs.add("第八周");
-        weekStrs.add("第九周");
-        weekStrs.add("第十周");
-        weekStrs.add("第十一周");
-        weekStrs.add("第十二周");
-        weekStrs.add("第十三周");
+        weekStrs.add("一");
+        weekStrs.add("二");
+        weekStrs.add("三");
+        weekStrs.add("四");
+        weekStrs.add("五");
+        weekStrs.add("六");
+        weekStrs.add("检查");
+        weekStrs.add("七");
+        weekStrs.add("八");
+        weekStrs.add("九");
+        weekStrs.add("十");
+        weekStrs.add("十一");
+        weekStrs.add("十二");
+        weekStrs.add("十三");
 
         hListView.setAdapter(new PlanListAdapter(getApplicationContext(), weekStrs));
         hListView.setOnItemClickListener(new HorizontalListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG,"click position is "+position);
-                if (position==0){
-                    displayType=RunPlanPresenter.PRINCIPLE;
+                Log.d(TAG, "click position is " + position);
+                if (position == 0) {
+                    displayType = RunPlanPresenter.PRINCIPLE;
                     runPlanPresenter.doLoadPrinciple();
-                }
-                else if (position>0&&position<7){
-                    displayType=RunPlanPresenter.RUN_PLAN;
+                } else if (position > 0 && position < 7) {
+                    displayType = RunPlanPresenter.RUN_PLAN;
                     runPlanPresenter.doLoadRunPlan(position);
-                }
-                else if (position==7){
-                    displayType=RunPlanPresenter.CHECK;
+                } else if (position == 7) {
+                    displayType = RunPlanPresenter.CHECK;
                     runPlanPresenter.doLoadCheck();
+                } else {
+                    displayType = RunPlanPresenter.RUN_PLAN;
+                    runPlanPresenter.doLoadRunPlan(position - 1);
                 }
-                else {
-                    displayType=RunPlanPresenter.RUN_PLAN;
-                    runPlanPresenter.doLoadRunPlan(position-1);
-                }
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -156,25 +161,5 @@ public class PlanActivity extends AppCompatActivity implements PlanView{
         moreTextLl = (LinearLayout) findViewById(R.id.more_text_ll);
         moreText1Tv = (TextView) findViewById(R.id.more_text1_tv);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_record, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.record_menu_item:
-                Log.d(TAG,"click record_menu_item");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
 
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import com.starun.www.starun.dao.MusicDao;
 import com.starun.www.starun.model.data.Mp3Info;
 
 import java.util.ArrayList;
@@ -33,12 +34,17 @@ public class MusicLogic {
                     .getColumnIndex(MediaStore.Audio.Media.TITLE)));//音乐标题
             String artist = cursor.getString(cursor
                     .getColumnIndex(MediaStore.Audio.Media.ARTIST));//艺术家
+
+            String album = cursor.getString(cursor
+                    .getColumnIndex(MediaStore.Audio.Media.ALBUM)); //专辑
+
             long duration = cursor.getLong(cursor
                     .getColumnIndex(MediaStore.Audio.Media.DURATION));//时长
-            long size = cursor.getLong(cursor
-                    .getColumnIndex(MediaStore.Audio.Media.SIZE));  //文件大小
+
             String url = cursor.getString(cursor
                     .getColumnIndex(MediaStore.Audio.Media.DATA));              //文件路径
+
+
             int isMusic = cursor.getInt(cursor
                     .getColumnIndex(MediaStore.Audio.Media.IS_MUSIC));//是否为音乐
             if (isMusic != 0) {     //只把音乐添加到集合当中
@@ -46,11 +52,18 @@ public class MusicLogic {
                 mp3Info.setTitle(title);
                 mp3Info.setArtist(artist);
                 mp3Info.setDuration(duration);
-                mp3Info.setSize(size);
+                mp3Info.setAlbum(album);
                 mp3Info.setUrl(url);
                 mp3Infos.add(mp3Info);
             }
         }
         return mp3Infos;
+    }
+
+
+    public List<Mp3Info> getMusicPlayList(){
+        MusicDao musicDao = new MusicDao(context);
+
+        return musicDao.getMp3Infos();
     }
 }

@@ -207,7 +207,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
             isStart = true;
             chronometer = runPlanExecutionView.getChronometer();
             chronometer.setOnChronometerTickListener(new MyOnChronometerTickListener());
-            runRecord.setStartTime(System.currentTimeMillis() / 1000);
+            runRecord.setStartTime(System.currentTimeMillis());
             Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
             runPlanExecutionView.getActivity().startService(service);
         }
@@ -229,7 +229,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
     @Override
     public void doRunStop() {
         //停止service
-        runRecord.setEndTime(System.currentTimeMillis()/1000);
+        runRecord.setEndTime(System.currentTimeMillis());
         runRecord.setRunTime(convertStrTimeToLong(chronometer.getText().toString()));
         Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
         runPlanExecutionView.getActivity().stopService(service);

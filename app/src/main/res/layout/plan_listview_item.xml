@@ -5,13 +5,13 @@
     android:orientation="horizontal">
 
     <TextView
-        android:background="#7CC0EB"
+        android:background="@drawable/plan_textview_border"
         android:id="@+id/phase_tv"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:layout_margin="5dp"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        />
 
 </LinearLayout>

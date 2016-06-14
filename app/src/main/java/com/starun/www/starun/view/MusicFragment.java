@@ -237,7 +237,6 @@ public class MusicFragment extends Fragment implements MusicView{
             map.put("title", mp3Info.getTitle());
             map.put("artist", mp3Info.getArtist());
             map.put("duration", String.valueOf(mp3Info.getDuration()));
-            map.put("size", String.valueOf(mp3Info.getSize()));
             map.put("url", mp3Info.getUrl());
             map.put("music",mp3Info.getTitle()+"-"+mp3Info.getArtist());
             mp3list.add(map);

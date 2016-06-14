@@ -84,7 +84,7 @@ public class FriendRequestPresenterImpl implements FriendRequestPresenter {
                 if("true".equals(result) &&null!=result){
                     String msg = map.get("msg");
                     JSONObject obj = JSON.parseObject(msg);
-                    JSONArray arr = JSON.parseArray(JSON.parseObject(obj.getString("user")).getString("resultarr"));
+                    JSONArray arr = JSON.parseArray(obj.getJSONObject("user").getString("resultarr"));
                     for(int i=0;i<arr.size();i++){
                         JSONArray dataArr = JSON.parseArray(arr.getString(i));
                         User myUser = new User();

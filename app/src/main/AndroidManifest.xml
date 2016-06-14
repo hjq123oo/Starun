@@ -59,7 +59,7 @@
         <activity android:name=".view.RecordActivity" />
         <activity
             android:name=".view.PlanActivity"
-            android:theme="@style/Theme.AppCompat" />
+             />
         <activity android:name=".view.WarmupActivity" />
         <activity
             android:name=".view.MainActivity"
@@ -96,7 +96,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.FriendRequestActivity"></activity>
+        <activity android:name=".view.FriendRequestActivity" />
+        <activity android:name=".view.MusicActivity" />
+        <activity android:name=".view.LocalMusicActivity"></activity>
     </application>
 
 </manifest>

@@ -39,7 +39,7 @@ public class MusicService extends Service {
         mediaPlayer = new MediaPlayer();
 
         MusicLogic musicLogic = new MusicLogic(this);
-        mp3Infos = musicLogic.getMp3Infos();
+        mp3Infos = musicLogic.getMusicPlayList();
         isPause = true;
         current = 0;
         path = mp3Infos.get(current).getUrl();

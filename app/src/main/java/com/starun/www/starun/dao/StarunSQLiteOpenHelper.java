@@ -22,6 +22,15 @@ public class StarunSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE \"music\" (\n" +
+                "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                "\"title\"  TEXT,\n" +
+                "\"artist\"  TEXT,\n" +
+                "\"album\"  TEXT,\n" +
+                "\"duration\"  INTEGER,\n" +
+                "\"url\"  TEXT\n" +
+                ");");
+
         db.execSQL("CREATE TABLE \"warm_up\" (\n" +
                 "\"warm_up_id\"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                 "\"title\"  TEXT,\n" +

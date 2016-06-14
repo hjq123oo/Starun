@@ -9,7 +9,7 @@ import java.util.Date;
 public class TimeUtils {
 
     public static String long2DateStr(long time){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
         String dateFormatted = dateFormat.format(new Date(time));
         return dateFormatted;
     }

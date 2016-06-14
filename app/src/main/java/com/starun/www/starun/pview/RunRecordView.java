@@ -29,4 +29,7 @@ public interface RunRecordView{
      * 更新跑步记录
      */
     public abstract void onUpdateRunRecords();
+
+    public abstract void onInitRunRecords();
+
 }
