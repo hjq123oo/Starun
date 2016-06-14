@@ -8,8 +8,9 @@ public interface AddFriendPresenter {
     /**
      * 获得查找的结果
      * @param keyword
+     * @param user_id
      */
-    public void getSearchResultList(String keyword);
+    public void getSearchResultList(String keyword, int user_id);
 
     /**
      * 发送添加好友请求

@@ -18,13 +18,6 @@ public interface FriendOrRankListView {
     public void showUserList(List<User> users);
 
     /**
-     * 显示详细信息
-     * @param runTotalInfo
-     * @param isfriend
-     */
-    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend);
-
-    /**
      * 显示错误
      */
     public void showError();

@@ -57,40 +57,6 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
         return view;
     }
 
-    //刷新界面
-    private void refreshData(){
-        Toast.makeText(this.getContext(), "PlanFragment", Toast.LENGTH_LONG).show();
-        List<User> users = new ArrayList<User>();
-        listView = (ListView)view.findViewById(R.id.user_list_view);
-        users = new ArrayList<User>();
-        User user = new User();
-        user.setUsername("yearsj");
-        user.setNickname("yearsj");
-        user.setUser_id(1);
-        users.add(user);
-
-        User user2 = new User();
-        user2.setUsername("hjq");
-        user2.setNickname("hjq");
-        user2.setUser_id(2);
-        users.add(user2);
-
-        User user3 = new User();
-        user3.setUsername("lxn");
-        user3.setNickname("lxn");
-        user3.setUser_id(1);
-        users.add(user3);
-
-        User user4 = new User();
-        user4.setUsername("tala");
-        user4.setNickname("tala");
-        user4.setUser_id(1);
-        users.add(user4);
-
-        userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users,friendOrRankListPresenter);
-        listView.setAdapter(userAdapter);
-    }
-
     @Override
     protected void lazyLoad() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
@@ -150,13 +116,5 @@ public class PlanFragment  extends BaseFragment implements FriendOrRankListView{
     @Override
     public void showError() {
         Toast.makeText(this.getActivity().getApplicationContext(),"访问网络失败！",Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend) {
-        if(null!=runTotalInfo){
-            //跳转到详情页面
-            Toast.makeText(this.getActivity().getApplicationContext(),"在此跳转到详情页面",Toast.LENGTH_SHORT).show();
-        }
     }
 }

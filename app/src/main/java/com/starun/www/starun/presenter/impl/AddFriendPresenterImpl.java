@@ -3,12 +3,14 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
 import com.starun.www.starun.presenter.AddFriendPresenter;
 import com.starun.www.starun.pview.AddFriendView;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.server.util.ConnectUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +34,28 @@ public class AddFriendPresenterImpl implements AddFriendPresenter{
                 case SEARCH:
                     String strlist = (String) msg.obj;
                     Map<String,String> strmap = JSON.parseObject(strlist,new TypeReference<Map<String,String>>(){});
-                    List<User> friendList = JSON.parseObject(strmap.get("friendList"),new TypeReference<List<User>>(){});
-                    List<User> unfriendList = JSON.parseObject(strmap.get("unfriendList"),new TypeReference<List<User>>(){});
+                    List<User> friendList = new ArrayList<User>();
+                    List<User> unfriendList = new ArrayList<User>();
+                    JSONArray arr1 = JSON.parseArray(strmap.get("friendList"));
+                    JSONArray arr2 = JSON.parseArray(strmap.get("unfriendList"));
+                    for(int i=0;i<arr1.size();i++){
+                        JSONArray dataArr = JSON.parseArray(arr1.getString(i));
+                        User user = new User();
+                        user.setUser_id((int) dataArr.get(0));
+                        user.setUsername((String) dataArr.get(1));
+                        user.setNickname((String)dataArr.get(3));
+                        user.setHeadImgPath((String)dataArr.get(8));
+                        friendList.add(user);
+                    }
+                    for(int i=0;i<arr2.size();i++){
+                        JSONArray dataArr = JSON.parseArray(arr2.getString(i));
+                        User user = new User();
+                        user.setUser_id((int) dataArr.get(0));
+                        user.setUsername((String) dataArr.get(1));
+                        user.setNickname((String)dataArr.get(3));
+                        user.setHeadImgPath((String)dataArr.get(8));
+                        unfriendList.add(user);
+                    }
                     addFriendView.showSearchResultList(friendList,unfriendList);
                     break;
                 case ADD:
@@ -48,12 +70,12 @@ public class AddFriendPresenterImpl implements AddFriendPresenter{
     };
 
     @Override
-    public void getSearchResultList(final String keyword) {
+    public void getSearchResultList(final String keyword,final int user_id) {
         new Thread(){
             @Override
             public void run() {
                 super.run();
-                String message = "search="+keyword;
+                String message = "user_id="+user_id+"&&user_name="+keyword;
                 String response =  ConnectUtil.getResponse("search", message);
                 String result = null;
                 Map<String, String> map = JSON.parseObject(response, new TypeReference<Map<String, String>>() {

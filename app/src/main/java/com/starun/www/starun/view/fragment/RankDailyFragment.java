@@ -1,5 +1,6 @@
 package com.starun.www.starun.view.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.starun.www.starun.presenter.impl.FriendOrRankListPresenterImpl;
 import com.starun.www.starun.pview.FriendOrRankListView;
 import com.starun.www.starun.server.data.RunTotalInfo;
 import com.starun.www.starun.server.data.User;
+import com.starun.www.starun.view.UserInfoActivity;
 import com.starun.www.starun.view.application.MyApplication;
 import com.starun.www.starun.view.customview.UserAdapter;
 import com.starun.www.starun.view.utilview.CircleImageView;
@@ -75,58 +77,6 @@ public class RankDailyFragment extends BaseFragment implements FriendOrRankListV
         return view;
     }
 
-    //刷新界面
-    private void refreshData(){
-        Toast.makeText(this.getContext(), "RankDailyFragment", Toast.LENGTH_LONG).show();
-        List<User> users = new ArrayList<User>();
-        User user = new User();
-        user.setUsername("yearsj");
-        user.setNickname("yearsj");
-        user.setUser_id(1);
-        users.add(user);
-
-        User user2 = new User();
-        user2.setUsername("hjq");
-        user2.setNickname("hjq");
-        user2.setUser_id(2);
-        users.add(user2);
-
-        User user3 = new User();
-        user3.setUsername("lxn");
-        user3.setNickname("lxn");
-        user3.setUser_id(1);
-        users.add(user3);
-
-        User user4 = new User();
-        user4.setUsername("tala");
-        user4.setNickname("tala");
-        user4.setUser_id(1);
-        users.add(user4);
-
-        User user5 = new User();
-        user5.setUsername("zcy");
-        user5.setNickname("zcy");
-        user5.setUser_id(1);
-        users.add(user5);
-
-        for(int i = 0; i<3;i++){
-            if(null!=users.get(i)){
-                switch (i){
-                    case 0: no1.setText(users.get(i).getUsername()); zhuangyuan.setOnClickListener(new ClickListener(users.get(i).getUser_id())); break;
-                    case 1: no2.setText(users.get(i).getUsername()); bangyan.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
-                    case 2: no3.setText(users.get(i).getUsername()); tanhua.setOnClickListener(new ClickListener(users.get(i).getUser_id()));break;
-                }
-            }
-            else
-                break;
-        }
-        if(users.size()>3){
-            listView = (ListView)view.findViewById(R.id.user_list_view_rank);
-            userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,4);
-            listView.setAdapter(userAdapter);
-        }
-    }
-
     @Override
     protected void lazyLoad() {
         if (!isPrepared || !isVisible || mHasLoadedOnce) {
@@ -175,30 +125,30 @@ public class RankDailyFragment extends BaseFragment implements FriendOrRankListV
     public void showUserList(List<User> users) {
         if(0!=users.size()) {
             no1_3.setVisibility(View.VISIBLE);
-            for (int i = 0; i < 3; i++) {
-                if (null != users.get(i)) {
-                    switch (i) {
-                        case 0:
-                            no1.setText(users.get(i).getUsername());
-                            zhuangyuan.setOnClickListener(new ClickListener(users.get(i).getUser_id()));
-                            break;
-                        case 1:
-                            no2.setText(users.get(i).getUsername());
-                            bangyan.setOnClickListener(new ClickListener(users.get(i).getUser_id()));
-                            break;
-                        case 2:
-                            no3.setText(users.get(i).getUsername());
-                            tanhua.setOnClickListener(new ClickListener(users.get(i).getUser_id()));
-                            break;
-                    }
-                } else
-                    break;
+            for (int i = 0; i < 3&&i<users.size(); i++) {
+                switch (i) {
+                    case 0:
+                        no1.setText(users.get(i).getUsername());
+                        zhuangyuan.setOnClickListener(new ClickListener(users.get(i)));
+                        break;
+                    case 1:
+                        no2.setText(users.get(i).getUsername());
+                        bangyan.setOnClickListener(new ClickListener(users.get(i)));
+                        break;
+                    case 2:
+                        no3.setText(users.get(i).getUsername());
+                        tanhua.setOnClickListener(new ClickListener(users.get(i)));
+                        break;
+                }
             }
             if (users.size() > 3) {
                 listView = (ListView) view.findViewById(R.id.user_list_view_rank);
                 userAdapter = new UserAdapter(this.getActivity().getApplicationContext(), users.subList(3, users.size()), friendOrRankListPresenter, 3);
                 listView.setAdapter(userAdapter);
             }
+        }
+        else{
+            Toast.makeText(this.getContext(),"当前无数据",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -207,25 +157,23 @@ public class RankDailyFragment extends BaseFragment implements FriendOrRankListV
         Toast.makeText(this.getActivity().getApplicationContext(),"访问网络失败！",Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void showFriendDetail(RunTotalInfo runTotalInfo, boolean isfriend) {
-        if(null!=runTotalInfo){
-            //跳转到详情页面
-            Toast.makeText(this.getActivity().getApplicationContext(),"在此跳转到详情页面",Toast.LENGTH_SHORT).show();
-        }
-    }
-
     /**
      * 内部类---点击事件
      */
     public class ClickListener implements View.OnClickListener{
-        private int user_id = 0;
-        public ClickListener(int user_id){
-            this.user_id = user_id;
+        private User user;
+        public ClickListener(User user){
+            this.user = user;
         }
         @Override
         public void onClick(View v){
             //此处跳转到详情页面
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), UserInfoActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtras(bundle);
+            getActivity().startActivity(intent);
         }
     }
 }

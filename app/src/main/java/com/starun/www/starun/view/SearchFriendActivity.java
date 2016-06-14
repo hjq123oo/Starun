@@ -21,6 +21,7 @@ import com.starun.www.starun.presenter.AddFriendPresenter;
 import com.starun.www.starun.presenter.impl.AddFriendPresenterImpl;
 import com.starun.www.starun.pview.AddFriendView;
 import com.starun.www.starun.server.data.User;
+import com.starun.www.starun.view.application.MyApplication;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -64,7 +65,8 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
 
             @Override
             public boolean onQueryTextSubmit(String str) {
-                addFriendPresenter.getSearchResultList(str);
+                int user_id = ((MyApplication)getApplicationContext()).getUser().getUser_id();
+                addFriendPresenter.getSearchResultList(str,user_id);
 //                friendsItems = new ArrayList<User>();
 //                User user = new User();
 //                user.setNickname("Lapidary");
