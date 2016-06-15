@@ -85,10 +85,7 @@ public class UserAdapter extends BaseAdapter {
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "userid="+userList.get(position).getUser_id(), Toast.LENGTH_SHORT).show();
-
-                //此处要进行修改
-                friendOrRankListPresenter.showFriendDetail(String.valueOf(userList.get(position).getUser_id()));
+                friendOrRankListPresenter.showFriendDetail(userList.get(position));
             }
         });
         return convertView;

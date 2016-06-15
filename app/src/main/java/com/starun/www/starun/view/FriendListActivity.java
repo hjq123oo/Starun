@@ -65,8 +65,10 @@ public class FriendListActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 //进入添加好友的界面
+
                 Intent i = new Intent(FriendListActivity.this,SearchFriendActivity.class);
                 startActivity(i);
+
             }
         });
     }
