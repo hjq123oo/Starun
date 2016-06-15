@@ -65,19 +65,6 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
             @Override
             public boolean onQueryTextSubmit(String str) {
                 addFriendPresenter.getSearchResultList(str);
-//                friendsItems = new ArrayList<User>();
-//                User user = new User();
-//                user.setNickname("Lapidary");
-//                friendsItems.add(user);
-//                user = new User();
-//                user.setNickname("fish");
-//                friendsItems.add(user);
-//                user.setNickname("Lapidary");
-//                friendsItems.add(user);
-//                user = new User();
-//                user.setNickname("fish");
-//                friendsItems.add(user);
-//              showSearchResultList(friendsItems,friendsItems);
                   return false;
             }
 
