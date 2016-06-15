@@ -48,7 +48,14 @@
         android:textColor="@color/colorTextviewContent"
         android:textSize="16dp"
         android:id="@+id/tv_search_friend"/>
-
+    <TextView
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:id="@+id/tv_no_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="无"/>
     <ListView
         android:paddingLeft="15dp"
         android:paddingRight="10dp"
@@ -65,6 +72,14 @@
         android:textColor="@color/colorTextviewContent"
         android:id="@+id/tv_search_stranger"
         android:textSize="16dp"/>
+    <TextView
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:id="@+id/tv_no_Stranger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="无"/>
     <ListView
         android:paddingLeft="15dp"
         android:paddingRight="10dp"

@@ -36,7 +36,7 @@ import java.util.List;
 
 public class SearchFriendActivity extends AppCompatActivity implements AddFriendView {
     private SearchView sv = null;
-    private TextView tvFriend, tvStranger;
+    private TextView tvFriend, tvStranger,tvNoFriend, tvNoStranger;
     private ListView lvFriend, lvStranger;
     private SearchFriendAdapter searchFriendAdapter;
     private SearchStrangerAdapter searchStrangerAdapter;
@@ -53,12 +53,16 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvFriend = (TextView) findViewById(R.id.tv_search_friend);
         tvStranger = (TextView) findViewById(R.id.tv_search_stranger);
+        tvNoFriend = (TextView) findViewById(R.id.tv_no_friend);
+        tvNoStranger = (TextView) findViewById(R.id.tv_no_Stranger);
         lvFriend = (ListView) findViewById(R.id.lv_search_friend);
         lvStranger = (ListView) findViewById(R.id.lv_search_stranger);
-        tvStranger.setVisibility(View.INVISIBLE);
-        tvFriend.setVisibility(View.INVISIBLE);
-        lvStranger.setVisibility(View.INVISIBLE);
-        lvFriend.setVisibility(View.INVISIBLE);
+        tvStranger.setVisibility(View.GONE);
+        tvFriend.setVisibility(View.GONE);
+        lvStranger.setVisibility(View.GONE);
+        lvFriend.setVisibility(View.GONE);
+        tvNoFriend.setVisibility(View.GONE);
+        tvNoStranger.setVisibility(View.GONE);
         addFriendPresenter = new AddFriendPresenterImpl(this);
         sv = (SearchView) this.findViewById(R.id.sv_search_friend);
         sv.setIconifiedByDefault(false);
@@ -85,14 +89,23 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
 
     @Override
     public void showSearchResultList(List<User> friendList, List<User> unFriendList) {
+        if(friendList.size()==0){
+            tvNoFriend.setVisibility(View.VISIBLE);
+        }else {
+            lvFriend.setVisibility(View.VISIBLE);
+            searchFriendAdapter = new SearchFriendAdapter(SearchFriendActivity.this, friendList); //创建适配器
+            lvFriend.setAdapter(searchFriendAdapter);
+        }
+        if(unFriendList.size()==0) {
+            tvNoStranger.setVisibility(View.VISIBLE);
+        }else {
+            lvStranger.setVisibility(View.VISIBLE);
+            searchStrangerAdapter = new SearchStrangerAdapter(SearchFriendActivity.this, unFriendList, addFriendPresenter);
+            lvStranger.setAdapter(searchStrangerAdapter);
+        }
         tvStranger.setVisibility(View.VISIBLE);
         tvFriend.setVisibility(View.VISIBLE);
-        lvStranger.setVisibility(View.VISIBLE);
-        lvFriend.setVisibility(View.VISIBLE);
-        searchFriendAdapter = new SearchFriendAdapter(SearchFriendActivity.this, friendList); //创建适配器
-        lvFriend.setAdapter(searchFriendAdapter);
-        searchStrangerAdapter = new SearchStrangerAdapter(SearchFriendActivity.this, unFriendList, addFriendPresenter);
-        lvStranger.setAdapter(searchStrangerAdapter);
+
     }
 
     @Override
