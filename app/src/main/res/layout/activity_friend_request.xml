@@ -13,6 +13,7 @@
         android:background="#1F1D1F">
 
         <ImageButton
+            android:id="@+id/btn_back"
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="历史记录"
+            android:text="好友请求"
             android:textSize="20sp"
             android:textColor="#FFFFFF"/>
 

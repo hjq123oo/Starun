@@ -2,6 +2,7 @@ package com.starun.www.starun.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -33,16 +35,27 @@ public class FriendRequestActivity extends AppCompatActivity implements FriendRe
     private FriendRequestPresenter friendRequestPresenter;
     private FriendRequestListAdapter friendRequestListAdapter;
 
+    private ImageButton btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_request);
+
+        btnBack = (ImageButton)findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         requestListView = (ListView) findViewById(R.id.lv_request);
 
         friendRequestPresenter= new FriendRequestPresenterImpl(this);
 
         friendRequestPresenter.doFriendRequestLoad();
+
     }
 
 
