@@ -47,6 +47,12 @@ public class UserInfoPresenterImpl implements UserInfoPresenter{
                 case NON_FRIEND_SHOW:
                     userInfoView.onShowNonFriend(runTotalInfo);
                     break;
+                case FRIEND_ADD:
+                    userInfoView.onShowFriendAdd();
+                    break;
+                case FRIEND_DELETE:
+                    userInfoView.onShowFriendDelete();
+                    break;
                 default:
                     break;
             }
@@ -151,8 +157,10 @@ public class UserInfoPresenterImpl implements UserInfoPresenter{
                 if("true".equals(result)&&null!=result){
                     myHandler.sendEmptyMessage(FRIEND_ADD);
                 }
-                else{
+                else if(result == null){
                     myHandler.sendEmptyMessage(FAILURE);
+                }else if(result.equals("false")){
+                    myHandler.sendEmptyMessage(FRIEND_ADD);
                 }
             }
         }.start();

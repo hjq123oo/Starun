@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.starun.www.starun.R;
 import com.starun.www.starun.presenter.UserInfoPresenter;
@@ -173,6 +174,16 @@ public class UserInfoActivity extends AppCompatActivity implements UserInfoView{
         });
     }
 
+    @Override
+    public void onShowFriendAdd() {
+        Toast.makeText(this,"已发送好友请求",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onShowFriendDelete() {
+        Toast.makeText(this,"已删除好友",Toast.LENGTH_SHORT).show();
+        btnTool.setText("添加好友");
+    }
 
     private void showRunTotalInfo(RunTotalInfo runTotalInfo){
 

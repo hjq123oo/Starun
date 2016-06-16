@@ -14,5 +14,9 @@ public interface UserInfoView {
 
     void onShowNonFriend(RunTotalInfo runTotalInfo);
 
+    void onShowFriendAdd();
+
+    void onShowFriendDelete();
+
     Activity getActivity();
 }
