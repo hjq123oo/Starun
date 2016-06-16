@@ -19,6 +19,7 @@ import com.starun.www.starun.pview.RunPlanExecutionView;
 import com.starun.www.starun.server.data.Plan;
 import com.starun.www.starun.server.data.RunRecord;
 import com.starun.www.starun.server.util.ConnectUtil;
+import com.starun.www.starun.service.PromptToneService;
 import com.starun.www.starun.service.TraceService;
 import com.starun.www.starun.view.application.MyApplication;
 
@@ -233,6 +234,13 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         runRecord.setRunTime(convertStrTimeToLong(chronometer.getText().toString()));
         Intent service = new Intent(runPlanExecutionView.getActivity(),TraceService.class);
         runPlanExecutionView.getActivity().stopService(service);
+
+        if(((MyApplication)runPlanExecutionView.getActivity().getApplicationContext()).getSetting().isHasVoice()){
+            Intent intent = new Intent();
+            intent.setClass(runPlanExecutionView.getActivity(), PromptToneService.class);
+            intent.putExtra("MSG", PromptToneService.ENDRUN);
+            runPlanExecutionView.getActivity().startService(intent);
+        }
         saveRunInfo();
 
         //回调跑步结束

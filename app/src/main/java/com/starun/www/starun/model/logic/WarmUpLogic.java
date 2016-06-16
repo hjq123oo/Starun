@@ -1,9 +1,12 @@
 package com.starun.www.starun.model.logic;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.starun.www.starun.dao.WarmUpDao;
 import com.starun.www.starun.model.data.WarmUpData;
+import com.starun.www.starun.service.PromptToneService;
+import com.starun.www.starun.view.application.MyApplication;
 
 import java.util.List;
 
@@ -28,7 +31,10 @@ public class WarmUpLogic {
     private WarmUpDao warmUpDao;
     private List<WarmUpData> warmUpDatas;
 
+    private Context context;
+
     public WarmUpLogic(Context context) {
+        this.context = context;
         warmUpDao = new WarmUpDao(context);
         warmUpDatas = warmUpDao.getWarmUpDatas();
 
@@ -92,14 +98,27 @@ public class WarmUpLogic {
 
     public void start(){
         state = State.START;
+        if(((MyApplication)context.getApplicationContext()).getSetting().isHasVoice()){
+            Intent intent = new Intent();
+            intent.setClass(context, PromptToneService.class);
+            intent.putExtra("MSG", PromptToneService.STARTWARMUP);
+            context.startService(intent);
+        }
     }
 
     public void pause(){
         state = State.PAUSE;
+
     }
 
     public void stop(){
         state = State.STOP;
+        if(((MyApplication)context.getApplicationContext()).getSetting().isHasVoice()){
+            Intent intent = new Intent();
+            intent.setClass(context, PromptToneService.class);
+            intent.putExtra("MSG", PromptToneService.ENDWARMUP);
+            context.startService(intent);
+        }
     }
 
 }

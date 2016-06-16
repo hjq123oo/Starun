@@ -13,10 +13,13 @@ import com.starun.www.starun.R;
 public class PromptToneService extends Service {
     private MediaPlayer mediaPlayer;   //媒体播放器对象
     private boolean isPause = false;
-    public final static int WARMUP = 1;
-    public final static int RUN = 2;
-    public final static int PAUSE = 3;
-    public final static int RESUME = 4;
+    public final static int STARTWARMUP = 1;
+    public final static int STARTRUN = 2;
+    public final static int STARTWALK= 3;
+    public final static int ENDWARMUP = 4;
+    public final static int ENDRUN = 5;
+    public final static int PAUSE = 6;
+    public final static int RESUME = 7;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -32,11 +35,17 @@ public class PromptToneService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         int msg = intent.getIntExtra("MSG", 0);         //播放信息
-        if (msg ==WARMUP) {
-            play(R.raw.music);
-        } else if (msg == RUN) {
-            play(R.raw.music);
-        } else if(msg == RESUME){
+        if (msg ==STARTWARMUP) {
+            play(R.raw.start_warmup);
+        } else if (msg == STARTRUN) {
+            play(R.raw.start_run);
+        } else if (msg == STARTWALK) {
+            play(R.raw.start_walk);
+        } else if (msg == ENDWARMUP) {
+            play(R.raw.end_warmup);
+        } else if (msg == ENDRUN) {
+            play(R.raw.end_run);
+        }  else if(msg == RESUME){
             resume();
         } else if(msg == PAUSE){
             pause();

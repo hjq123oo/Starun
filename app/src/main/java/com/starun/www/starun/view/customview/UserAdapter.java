@@ -80,7 +80,7 @@ public class UserAdapter extends BaseAdapter {
 
 
         holder.portrait.setImageDrawable(context.getResources().getDrawable(context.getResources().getIdentifier(userList.get(position).getHeadImgPath(), "drawable", context.getPackageName())));
-        holder.username.setText(userList.get(position).getUsername());
+        holder.username.setText(userList.get(position).getNickname());
         holder.no.setText(String.valueOf(position+begin));
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
