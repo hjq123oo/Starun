@@ -193,7 +193,7 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
                     strangers.get(position).getHeadImgPath()));
 
             searchStrangerListItemView.image.setBackgroundResource(R.drawable.icon1);
-            searchStrangerListItemView.name.setText(strangers.get(position).getNickname());
+            searchStrangerListItemView.name.setText(strangers.get(position).getUsername());
             searchStrangerListItemView.add.setOnClickListener(new tvListener(convertView, searchStrangerListItemView, position));
 
             return convertView;

@@ -128,14 +128,18 @@ public class RankPlanFragment  extends BaseFragment implements FriendOrRankListV
             no1_3.setVisibility(View.VISIBLE);
             for(int i = 0; i<users.size()&&i<3;i++){
                 switch (i){
-                    case 0: no1.setText(users.get(i).getUsername()); zhuangyuan.setOnClickListener(new ClickListener(users.get(i))); break;
-                    case 1: no2.setText(users.get(i).getUsername()); bangyan.setOnClickListener(new ClickListener(users.get(i)));break;
-                    case 2: no3.setText(users.get(i).getUsername()); tanhua.setOnClickListener(new ClickListener(users.get(i)));break;
+                    case 0: no1.setText(users.get(i).getUsername());
+                        zhuangyuan.setOnClickListener(new ClickListener(users.get(i)));
+                        zhuangyuan.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(users.get(i).getHeadImgPath(), "drawable", this.getActivity().getPackageName())));;break;
+                    case 1: no2.setText(users.get(i).getUsername()); bangyan.setOnClickListener(new ClickListener(users.get(i)));
+                        bangyan.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(users.get(i).getHeadImgPath(), "drawable", this.getActivity().getPackageName())));;break;
+                    case 2: no3.setText(users.get(i).getUsername()); tanhua.setOnClickListener(new ClickListener(users.get(i)));
+                        tanhua.setImageDrawable(getResources().getDrawable(getResources().getIdentifier(users.get(i).getHeadImgPath(), "drawable", this.getActivity().getPackageName())));;break;
                 }
             }
             if(users.size()>3){
                 listView = (ListView)view.findViewById(R.id.user_list_view_rank);
-                userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,3);
+                userAdapter = new UserAdapter(this.getActivity().getApplicationContext(),users.subList(3,users.size()),friendOrRankListPresenter,4);
                 listView.setAdapter(userAdapter);
             }
         }
