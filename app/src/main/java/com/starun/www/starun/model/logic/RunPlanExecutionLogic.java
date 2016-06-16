@@ -1,6 +1,7 @@
 package com.starun.www.starun.model.logic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Message;
 
 import com.alibaba.fastjson.JSON;
@@ -13,6 +14,7 @@ import com.starun.www.starun.presenter.RunPlanExecutionPresenter;
 import com.starun.www.starun.presenter.RunPlanPresenter;
 import com.starun.www.starun.server.data.Plan;
 import com.starun.www.starun.server.util.ConnectUtil;
+import com.starun.www.starun.service.PromptToneService;
 import com.starun.www.starun.view.application.MyApplication;
 
 import org.json.JSONObject;
@@ -254,6 +256,12 @@ public class RunPlanExecutionLogic {
 
                 //运动结束
                 if(curMovementIndex >= movements.length){
+                    if(((MyApplication)context.getApplicationContext()).getSetting().isHasVoice()){
+                        Intent intent = new Intent();
+                        intent.setClass(context, PromptToneService.class);
+                        intent.putExtra("MSG", PromptToneService.ENDRUN);
+                        context.startService(intent);
+                    }
                     return 2;
                 }
 
@@ -265,8 +273,20 @@ public class RunPlanExecutionLogic {
 
                 if(moveState.equals("run")){
                     iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
+                    if(((MyApplication)context.getApplicationContext()).getSetting().isHasVoice()){
+                        Intent intent = new Intent();
+                        intent.setClass(context, PromptToneService.class);
+                        intent.putExtra("MSG", PromptToneService.STARTRUN);
+                        context.startService(intent);
+                    }
                 }else if(moveState.equals("walk")){
                     iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
+                    if(((MyApplication)context.getApplicationContext()).getSetting().isHasVoice()){
+                        Intent intent = new Intent();
+                        intent.setClass(context, PromptToneService.class);
+                        intent.putExtra("MSG", PromptToneService.STARTWALK);
+                        context.startService(intent);
+                    }
                 }
 
 

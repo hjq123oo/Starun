@@ -16,6 +16,7 @@ import com.starun.www.starun.pview.RunView;
 import com.starun.www.starun.server.data.RunRecord;
 import com.starun.www.starun.server.data.User;
 import com.starun.www.starun.server.util.ConnectUtil;
+import com.starun.www.starun.service.PromptToneService;
 import com.starun.www.starun.service.TraceService;
 import com.starun.www.starun.view.application.MyApplication;
 
@@ -85,6 +86,12 @@ public class RunPresenterImpl implements RunPresenter {
         //停止service
         runRecord.setEndTime(System.currentTimeMillis());
         //获取计时器时间
+        if(((MyApplication)runView.getActivity().getApplicationContext()).getSetting().isHasVoice()){
+            Intent intent = new Intent();
+            intent.setClass(runView.getActivity(), PromptToneService.class);
+            intent.putExtra("MSG", PromptToneService.ENDRUN);
+            runView.getActivity().startService(intent);
+        }
 
         runRecord.setRunTime(convertStrTimeToLong(runView.getChronometer().getText().toString()));
         Intent service = new Intent(runView.getActivity(),TraceService.class);
