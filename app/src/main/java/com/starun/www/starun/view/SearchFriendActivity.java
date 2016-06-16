@@ -3,6 +3,7 @@ package com.starun.www.starun.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class SearchFriendActivity extends AppCompatActivity implements AddFriendView {
     private SearchView sv = null;
-    private TextView tvFriend, tvStranger,tvNoFriend, tvNoStranger;
+    private TextView tvFriend, tvStranger,tvNoFriend, tvNoStranger, toback;
     private ListView lvFriend, lvStranger;
     private SearchFriendAdapter searchFriendAdapter;
     private SearchStrangerAdapter searchStrangerAdapter;
@@ -54,6 +55,7 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
         tvFriend = (TextView) findViewById(R.id.tv_search_friend);
         tvStranger = (TextView) findViewById(R.id.tv_search_stranger);
         tvNoFriend = (TextView) findViewById(R.id.tv_no_friend);
+        toback = (TextView) findViewById(R.id.tv_search_friend_back);
         tvNoStranger = (TextView) findViewById(R.id.tv_no_Stranger);
         lvFriend = (ListView) findViewById(R.id.lv_search_friend);
         lvStranger = (ListView) findViewById(R.id.lv_search_stranger);
@@ -83,6 +85,14 @@ public class SearchFriendActivity extends AppCompatActivity implements AddFriend
                 return false;
             }
 
+        });
+
+        toback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchFriendActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
         });
 
     }
