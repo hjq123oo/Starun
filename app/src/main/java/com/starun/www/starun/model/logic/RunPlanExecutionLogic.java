@@ -169,11 +169,11 @@ public class RunPlanExecutionLogic {
             moveKilometer = Double.parseDouble(str);
         }else if(moveState.equals("run")){
             iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
-            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
         }else if(moveState.equals("walk")){
             iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
-            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
 
         }
@@ -205,11 +205,11 @@ public class RunPlanExecutionLogic {
             moveKilometer = Double.parseDouble(str);
         }else if(moveState.equals("run")){
             iRunPlanExecution.setMovementState("跑步"+str+"分钟倒计时");
-            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
         }else if(moveState.equals("walk")){
             iRunPlanExecution.setMovementState("行走"+str+"分钟倒计时");
-            moveTime = Integer.parseInt(str)*1000;//*60*1000;
+            moveTime = Integer.parseInt(str)*60*1000;
             iRunPlanExecution.setTime(moveTime);
 
         }
@@ -271,7 +271,7 @@ public class RunPlanExecutionLogic {
 
 
 
-                moveTime = Integer.parseInt(str)*1000;//*60*1000;
+                moveTime = Integer.parseInt(str)*60*1000;
 
                 iRunPlanExecution.setTime(moveTime - restTime);
                 return 1;
