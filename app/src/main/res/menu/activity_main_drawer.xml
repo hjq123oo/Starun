@@ -7,6 +7,8 @@
             />
         <item android:id="@+id/nav_friends" android:icon="@drawable/navi_friend_icon"
             android:title="我的朋友" />
+        <item android:id="@+id/nav_friends_request" android:icon="@drawable/navi_friend_icon"
+            android:title="好友请求" />
         <item android:id="@+id/nav_rank" android:icon="@drawable/navi_rank_icon"
             android:title="全国排名" />
         <item android:id="@+id/nav_setting" android:icon="@drawable/navi_setting_icon"

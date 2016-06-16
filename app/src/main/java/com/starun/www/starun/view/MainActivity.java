@@ -156,7 +156,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this,FriendListActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_rank) {
+        } else if(id == R.id.nav_friends_request){
+            Intent i = new Intent(MainActivity.this,FriendRequestActivity.class);
+            startActivity(i);
+        }else if (id == R.id.nav_rank) {
 
             Intent i = new Intent(MainActivity.this,RankListActivity.class);
             startActivity(i);
