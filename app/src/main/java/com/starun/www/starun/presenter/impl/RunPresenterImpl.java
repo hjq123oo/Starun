@@ -20,6 +20,8 @@ import com.starun.www.starun.service.PromptToneService;
 import com.starun.www.starun.service.TraceService;
 import com.starun.www.starun.view.application.MyApplication;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +122,9 @@ public class RunPresenterImpl implements RunPresenter {
         public void onReceive(Context context, Intent intent) {
             //拿到进度，更新UI
             double distance = intent.getDoubleExtra("distance", 0) / 1000;
+            //BigDecimal bigDecimal =  new BigDecimal(distance);
+            //distance =  bigDecimal.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+            distance = Math.round(distance * 100) * 0.01d;
             String entity = intent.getStringExtra("entityName");
             runRecord.setKilometer(distance);
             runRecord.setTraceEntity(entity);

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:paddingTop="5dp">
 
     <ImageView
         android:id="@+id/img_view"
@@ -16,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_toRightOf="@id/img_view"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="15dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/tex_detail"
             android:textSize="20sp"
-            android:textColor="@color/colorHorizontalRule"/>
+            android:textColor="@color/colorTextviewContent"/>
     </RelativeLayout>
 
     <TextView
@@ -52,6 +53,6 @@
         android:text="NO."
         android:layout_toLeftOf="@id/text_rank"
         android:layout_centerVertical="true"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="@color/colorText"/>
 </RelativeLayout>

@@ -304,6 +304,7 @@ public class RunPlanExecutionPresenterImpl implements RunPlanExecutionPresenter 
         public void onReceive(Context context, Intent intent) {
             //拿到进度，更新UI
             double distance = intent.getDoubleExtra("distance", 0) / 1000;
+            distance = Math.round(distance * 100) * 0.01d;
             String entity = intent.getStringExtra("entityName");
             runRecord.setKilometer(distance);
             runRecord.setTraceEntity(entity);

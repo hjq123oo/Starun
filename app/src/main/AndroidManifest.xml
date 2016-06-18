@@ -48,7 +48,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="yMtXmV4aOXhPWVqHdApIr5eiusnoF2BQ" />
+            android:value="xrxvUQ6bvbcnvqNAWdpjwwKI77titGWG" />
 
         <!-- 轨迹追踪service组件 -->
         <service

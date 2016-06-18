@@ -70,7 +70,7 @@ public class MapActivity extends Activity implements BaiduMapView {
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        Toast.makeText(this,"mapActivity-onDestroy",Toast.LENGTH_LONG).show();
+       // Toast.makeText(this,"mapActivity-onDestroy",Toast.LENGTH_LONG).show();
         mMapView.onDestroy();
         mapPresenter.unregisterReceiver();
     }
@@ -79,7 +79,7 @@ public class MapActivity extends Activity implements BaiduMapView {
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        Toast.makeText(this,"mapActivity-onResume",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"mapActivity-onResume",Toast.LENGTH_LONG).show();
         mMapView.onResume();
 
         //动态注册广播接收器
@@ -90,7 +90,7 @@ public class MapActivity extends Activity implements BaiduMapView {
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，实现地图生命周期管理
-        Toast.makeText(this,"mapActivity-onPause",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"mapActivity-onPause",Toast.LENGTH_LONG).show();
         mMapView.onPause();
         //动态注册广播接收器
         mapPresenter.unregisterReceiver();
