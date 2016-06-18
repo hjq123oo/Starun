@@ -82,7 +82,7 @@ public class FriendNoticeService extends Service {
 
                             if(users.size()>0){
                                 initNotifiManager();
-                                showNotification();
+
                             }
 
                         }
@@ -117,11 +117,8 @@ public class FriendNoticeService extends Service {
 
         notify1 = mBuilder.build();
 
-    }
-
-    //弹出Notification
-    private void showNotification() {
         mManager.notify(NOTIFICATION_ID, notify1);
     }
+
 
 }
